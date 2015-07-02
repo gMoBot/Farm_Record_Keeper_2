@@ -24,11 +24,14 @@ public class MainFrame extends JFrame{
     public MainFrame(){
         super("Farm Records App");
 
+        toolBar = new ToolBar();
+        tablePanel = new TablePanel();
 
 
+        add(tablePanel, BorderLayout.CENTER);
+        add(toolBar, BorderLayout.NORTH);
 
-
-
+        // MainFrame Window Settings
         setMinimumSize(new Dimension(500, 400));
         setSize(550, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
