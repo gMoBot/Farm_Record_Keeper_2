@@ -10,7 +10,7 @@ import java.util.prefs.Preferences;
  * Created by garrettcoggon on 7/2/15.
  */
 public class MainFrame extends JFrame{
-    private TextPanel textPanel;
+//    private TextPanel textPanel;
     private ToolBar toolBar;
     private FormPanel formPanel;
     private JFileChooser jFileChooser;
@@ -19,15 +19,17 @@ public class MainFrame extends JFrame{
     private PrefsDialog prefsDialog;
     private Preferences preferences;
 
-    //TODO: intercept window closing to disconnect from db-maybe not with hiberate-check
+    //TODO: intercept window closing to disconnect from db-maybe different with hiberate-check
 
     public MainFrame(){
         super("Farm Records App");
 
         toolBar = new ToolBar();
         tablePanel = new TablePanel();
+        formPanel = new FormPanel();
 
 
+        add(formPanel, BorderLayout.WEST);
         add(tablePanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.NORTH);
 
