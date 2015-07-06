@@ -45,7 +45,7 @@ public class TablePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
 
-                System.out.println(row);
+                System.out.println(row + "Removing item");
 
                 //TODO: implement remove item
 

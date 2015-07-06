@@ -28,10 +28,11 @@ public class FormPanel extends JPanel {
     private JLabel notesLabel;
     private JTextArea notesField;
     private JButton okButton;
+    private ApplFormListener applFormListener;
 
     public FormPanel(){
         Dimension dimension = getPreferredSize();
-        dimension.width = 250;
+        dimension.width = 300;
         setPreferredSize(dimension);
 
         blockLabel = new JLabel("Block: ");
@@ -51,7 +52,7 @@ public class FormPanel extends JPanel {
         targetField = new JTextField(10);
         productField = new JTextField(10);
         rateField = new JTextField(10);
-        notesField = new JTextArea();
+        notesField = new JTextArea(3, 10);
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
@@ -73,6 +74,13 @@ public class FormPanel extends JPanel {
                 //TODO: implement data handling
 
                 System.out.println(block + target);
+
+                FormEvent ev = new FormEvent(e, block, date, time, appl, target, product, rate,
+                        notes);
+
+                if(applFormListener != null){
+                    applFormListener.applFormEventOccured(ev);
+                }
             }
         });
 
@@ -249,7 +257,7 @@ public class FormPanel extends JPanel {
         gc.weightx = 1;
         gc.weighty = 0.1;
         gc.fill = GridBagConstraints.NONE;
-        gc.anchor = GridBagConstraints.LINE_END;
+        gc.anchor = GridBagConstraints.FIRST_LINE_END;
         gc.insets = leftInsets;
 
         add(notesLabel, gc);
@@ -276,8 +284,10 @@ public class FormPanel extends JPanel {
         add(okButton, gc);
 
 
-
     }
 
+    public void setApplFormListener(ApplFormListener applFormListener){
+        this.applFormListener = applFormListener;
+    }
 
 }
