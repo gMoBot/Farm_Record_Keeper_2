@@ -2,11 +2,16 @@ package com.farmrecordkeeper2.controller;
 
 import com.farmrecordkeeper2.gui.FormEvent;
 import com.farmrecordkeeper2.model.Application;
+import com.farmrecordkeeper2.model.Database;
+
+import java.util.List;
 
 /**
  * Created by garrettcoggon on 7/2/15.
  */
 public class Controller {
+
+    Database db = new Database();
 
     public void addAppl(FormEvent e){
         String block = e.getBlock();
@@ -25,4 +30,12 @@ public class Controller {
                 rate, notes);
     }
 
+
+    public void getApplications(){
+        System.out.print(db.getApplications());
+    }
+
+    public void save() {
+        db.save();
+    }
 }

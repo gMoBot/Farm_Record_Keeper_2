@@ -1,20 +1,35 @@
 package com.farmrecordkeeper2.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Created by garrettcoggon on 7/6/15.
  */
+
+@Entity
+@Table(name = "application_profile")
 public class Application implements Serializable{
     private static int count = 1;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "app_id", unique = true, nullable = false)
     private int id;
+    @Column(name = "block_name")
     private String block;
+    @Column(name = "app_date")
     private String date;
+    @Column(name = "app_time")
     private String time;
+    @Column(name = "app_number")
     private String appl;
+    @Column(name = "target_pest")
     private String target;
+    @Column(name = "product_name")
     private String product;
+    @Column(name = "app_rate")
     private String rate;
+    @Column(name = "app_notes")
     private String notes;
 
 

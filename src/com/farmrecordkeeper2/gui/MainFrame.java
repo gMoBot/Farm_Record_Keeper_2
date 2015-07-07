@@ -1,6 +1,8 @@
 package com.farmrecordkeeper2.gui;
 
 import com.farmrecordkeeper2.controller.Controller;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +25,9 @@ public class MainFrame extends JFrame{
 
     public MainFrame(){
         super("Farm Records App");
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+
 
         toolBar = new ToolBar();
         tablePanel = new TablePanel();
@@ -49,6 +54,23 @@ public class MainFrame extends JFrame{
                         rate + notes + "\n");
 
                 controller.addAppl(e);
+            }
+        });
+
+        toolBar.setToolBarListener(new ToolBarListener() {
+            @Override
+            public void saveEventOccurred() {
+                System.out.print("save");
+
+                controller.save();
+            }
+
+            @Override
+            public void refreshEventOccurred() {
+
+                //TODO: refresh Table Data
+                controller.getApplications();
+                System.out.print("refresh");
             }
         });
 

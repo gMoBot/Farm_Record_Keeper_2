@@ -20,13 +20,9 @@
         <property name="dataSource" ref="dataSource" />
 
         <property name="annotatedClasses">
-            <!--<list>-->
-            <!--<value>com.company.Models.FarmProfile</value>-->
-            <!--<value>com.company.Models.BlockProfile</value>-->
-            <!--<value>com.company.Models.ApplicationProfile</value>-->
-            <!--<value>com.company.Models.ApplicatorProfile</value>-->
-            <!--<value>com.company.Models.ProductProfile</value>-->
-            <!--</list>-->
+            <list>
+            <value>com.farmrecordkeeper2.model.Application</value>
+            </list>
         </property>
 
         <property name="hibernateProperties">
@@ -41,10 +37,10 @@
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>
 
-    <!--<bean id="dataSource"-->
-    <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-    <!--<property name="driverClassName" value="org.sqlite.JDBC" />-->
-    <!--<property name="url" value="jdbc:sqlite:farmrecords.db" />-->
-    <!--</bean>-->
+    <bean id="dataSource"
+    class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="org.sqlite.JDBC" />
+    <property name="url" value="jdbc:sqlite:farmrecords.db" />
+    </bean>
 
 </beans>
