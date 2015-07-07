@@ -1,11 +1,16 @@
 package com.farmrecordkeeper2.model;
 
+import com.farmrecordkeeper2.service.DatabaseDAO;
+import com.farmrecordkeeper2.service.DatabaseDAOImpl;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.Arrays;
@@ -16,14 +21,15 @@ import java.util.List;
 /**
  * Created by garrettcoggon on 7/7/15.
  */
-
-@Repository
+@Service
 public class Database {
 
-    private List<Application> applicationList;
+//    @Autowired
+//    private DatabaseDAO databaseDAO;
+    //TODO Figure out why this isn't autowiring...
+    DatabaseDAO databaseDAO = new DatabaseDAOImpl();
 
-    @Autowired
-    private SessionFactory sessionFactoryBean;
+    private List<Application> applicationList;
 
     public Database(){
         applicationList = new LinkedList<Application>();
@@ -70,16 +76,13 @@ public class Database {
     }
 
     public List<Application> getApplications(){
-        sessionFactoryBean.getCurrentSession().beginTransaction();
-        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
-                .class);
-        List list = criteria.list();
-        sessionFactoryBean.getCurrentSession().getTransaction().commit();
-        return list;
+        List<Application> applications = databaseDAO.getApplications();
+        return applications;
     }
 
 
     public void save() {
         //TODO:Implement saveorupdate
     }
+
 }

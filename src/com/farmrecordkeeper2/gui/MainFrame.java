@@ -1,8 +1,12 @@
 package com.farmrecordkeeper2.gui;
 
 import com.farmrecordkeeper2.controller.Controller;
+import com.farmrecordkeeper2.service.DatabaseDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.*;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +15,7 @@ import java.util.prefs.Preferences;
 /**
  * Created by garrettcoggon on 7/2/15.
  */
+//@Component
 public class MainFrame extends JFrame{
 //    private TextPanel textPanel;
     private ToolBar toolBar;
@@ -21,12 +26,16 @@ public class MainFrame extends JFrame{
     private PrefsDialog prefsDialog;
     private Preferences preferences;
 
+//    @Autowired
+//    private DatabaseDAO databaseDAO;
+
     //TODO: intercept window closing to disconnect from db-maybe different with hiberate-check
 
     public MainFrame(){
         super("Farm Records App");
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+//        databaseDAO.getApplications();
 
 
         toolBar = new ToolBar();
@@ -69,8 +78,8 @@ public class MainFrame extends JFrame{
             public void refreshEventOccurred() {
 
                 //TODO: refresh Table Data
-                controller.getApplications();
                 System.out.print("refresh");
+                controller.getApplications();
             }
         });
 

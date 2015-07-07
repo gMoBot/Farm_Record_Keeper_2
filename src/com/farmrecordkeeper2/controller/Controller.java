@@ -3,13 +3,17 @@ package com.farmrecordkeeper2.controller;
 import com.farmrecordkeeper2.gui.FormEvent;
 import com.farmrecordkeeper2.model.Application;
 import com.farmrecordkeeper2.model.Database;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by garrettcoggon on 7/2/15.
  */
+//@Component
 public class Controller {
+
 
     Database db = new Database();
 
@@ -32,7 +36,14 @@ public class Controller {
 
 
     public void getApplications(){
-        System.out.print(db.getApplications());
+        List<Application> appList = db.getApplications();
+        if (appList.isEmpty()){
+            System.out.print("No Applications Found");
+        }
+        else {
+            //TODO: Load into table
+            System.out.print("Applications Found");
+        }
     }
 
     public void save() {
