@@ -14,10 +14,19 @@ import java.util.List;
 /**
  * Created by garrettcoggon on 7/2/15.
  */
+
+@Component
 public class Controller {
 
+    @Autowired
+    public DatabaseService db;
 
-    DatabaseService db = new DatabaseService();
+    public void setDatabaseService(DatabaseService db){
+        System.out.print("setting databaseService");
+        this.db = db;
+    }
+
+//    DatabaseService db = new DatabaseService();
 //    @Autowired
 
 //    @Resource(name = "databaseService")
@@ -54,5 +63,9 @@ public class Controller {
 
     public void save() {
         db.save();
+    }
+
+    public void doSomething(){
+        db.doSomething();
     }
 }

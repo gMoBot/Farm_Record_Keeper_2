@@ -8,8 +8,9 @@ import java.util.List;
 /**
  * Created by garrettcoggon on 7/7/15.
  */
-@Repository
+//@Repository
 public interface DatabaseDAO {
 
     public List<Application> getApplications();
+    public void doSomething();
 }

@@ -1,7 +1,11 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.AppConfig;
 import main.java.com.farmrecordkeeper2.controller.Controller;
+import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
+import main.java.com.farmrecordkeeper2.testservice.CustomerService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
@@ -29,7 +33,15 @@ public class MainFrame extends JFrame{
     public MainFrame(){
         super("Farm Records App");
 
-//        ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        CustomerService service = context.getBean("customerService", CustomerService.class);
+        System.out.println(service.findAll().get(0).getFirstname());
+
+        Controller controller1 = context.getBean("controller", Controller.class);
+//        System.out.println(controller1.);
+        controller1.doSomething();
+
 
 //        databaseDAO.getApplications();
 
@@ -38,7 +50,7 @@ public class MainFrame extends JFrame{
         tablePanel = new TablePanel();
         formPanel = new FormPanel();
 
-        controller = new Controller();
+//        controller = new Controller();
 
 
 

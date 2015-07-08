@@ -20,26 +20,33 @@ import java.util.List;
 @Service
 public class DatabaseService {
 
-//    public DatabaseService(){}
+    public DatabaseService(){}
 
-    DatabaseDAO databaseDAO = new DatabaseDAOImpl();
+//    DatabaseDAO databaseDAO = new DatabaseDAOImpl();
 
 //    @Autowired
 //    @Qualifier(value = "databaseDAOImpl")
 
 //    @Resource(name = "databaseDAO")
-//    @Autowired
-//    private DatabaseDAO databaseDAO;
-//    public void setDatabaseDAO(DatabaseDAO databaseDAO){
-//        this.databaseDAO = databaseDAO;
-//    }
+    @Autowired
+    private DatabaseDAO databaseDAO;
+
+    @Autowired
+    public DatabaseService(DatabaseDAO databaseDAO){
+        System.out.print("constructing databaseDAO");
+        this.databaseDAO = databaseDAO;
+    }
+
+    public void setDatabaseDAO(DatabaseDAO databaseDAO){
+        this.databaseDAO = databaseDAO;
+    }
 
     private List<Application> applicationList;
 
 //    private
-//    public DatabaseService(){
-//        applicationList = new LinkedList<Application>();
-//    }
+    public void DatabaseService(){
+        applicationList = new LinkedList<Application>();
+    }
 
     public void addApplication(Application application){
         applicationList.add(application);
@@ -94,4 +101,8 @@ public class DatabaseService {
 //    public void setDatabaseDAO(DatabaseDAO databaseDAO){
 //        this.databaseDAO = databaseDAO;
 //    }
+
+    public void doSomething(){
+        databaseDAO.doSomething();
+    }
 }

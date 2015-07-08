@@ -15,8 +15,12 @@ import java.util.List;
  * Created by garrettcoggon on 7/7/15.
  */
 
-//@Repository("databaseDAOImpl")
+@Repository("databaseDAO")
 public class DatabaseDAOImpl implements DatabaseDAO {
+
+//    public DatabaseDAOImpl(){}
+
+//    public
 
     // TODO: session factorybean is null-correct autowiring
 //    @Autowired
@@ -26,7 +30,6 @@ public class DatabaseDAOImpl implements DatabaseDAO {
 //    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
 
-//    public DatabaseDAOImpl(){}
 //
 //    public DatabaseDAOImpl(SessionFactory sessionFactoryBean) {
 //        this.sessionFactoryBean = sessionFactoryBean;
@@ -47,5 +50,9 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         List list = criteria.list();
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
         return list;
+    }
+
+    public void doSomething(){
+        System.out.println("Doing something from the dao...");
     }
 }
