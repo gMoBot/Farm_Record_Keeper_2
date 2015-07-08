@@ -1,21 +1,27 @@
-package com.farmrecordkeeper2.controller;
+package main.java.com.farmrecordkeeper2.controller;
 
-import com.farmrecordkeeper2.gui.FormEvent;
-import com.farmrecordkeeper2.model.Application;
-import com.farmrecordkeeper2.model.Database;
+import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.service.DatabaseService;
+import main.java.com.farmrecordkeeper2.gui.FormEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * Created by garrettcoggon on 7/2/15.
  */
-//@Component
 public class Controller {
 
 
-    Database db = new Database();
+    DatabaseService db = new DatabaseService();
+//    @Autowired
+
+//    @Resource(name = "databaseService")
+//    private DatabaseService db;
 
     public void addAppl(FormEvent e){
         String block = e.getBlock();

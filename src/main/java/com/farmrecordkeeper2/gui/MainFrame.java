@@ -1,12 +1,8 @@
-package com.farmrecordkeeper2.gui;
+package main.java.com.farmrecordkeeper2.gui;
 
-import com.farmrecordkeeper2.controller.Controller;
-import com.farmrecordkeeper2.service.DatabaseDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import main.java.com.farmrecordkeeper2.controller.Controller;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.*;
-import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +11,6 @@ import java.util.prefs.Preferences;
 /**
  * Created by garrettcoggon on 7/2/15.
  */
-//@Component
 public class MainFrame extends JFrame{
 //    private TextPanel textPanel;
     private ToolBar toolBar;
@@ -34,7 +29,8 @@ public class MainFrame extends JFrame{
     public MainFrame(){
         super("Farm Records App");
 
-        ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+//        ApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+
 //        databaseDAO.getApplications();
 
 

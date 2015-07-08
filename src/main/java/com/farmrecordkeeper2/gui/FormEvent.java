@@ -1,42 +1,25 @@
-package com.farmrecordkeeper2.model;
+package main.java.com.farmrecordkeeper2.gui;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import java.util.EventObject;
 
 /**
  * Created by garrettcoggon on 7/6/15.
  */
+public class FormEvent extends EventObject {
 
-@Entity
-@Table(name = "application_profile")
-public class Application implements Serializable{
-//    public Application(){}
-
-    private static int count = 1;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "app_id", unique = true, nullable = false)
-    private int id;
-    @Column(name = "block_name")
     private String block;
-    @Column(name = "app_date")
     private String date;
-    @Column(name = "app_time")
     private String time;
-    @Column(name = "app_number")
     private String appl;
-    @Column(name = "target_pest")
     private String target;
-    @Column(name = "product_name")
     private String product;
-    @Column(name = "app_rate")
     private String rate;
-    @Column(name = "app_notes")
     private String notes;
 
+    public FormEvent (Object source, String block, String date, String time, String appl, String
+            target, String product, String rate, String notes){
+        super(source);
 
-    public Application(String block, String date, String time, String appl, String target,
-                       String product, String rate, String notes){
         this.block = block;
         this.date = date;
         this.time = time;
@@ -46,24 +29,6 @@ public class Application implements Serializable{
         this.rate = rate;
         this.notes = notes;
 
-        this.id = count;
-        count++;
-    }
-
-    public Application(int id, String block, String date, String time, String appl, String target,
-                       String product, String rate, String notes){
-        this(block, date, time, appl, target, product, rate, notes);
-        this.id = id;
-    }
-
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBlock() {
@@ -129,5 +94,4 @@ public class Application implements Serializable{
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
 }

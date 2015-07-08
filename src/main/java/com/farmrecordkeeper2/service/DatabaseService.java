@@ -1,17 +1,13 @@
-package com.farmrecordkeeper2.model;
+package main.java.com.farmrecordkeeper2.service;
 
-import com.farmrecordkeeper2.service.DatabaseDAO;
-import com.farmrecordkeeper2.service.DatabaseDAOImpl;
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
+import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
+import main.java.com.farmrecordkeeper2.dao.DatabaseDAOImpl;
+import main.java.com.farmrecordkeeper2.model.Application;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,18 +18,28 @@ import java.util.List;
  * Created by garrettcoggon on 7/7/15.
  */
 @Service
-public class Database {
+public class DatabaseService {
+
+//    public DatabaseService(){}
+
+    DatabaseDAO databaseDAO = new DatabaseDAOImpl();
 
 //    @Autowired
+//    @Qualifier(value = "databaseDAOImpl")
+
+//    @Resource(name = "databaseDAO")
+//    @Autowired
 //    private DatabaseDAO databaseDAO;
-    //TODO Figure out why this isn't autowiring...
-    DatabaseDAO databaseDAO = new DatabaseDAOImpl();
+//    public void setDatabaseDAO(DatabaseDAO databaseDAO){
+//        this.databaseDAO = databaseDAO;
+//    }
 
     private List<Application> applicationList;
 
-    public Database(){
-        applicationList = new LinkedList<Application>();
-    }
+//    private
+//    public DatabaseService(){
+//        applicationList = new LinkedList<Application>();
+//    }
 
     public void addApplication(Application application){
         applicationList.add(application);
@@ -85,4 +91,7 @@ public class Database {
         //TODO:Implement saveorupdate
     }
 
+//    public void setDatabaseDAO(DatabaseDAO databaseDAO){
+//        this.databaseDAO = databaseDAO;
+//    }
 }

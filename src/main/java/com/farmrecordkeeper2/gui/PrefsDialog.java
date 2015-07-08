@@ -1,4 +1,4 @@
-package com.farmrecordkeeper2.gui;
+package main.java.com.farmrecordkeeper2.gui;
 
 import javax.swing.*;
 

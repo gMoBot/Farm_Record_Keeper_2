@@ -1,11 +1,12 @@
-package com.farmrecordkeeper2.service;
+package main.java.com.farmrecordkeeper2.dao;
 
-import com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.Application;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,16 +15,29 @@ import java.util.List;
  * Created by garrettcoggon on 7/7/15.
  */
 
-@Repository
+//@Repository("databaseDAOImpl")
 public class DatabaseDAOImpl implements DatabaseDAO {
 
-    @Autowired
+    // TODO: session factorybean is null-correct autowiring
+//    @Autowired
     private SessionFactory sessionFactoryBean;
+//    ApplicationContext context =
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory){
-        this.sessionFactoryBean = sessionFactory;
-    }
+//    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
+
+//    public DatabaseDAOImpl(){}
+//
+//    public DatabaseDAOImpl(SessionFactory sessionFactoryBean) {
+//        this.sessionFactoryBean = sessionFactoryBean;
+//    }
+
+
+//
+//    @Autowired
+//    public void setSessionFactory(SessionFactory sessionFactory){
+//        this.sessionFactoryBean = sessionFactory;
+//    }
 
     public List<Application> getApplications(){
         sessionFactoryBean.getCurrentSession().beginTransaction();
