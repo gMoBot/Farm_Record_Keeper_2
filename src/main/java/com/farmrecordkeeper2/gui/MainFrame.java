@@ -123,7 +123,7 @@ public class MainFrame extends JFrame{
             @Override
             public void newFarmEventOccurred() {
                 System.out.print("New Farm...");
-                //TODO: is this necessary/Change to different function
+                //TODO: replicate for other form buttons and app button
 //                controller.save();
                 remove(appFormPanel);
                 add(farmFormPanel, BorderLayout.WEST);
@@ -136,7 +136,8 @@ public class MainFrame extends JFrame{
 
                 //TODO: refresh Table Data
                 System.out.print("refresh");
-                controller.getApplications();
+                tablePanel.setData(controller.getApplications());
+                tablePanel.refresh();
             }
         });
 
