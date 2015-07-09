@@ -3,7 +3,7 @@ package main.java.com.farmrecordkeeper2.gui;
 import main.java.com.farmrecordkeeper2.AppConfig;
 import main.java.com.farmrecordkeeper2.controller.Controller;
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
-import main.java.com.farmrecordkeeper2.testservice.CustomerService;
+//import main.java.com.farmrecordkeeper2.testservice.CustomerService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -35,8 +35,8 @@ public class MainFrame extends JFrame{
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        CustomerService service = context.getBean("customerService", CustomerService.class);
-        System.out.println(service.findAll().get(0).getFirstname());
+//        CustomerService service = context.getBean("customerService", CustomerService.class);
+//        System.out.println(service.findAll().get(0).getFirstname());
 
         Controller controller1 = context.getBean("controller", Controller.class);
 //        System.out.println(controller1.);
@@ -87,7 +87,8 @@ public class MainFrame extends JFrame{
 
                 //TODO: refresh Table Data
                 System.out.print("refresh");
-                controller.getApplications();
+                controller1.getApplications();
+//                controller.getApplications();
             }
         });
 

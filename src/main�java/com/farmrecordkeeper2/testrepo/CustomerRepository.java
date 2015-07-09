@@ -1,4 +1,4 @@
-//package main.java.com.farmrecordkeeper2.testservice;
+//package main.java.com.farmrecordkeeper2.testrepo;
 //
 //import main.java.com.farmrecordkeeper2.testmodel.Customer;
 //
@@ -7,7 +7,7 @@
 ///**
 // * Created by garrettcoggon on 7/8/15.
 // */
-//public interface CustomerService {
+//public interface CustomerRepository {
 //
 //    List<Customer> findAll();
 //

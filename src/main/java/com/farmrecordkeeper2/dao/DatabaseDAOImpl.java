@@ -18,22 +18,23 @@ import java.util.List;
 @Repository("databaseDAO")
 public class DatabaseDAOImpl implements DatabaseDAO {
 
-//    public DatabaseDAOImpl(){}
+    public DatabaseDAOImpl(){}
 
 //    public
 
     // TODO: session factorybean is null-correct autowiring
-//    @Autowired
+    @Autowired
     private SessionFactory sessionFactoryBean;
+
+    public DatabaseDAOImpl(SessionFactory sessionFactoryBean) {
+        System.out.println("Setting daoimpl sessionfactorybean");
+        this.sessionFactoryBean = sessionFactoryBean;
+    }
+
+
 //    ApplicationContext context =
 
 //    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-
-
-//
-//    public DatabaseDAOImpl(SessionFactory sessionFactoryBean) {
-//        this.sessionFactoryBean = sessionFactoryBean;
-//    }
 
 
 //
