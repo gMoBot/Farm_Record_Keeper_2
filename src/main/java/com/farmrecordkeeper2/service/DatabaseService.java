@@ -22,12 +22,6 @@ public class DatabaseService {
 
     public DatabaseService(){}
 
-//    DatabaseDAO databaseDAO = new DatabaseDAOImpl();
-
-//    @Autowired
-//    @Qualifier(value = "databaseDAOImpl")
-
-//    @Resource(name = "databaseDAO")
     @Autowired
     private DatabaseDAO databaseDAO;
 
@@ -98,9 +92,6 @@ public class DatabaseService {
         //TODO:Implement saveorupdate
     }
 
-//    public void setDatabaseDAO(DatabaseDAO databaseDAO){
-//        this.databaseDAO = databaseDAO;
-//    }
 
     public void doSomething(){
         databaseDAO.doSomething();

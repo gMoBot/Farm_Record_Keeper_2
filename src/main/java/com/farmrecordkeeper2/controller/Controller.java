@@ -9,6 +9,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,11 +28,6 @@ public class Controller {
         this.db = db;
     }
 
-//    DatabaseService db = new DatabaseService();
-//    @Autowired
-
-//    @Resource(name = "databaseService")
-//    private DatabaseService db;
 
     public void addAppl(FormEvent e){
         String block = e.getBlock();
@@ -63,6 +60,14 @@ public class Controller {
 
     public void save() {
         db.save();
+    }
+
+    public void loadFromFile(File file) throws IOException{
+        db.loadFromFile(file);
+    }
+
+    public void saveToFile(File file) throws IOException{
+        db.saveToFile(file);
     }
 
     public void doSomething(){

@@ -20,9 +20,6 @@ public class DatabaseDAOImpl implements DatabaseDAO {
 
     public DatabaseDAOImpl(){}
 
-//    public
-
-    // TODO: session factorybean is null-correct autowiring
     @Autowired
     private SessionFactory sessionFactoryBean;
 
@@ -31,17 +28,6 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         this.sessionFactoryBean = sessionFactoryBean;
     }
 
-
-//    ApplicationContext context =
-
-//    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-
-
-//
-//    @Autowired
-//    public void setSessionFactory(SessionFactory sessionFactory){
-//        this.sessionFactoryBean = sessionFactory;
-//    }
 
     public List<Application> getApplications(){
         sessionFactoryBean.getCurrentSession().beginTransaction();
