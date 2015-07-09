@@ -1,14 +1,14 @@
 package main.java.com.farmrecordkeeper2.controller;
 
+import main.java.com.farmrecordkeeper2.gui.FarmFormEvent;
 import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.Farm;
+import main.java.com.farmrecordkeeper2.model.StateCodes;
 import main.java.com.farmrecordkeeper2.service.DatabaseService;
-import main.java.com.farmrecordkeeper2.gui.FormEvent;
+import main.java.com.farmrecordkeeper2.gui.AppFormEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -29,7 +29,7 @@ public class Controller {
     }
 
 
-    public void addAppl(FormEvent e){
+    public void addAppl(AppFormEvent e){
         String block = e.getBlock();
         String date = e.getDate();
         String time = e.getTime();
@@ -80,5 +80,25 @@ public class Controller {
 
     public void doSomething(){
         db.doSomething();
+    }
+
+    public List<Farm> getFarms(){
+        List<Farm> farms = db.getFarms();
+        return farms;
+    }
+
+    public void addFarm(FarmFormEvent e) {
+        String farmName = e.getFarmName();
+        String ownerName = e.getOwnerName();
+        String streetAddress = e.getStreetAddress();
+        String stateCode = e.getStateCode();
+        String city = e.getCity();
+        String zipCode = e.getZipcode();
+
+        Farm farm = new Farm(farmName, ownerName, streetAddress, stateCode, city, zipCode);
+        save(farm);
+    }
+    public void save(Farm farm){
+        db.save(farm);
     }
 }

@@ -5,7 +5,7 @@ import java.util.EventObject;
 /**
  * Created by garrettcoggon on 7/6/15.
  */
-public class FormEvent extends EventObject {
+public class AppFormEvent extends EventObject {
 
     private String block;
     private String date;
@@ -16,7 +16,7 @@ public class FormEvent extends EventObject {
     private String rate;
     private String notes;
 
-    public FormEvent (Object source, String block, String date, String time, String appl, String
+    public AppFormEvent(Object source, String block, String date, String time, String appl, String
             target, String product, String rate, String notes){
         super(source);
 

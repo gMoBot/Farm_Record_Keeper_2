@@ -9,22 +9,22 @@ import java.awt.event.ActionListener;
  * Created by garrettcoggon on 7/2/15.
  */
 public class ToolBar extends JPanel implements ActionListener {
-    private JButton saveButton;
+    private JButton farmFormButton;
     private JButton refreshButton;
     private ToolBarListener toolBarListener;
 
     public ToolBar(){
         setBorder(BorderFactory.createEtchedBorder());
 
-        saveButton = new JButton("Save");
+        farmFormButton = new JButton("New Farm");
         refreshButton = new JButton("Refresh");
 
-        saveButton.addActionListener(this);
+        farmFormButton.addActionListener(this);
         refreshButton.addActionListener(this);
 
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        add(saveButton);
+        add(farmFormButton);
         add(refreshButton);
 
     }
@@ -37,9 +37,9 @@ public class ToolBar extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e){
         JButton clicked = (JButton) e.getSource();
 
-        if (clicked == saveButton){
+        if (clicked == farmFormButton){
             if (toolBarListener != null){
-                toolBarListener.saveEventOccurred();
+                toolBarListener.newFarmEventOccurred();
             }
         }
 

@@ -3,6 +3,7 @@ package main.java.com.farmrecordkeeper2.service;
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAOImpl;
 import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.Farm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -94,6 +95,15 @@ public class DatabaseService {
     public void save(Application application) {
         //TODO:Implement saveorupdate
         databaseDAO.saveApplication(application);
+    }
+
+    public List<Farm> getFarms(){
+        List<Farm> farms = databaseDAO.getFarms();
+        return farms;
+    }
+
+    public void save(Farm farm){
+        databaseDAO.saveFarm(farm);
     }
 
 

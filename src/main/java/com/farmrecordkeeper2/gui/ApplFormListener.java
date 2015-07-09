@@ -7,6 +7,6 @@ import java.util.EventListener;
  */
 public interface ApplFormListener extends EventListener {
 
-    public void applFormEventOccured(FormEvent e);
+    public void applFormEventOccured(AppFormEvent e);
 
 }

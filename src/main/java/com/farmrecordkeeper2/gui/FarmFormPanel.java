@@ -1,5 +1,7 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.StateCodes;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -8,51 +10,46 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
- * Created by garrettcoggon on 7/2/15.
+ * Created by garrettcoggon on 7/9/15.
  */
-public class FormPanel extends JPanel {
-    private JLabel blockLabel;
-    private JTextField blockField;
-    private JLabel dateLabel;
-    private JTextField dateField;
-    private JLabel timeLabel;
-    private JTextField timeField;
-    private JLabel appLabel;
-    private JTextField appField;
-    private JLabel targetLabel;
-    private JTextField targetField;
-    private JLabel productLabel;
-    private JTextField productField;
-    private JLabel rateLabel;
-    private JTextField rateField;
-    private JLabel notesLabel;
-    private JTextArea notesField;
-    private JButton okButton;
-    private ApplFormListener applFormListener;
+public class FarmFormPanel extends JPanel {
 
-    public FormPanel(){
+    private JLabel farmNameLabel;
+    private JTextField farmNameField;
+    private JLabel ownerNameLabel;
+    private JTextField ownerNameField;
+    private JLabel streetAddressLabel;
+    private JTextField streetAddressField;
+    private JLabel stateCodeLabel;
+    private JComboBox stateCodeComboBox;
+    private JLabel cityLabel;
+    private JTextField cityField;
+    private JLabel zipCodeLabel;
+    private JTextField zipcodeField;
+
+    private JButton okButton;
+
+    private FarmFormListener farmFormListener;
+
+    public FarmFormPanel(){
         Dimension dimension = getPreferredSize();
         dimension.width = 300;
         setPreferredSize(dimension);
 
-        blockLabel = new JLabel("Block: ");
-        dateLabel = new JLabel("Application Date: ");
-        timeLabel = new JLabel("Application Time: ");
-        appLabel = new JLabel("Applicator: ");
-        targetLabel = new JLabel("Target Pest(s): ");
-        productLabel = new JLabel("Product Name: ");
-        rateLabel = new JLabel("Rate Applied: ");
-        notesLabel = new JLabel("Application Notes: ");
+        farmNameLabel = new JLabel("Farm Name: ");
+        ownerNameLabel = new JLabel("Owner Name: ");
+        streetAddressLabel = new JLabel("Street Address: ");
+        stateCodeLabel = new JLabel("State: ");
+        cityLabel = new JLabel("City: ");
+        zipCodeLabel = new JLabel("ZipCode: ");
         okButton = new JButton("OK");
 
-        blockField = new JTextField(10);
-        dateField = new JTextField(10);
-        timeField = new JTextField(10);
-        appField = new JTextField(10);
-        targetField = new JTextField(10);
-        productField = new JTextField(10);
-        rateField = new JTextField(10);
-        notesField = new JTextArea(3, 10);
+        farmNameField = new JTextField(10);
+        ownerNameField = new JTextField(10);
+        streetAddressField = new JTextField(10);
+        stateCodeComboBox = new JComboBox(StateCodes.values());
+        cityField = new JTextField(10);
+        zipcodeField = new JTextField(10);
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
@@ -62,24 +59,22 @@ public class FormPanel extends JPanel {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String block = blockField.getText();
-                String date = dateField.getText();
-                String time = timeField.getText();
-                String appl = appField.getText();
-                String target = targetField.getText();
-                String product = productField.getText();
-                String rate = rateField.getText();
-                String notes = notesField.getText();
+                String farmName = farmNameField.getText();
+                String ownerName = ownerNameField.getText();
+                String streetAddress = streetAddressField.getText();
+                String stateCode = String.valueOf(stateCodeComboBox.getSelectedItem());
+                String city = cityField.getText();
+                String zipCode = zipcodeField.getText();
 
                 //TODO: implement data handling
 
-                System.out.println(block + target);
+                System.out.println(farmName + ownerName);
 
-                FormEvent ev = new FormEvent(e, block, date, time, appl, target, product, rate,
-                        notes);
+                FarmFormEvent ev = new FarmFormEvent(e, farmName, ownerName, streetAddress,
+                        stateCode, city, zipCode);
 
-                if(applFormListener != null){
-                    applFormListener.applFormEventOccured(ev);
+                if(farmFormListener != null){
+                    farmFormListener.farmFormEventOccured(ev);
                 }
             }
         });
@@ -110,7 +105,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(blockLabel, gc);
+        add(farmNameLabel, gc);
 
         gc.gridx = 1;
         gc.gridy = 0;
@@ -120,7 +115,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(blockField, gc);
+        add(farmNameField, gc);
 
 
         // Next Row//
@@ -134,7 +129,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(dateLabel, gc);
+        add(ownerNameLabel, gc);
 
         gc.gridx = 1;
         gc.weightx = 1;
@@ -142,7 +137,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(dateField, gc);
+        add(ownerNameField, gc);
 
         // Next Row//
         gc.gridy++;
@@ -155,7 +150,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(timeLabel, gc);
+        add(streetAddressLabel, gc);
 
         gc.gridx = 1;
         gc.weightx = 1;
@@ -163,7 +158,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(timeField, gc);
+        add(streetAddressField, gc);
 
         // Next Row//
         gc.gridy++;
@@ -176,7 +171,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(appLabel, gc);
+        add(stateCodeLabel, gc);
 
         gc.gridx = 1;
         gc.weightx = 1;
@@ -184,7 +179,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(appField, gc);
+        add(stateCodeComboBox, gc);
 
         // Next Row//
         gc.gridy++;
@@ -197,7 +192,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(targetLabel, gc);
+        add(cityLabel, gc);
 
         gc.gridx = 1;
         gc.weightx = 1;
@@ -205,7 +200,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(targetField, gc);
+        add(cityField, gc);
 
         // Next Row//
         gc.gridy++;
@@ -218,7 +213,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(productLabel, gc);
+        add(zipCodeLabel, gc);
 
         gc.gridx = 1;
         gc.weightx = 1;
@@ -226,49 +221,7 @@ public class FormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(productField, gc);
-
-        // Next Row//
-        gc.gridy++;
-
-        gc.gridx = 0;
-
-        gc.weightx = 1;
-        gc.weighty = 0.1;
-        gc.fill = GridBagConstraints.NONE;
-        gc.anchor = GridBagConstraints.LINE_END;
-        gc.insets = leftInsets;
-
-        add(rateLabel, gc);
-
-        gc.gridx = 1;
-        gc.weightx = 1;
-        gc.weighty = 0.1;
-        gc.anchor = GridBagConstraints.LINE_START;
-        gc.insets = rightInsets;
-
-        add(rateField, gc);
-
-        // Next Row//
-        gc.gridy++;
-
-        gc.gridx = 0;
-
-        gc.weightx = 1;
-        gc.weighty = 0.1;
-        gc.fill = GridBagConstraints.NONE;
-        gc.anchor = GridBagConstraints.FIRST_LINE_END;
-        gc.insets = leftInsets;
-
-        add(notesLabel, gc);
-
-        gc.gridx = 1;
-        gc.weightx = 1;
-        gc.weighty = 0.5;
-        gc.anchor = GridBagConstraints.LINE_START;
-        gc.insets = rightInsets;
-
-        add(notesField, gc);
+        add(zipcodeField, gc);
 
         // Next Row//
         gc.gridy++;
@@ -286,8 +239,8 @@ public class FormPanel extends JPanel {
 
     }
 
-    public void setApplFormListener(ApplFormListener applFormListener){
-        this.applFormListener = applFormListener;
+    public void setFarmFormListener(FarmFormListener farmFormListener){
+        this.farmFormListener = farmFormListener;
     }
 
 }

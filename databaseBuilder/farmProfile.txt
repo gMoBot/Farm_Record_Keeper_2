@@ -1,1 +1,1 @@
-0,Smith Farms, John Smith, 1234 Deere Lane, MI, 49686
+0,Smith Farms, John Smith, 1234 Deere Lane, MI, Detroit, 49686

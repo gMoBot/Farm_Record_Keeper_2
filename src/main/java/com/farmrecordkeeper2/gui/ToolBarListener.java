@@ -5,6 +5,6 @@ package main.java.com.farmrecordkeeper2.gui;
  */
 public interface ToolBarListener {
 
-    public void saveEventOccurred();
+    public void newFarmEventOccurred();
     public void refreshEventOccurred();
 }

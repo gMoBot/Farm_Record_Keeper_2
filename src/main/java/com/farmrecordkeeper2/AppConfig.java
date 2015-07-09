@@ -4,6 +4,7 @@ import main.java.com.farmrecordkeeper2.controller.Controller;
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAOImpl;
 import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.Farm;
 import main.java.com.farmrecordkeeper2.service.DatabaseService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class AppConfig {
     public SessionFactory getSessionFactory(DataSource dataSource){
         LocalSessionFactoryBuilder sessionFactoryBuilder = new LocalSessionFactoryBuilder
                 (dataSource);
-        sessionFactoryBuilder.addAnnotatedClasses(Application.class);
+        sessionFactoryBuilder.addAnnotatedClasses(Application.class, Farm.class);
         sessionFactoryBuilder.addProperties(getHibernateProperties());
 
         return sessionFactoryBuilder.buildSessionFactory();

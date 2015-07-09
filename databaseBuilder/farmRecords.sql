@@ -11,6 +11,7 @@ create table farm_profile (
 	owner_name char(60),
 	street_address char(60),
 	state_code char(10),
+	city char(10),
 	zipcode char(20)
 	);
 
@@ -20,6 +21,7 @@ create table applicator_profile (
 	app_name char(60),
 	street_address char(60),
 	state_code char(10),
+	city char(10),
 	zipcode char(20),
   FOREIGN KEY(farm_id) references farm_profile(farm_id)
 
@@ -31,6 +33,7 @@ create table block_profile (
 	block_name char(60),
 	block_street_address char(60),
 	block_state_code char(40),
+	city char(10),
 	block_zipcode char(40),
 	block_size DECIMAL (10, 2),
 	block_crop char(20),

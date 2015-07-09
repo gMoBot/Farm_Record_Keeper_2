@@ -1,12 +1,10 @@
 package main.java.com.farmrecordkeeper2.gui;
 
-import javafx.stage.FileChooser;
 import main.java.com.farmrecordkeeper2.AppConfig;
 import main.java.com.farmrecordkeeper2.controller.Controller;
-import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
+import main.java.com.farmrecordkeeper2.model.StateCodes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,12 +20,14 @@ import java.util.prefs.Preferences;
 public class MainFrame extends JFrame{
 //    private TextPanel textPanel;
     private ToolBar toolBar;
-    private FormPanel formPanel;
+    private AppFormPanel appFormPanel;
+    private FarmFormPanel farmFormPanel;
     private JFileChooser jFileChooser;
     private Controller controller;
     private TablePanel tablePanel;
     private PrefsDialog prefsDialog;
     private Preferences preferences;
+
 
 
     //TODO: intercept window closing to disconnect from db-maybe different with hiberate-check
@@ -43,8 +43,11 @@ public class MainFrame extends JFrame{
 
         toolBar = new ToolBar();
         tablePanel = new TablePanel();
-        formPanel = new FormPanel();
+        appFormPanel = new AppFormPanel();
         prefsDialog = new PrefsDialog(this);
+        farmFormPanel = new FarmFormPanel();
+
+        farmFormPanel.setVisible(false);
 
         preferences = Preferences.userRoot().node("db");
 
@@ -80,9 +83,9 @@ public class MainFrame extends JFrame{
         int port = preferences.getInt("port", 7532);
         prefsDialog.setDefaults(user, password, port);
 
-        formPanel.setApplFormListener(new ApplFormListener() {
+        appFormPanel.setApplFormListener(new ApplFormListener() {
             @Override
-            public void applFormEventOccured(FormEvent e) {
+            public void applFormEventOccured(AppFormEvent e) {
                 String block = e.getBlock();
                 String date = e.getDate();
                 String time = e.getTime();
@@ -99,12 +102,33 @@ public class MainFrame extends JFrame{
             }
         });
 
+
+        farmFormPanel.setFarmFormListener(new FarmFormListener() {
+            @Override
+            public void farmFormEventOccured(FarmFormEvent e) {
+                String farmName = e.getFarmName();
+                String ownerName = e.getOwnerName();
+                String streetAddress = e.getStreetAddress();
+                String stateCode = e.getStateCode();
+                String city = e.getCity();
+                String zipCode = e.getZipcode();
+
+                System.out.println("Main Frame :" + farmName + ownerName);
+
+                controller.addFarm(e);
+            }
+        });
+
         toolBar.setToolBarListener(new ToolBarListener() {
             @Override
-            public void saveEventOccurred() {
-                System.out.print("save");
+            public void newFarmEventOccurred() {
+                System.out.print("New Farm...");
                 //TODO: is this necessary/Change to different function
 //                controller.save();
+                remove(appFormPanel);
+                add(farmFormPanel, BorderLayout.WEST);
+                farmFormPanel.setVisible(true);
+                appFormPanel.setVisible(false);
             }
 
             @Override
@@ -117,7 +141,7 @@ public class MainFrame extends JFrame{
         });
 
 
-        add(formPanel, BorderLayout.WEST);
+        add(appFormPanel, BorderLayout.WEST);
         add(tablePanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.NORTH);
 
@@ -144,7 +168,11 @@ public class MainFrame extends JFrame{
         JCheckBoxMenuItem showAppFormItem = new JCheckBoxMenuItem("Application Form");
         showAppFormItem.setSelected(true);
 
+        JCheckBoxMenuItem showFarmFormItem = new JCheckBoxMenuItem("Farm Form");
+        showFarmFormItem.setSelected(false);
+
         showMenu.add(showAppFormItem);
+        showMenu.add(showFarmFormItem);
         windowMenu.add(showMenu);
         windowMenu.add(prefsItem);
 
@@ -167,7 +195,15 @@ public class MainFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
-                formPanel.setVisible(menuItem.isSelected());
+                appFormPanel.setVisible(menuItem.isSelected());
+            }
+        });
+
+        showFarmFormItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
+                appFormPanel.setVisible(menuItem.isSelected());
             }
         });
 
