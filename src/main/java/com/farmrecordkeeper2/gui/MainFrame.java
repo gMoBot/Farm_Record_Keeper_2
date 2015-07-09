@@ -46,11 +46,29 @@ public class MainFrame extends JFrame{
         formPanel = new FormPanel();
         prefsDialog = new PrefsDialog(this);
 
+        preferences = Preferences.userRoot().node("db");
+
 
         jFileChooser = new JFileChooser();
         jFileChooser.addChoosableFileFilter(new ApplicationFileFilter());
         setJMenuBar(createMenuBar());
 
+
+        prefsDialog.setPrefsListener(new PrefsListener() {
+            @Override
+            public void preferencesSet(String user, String password, int port) {
+                System.out.println(user + ";" + password + ";" + port);
+
+                preferences.put("user", user);
+                preferences.put("password", password);
+                preferences.putInt("port", port);
+            }
+        });
+
+        String user = preferences.get("user", "");
+        String password = preferences.get("password", "");
+        int port = preferences.getInt("port", 7532);
+        prefsDialog.setDefaults(user, password, port);
 
         formPanel.setApplFormListener(new ApplFormListener() {
             @Override
