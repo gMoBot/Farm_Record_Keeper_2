@@ -5,10 +5,6 @@ import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAOImpl;
 import main.java.com.farmrecordkeeper2.model.Application;
 import main.java.com.farmrecordkeeper2.service.DatabaseService;
-import main.java.com.farmrecordkeeper2.testrepo.CustomerRepository;
-import main.java.com.farmrecordkeeper2.testrepo.HibernateCustomerRepositoryImpl;
-import main.java.com.farmrecordkeeper2.testservice.CustomerService;
-import main.java.com.farmrecordkeeper2.testservice.CustomerServiceImpl;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,25 +26,11 @@ import java.util.Properties;
 @ComponentScan({"com.farmrecordkeeper2"})
 public class AppConfig {
 
-//    @Bean(name = "customerService")
-//    public CustomerService getCustomerService(){
-//        CustomerServiceImpl customerService = new CustomerServiceImpl();
-//        customerService.setCustomerRepository(getCustomerRepository());
-//
-//
-//        return customerService;
-//    }
-//
-//    @Bean(name = "customerRepository")
-//    public CustomerRepository getCustomerRepository(){
-//        return new HibernateCustomerRepositoryImpl();
-//    }
-
     @Bean(name = "controller")
     public Controller getController(){
-        Controller controller1 = new Controller();
-        controller1.setDatabaseService(getDatabaseService());
-        return controller1;
+        Controller controller = new Controller();
+        controller.setDatabaseService(getDatabaseService());
+        return controller;
     }
 
     @Bean(name = "databaseService")
