@@ -39,6 +39,13 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         return list;
     }
 
+    public void saveApplication(Application application){
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        sessionFactoryBean.getCurrentSession().save(application);
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
+
+
     public void doSomething(){
         System.out.println("Doing something from the dao...");
     }

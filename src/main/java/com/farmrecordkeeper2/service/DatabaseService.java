@@ -80,7 +80,10 @@ public class DatabaseService {
 
     public void removeApplicationAtIndex(int row){
         applicationList.remove(row);
+
+        //TODO: remove row from DB
     }
+
 
     public List<Application> getApplications(){
         List<Application> applications = databaseDAO.getApplications();
@@ -88,8 +91,9 @@ public class DatabaseService {
     }
 
 
-    public void save() {
+    public void save(Application application) {
         //TODO:Implement saveorupdate
+        databaseDAO.saveApplication(application);
     }
 
 

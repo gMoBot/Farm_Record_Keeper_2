@@ -44,10 +44,11 @@ public class Controller {
 
         Application application = new Application (block, date, time, appl, target, product,
                 rate, notes);
+        save(application);
     }
 
 
-    public void getApplications(){
+    public List<Application> getApplications(){
         List<Application> appList = db.getApplications();
         if (appList.isEmpty()){
             System.out.print("No Applications Found");
@@ -56,10 +57,13 @@ public class Controller {
             //TODO: Load into table
             System.out.print("Applications Found");
         }
+        return appList;
+
     }
 
-    public void save() {
-        db.save();
+
+    public void save(Application application) {
+        db.save(application);
     }
 
     public void loadFromFile(File file) throws IOException{
@@ -68,6 +72,10 @@ public class Controller {
 
     public void saveToFile(File file) throws IOException{
         db.saveToFile(file);
+    }
+
+    public void removeApplication(int row){
+        db.removeApplicationAtIndex(row);
     }
 
     public void doSomething(){

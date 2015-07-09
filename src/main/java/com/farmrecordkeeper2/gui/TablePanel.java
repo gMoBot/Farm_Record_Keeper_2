@@ -1,11 +1,15 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.Application;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by garrettcoggon on 7/2/15.
@@ -14,6 +18,7 @@ public class TablePanel extends JPanel {
     private JTable table;
     private AppTableModel appTableModel;
     private JPopupMenu popupMenu;
+    private ApplicationTableListener applicationTableListener;
 
 
     public TablePanel(){
@@ -47,7 +52,10 @@ public class TablePanel extends JPanel {
 
                 System.out.println(row + "Removing item");
 
-                //TODO: implement remove item
+                if(applicationTableListener != null){
+                    applicationTableListener.rowDeleted(row);
+                    appTableModel.fireTableRowsDeleted(row, row);
+                }
 
             }
         });
@@ -55,6 +63,16 @@ public class TablePanel extends JPanel {
         setLayout(new BorderLayout());
         add(new JScrollPane(table), BorderLayout.CENTER);
 
+    }
+
+    public void setData(List<Application> db){
+        appTableModel.setData(db);
+    }
+    public void refresh(){
+        appTableModel.fireTableDataChanged();
+    }
+    public void setApplicationTableListener(ApplicationTableListener applicationTableListener){
+        this.applicationTableListener = applicationTableListener;
     }
 
 

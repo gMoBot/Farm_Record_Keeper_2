@@ -12,5 +12,6 @@ import java.util.List;
 public interface DatabaseDAO {
 
     public List<Application> getApplications();
+    public void saveApplication(Application application);
     public void doSomething();
 }

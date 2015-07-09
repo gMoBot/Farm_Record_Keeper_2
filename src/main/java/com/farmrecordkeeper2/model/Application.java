@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "application_profile")
 public class Application implements Serializable{
-//    public Application(){}
+    public Application(){}
 
     private static int count = 1;
     @Id

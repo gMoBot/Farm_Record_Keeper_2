@@ -49,6 +49,16 @@ public class MainFrame extends JFrame{
         preferences = Preferences.userRoot().node("db");
 
 
+        tablePanel.setData(controller.getApplications());
+
+        tablePanel.setApplicationTableListener(new ApplicationTableListener() {
+            @Override
+            public void rowDeleted(int row) {
+                System.out.println(row);
+                controller.removeApplication(row);
+            }
+        });
+
         jFileChooser = new JFileChooser();
         jFileChooser.addChoosableFileFilter(new ApplicationFileFilter());
         setJMenuBar(createMenuBar());
@@ -93,8 +103,8 @@ public class MainFrame extends JFrame{
             @Override
             public void saveEventOccurred() {
                 System.out.print("save");
-
-                controller.save();
+                //TODO: is this necessary/Change to different function
+//                controller.save();
             }
 
             @Override
@@ -113,7 +123,7 @@ public class MainFrame extends JFrame{
 
         // MainFrame Window Settings
         setMinimumSize(new Dimension(500, 450));
-        setSize(550, 425);
+        setSize(850, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
