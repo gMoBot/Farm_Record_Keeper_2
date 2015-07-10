@@ -173,6 +173,7 @@ public class MainFrame extends JFrame{
         });
 
         //TODO: Ensure these work more than 1x
+        //TODO: setvisible?
         toolBar.setToolBarListener(new ToolBarListener() {
             @Override
             public void newApplicationEventOccurred() {

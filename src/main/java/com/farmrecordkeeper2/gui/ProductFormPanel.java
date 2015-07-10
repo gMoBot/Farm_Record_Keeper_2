@@ -35,7 +35,7 @@ public class ProductFormPanel extends JPanel {
         setPreferredSize(dimension);
 
         productNameLabel = new JLabel("Product Name: ");
-        epaNumberLabel = new JLabel("EPA Registration Number: ");
+        epaNumberLabel = new JLabel("EPA Reg. Number: ");
         reiLabel = new JLabel("REI (hrs): ");
         phiLabel = new JLabel("PHI (days): ");
 

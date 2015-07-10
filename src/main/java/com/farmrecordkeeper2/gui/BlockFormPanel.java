@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Created by garrettcoggon on 7/9/15.
@@ -49,15 +50,26 @@ public class BlockFormPanel extends JPanel {
         blockCropLabel = new JLabel("Block Crop: ");
         okButton = new JButton("OK");
 
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMinimumFractionDigits(2);
+        numberFormat.setMaximumFractionDigits(3);
+
         blockNameField = new JTextField(10);
         streetAddressField = new JTextField(10);
         stateCodeComboBox = new JComboBox(StateCodes.values());
         cityField = new JTextField(10);
         zipcodeField = new JTextField(10);
-        blocksizeField = new JFormattedTextField(new DecimalFormat("#.00"));
+        blocksizeField = new JFormattedTextField(numberFormat);
         blockCropField = new JTextField(10);
 
-        blocksizeField.setValue(new Float(10.00F));
+//        new DecimalFormat("#.00")
+//        float startingAcres = 10.00f;
+        double startingAcres = 10.00;
+        blocksizeField.setValue(startingAcres);
+
+//        double d = 10.00;
+//        Number number = d;
+//        number.floatValue();
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
@@ -72,7 +84,8 @@ public class BlockFormPanel extends JPanel {
                 String stateCode = String.valueOf(stateCodeComboBox.getSelectedItem());
                 String city = cityField.getText();
                 String zipCode = zipcodeField.getText();
-                Float blockSize = (Float) blocksizeField.getValue();
+                Number blockSizeNumber = ((Number) blocksizeField.getValue());
+                float blockSizeFloat = blockSizeNumber.floatValue();
                 String blockCrop = blockCropField.getText();
 
 
@@ -86,7 +99,7 @@ public class BlockFormPanel extends JPanel {
 
 
                 BlockFormEvent ev = new BlockFormEvent(e, farmid, blockName, streetAddress,
-                        stateCode, city, zipCode, blockSize, blockCrop);
+                        stateCode, city, zipCode, blockSizeFloat, blockCrop);
 
                 if (blockFormListener != null) {
                     blockFormListener.blockFormEventOccurred(ev);
