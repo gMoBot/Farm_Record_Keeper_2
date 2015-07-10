@@ -95,7 +95,7 @@ public class BlockFormPanel extends JPanel {
             }
         });
 
-        Border innerBorder = BorderFactory.createTitledBorder("Add Application");
+        Border innerBorder = BorderFactory.createTitledBorder("Add Block");
         Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 

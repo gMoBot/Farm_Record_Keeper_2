@@ -2,9 +2,7 @@ package main.java.com.farmrecordkeeper2.service;
 
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAOImpl;
-import main.java.com.farmrecordkeeper2.model.Application;
-import main.java.com.farmrecordkeeper2.model.Block;
-import main.java.com.farmrecordkeeper2.model.Farm;
+import main.java.com.farmrecordkeeper2.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -119,5 +117,24 @@ public class DatabaseService {
 
     public void doSomething(){
         databaseDAO.doSomething();
+    }
+
+    public void save(ApplicatorProfile applicatorProfile) {
+        databaseDAO.saveApplicatorProfile(applicatorProfile);
+    }
+
+    public List<ApplicatorProfile> getApplicatorProfiles(){
+        List<ApplicatorProfile> applicatorProfiles = databaseDAO.getApplicatorProfiles();
+        return applicatorProfiles;
+    }
+
+    public List<Product> getProducts() {
+        List<Product> products = databaseDAO.getProducts();
+        return products;
+    }
+
+    public void save(Product product){
+        databaseDAO.saveProduct(product);
+
     }
 }

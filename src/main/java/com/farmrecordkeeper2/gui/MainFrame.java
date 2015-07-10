@@ -17,12 +17,16 @@ import java.util.prefs.Preferences;
 /**
  * Created by garrettcoggon on 7/2/15.
  */
+//TODO change panel class border names
+
 public class MainFrame extends JFrame{
 //    private TextPanel textPanel;
     private ToolBar toolBar;
     private AppFormPanel appFormPanel;
     private FarmFormPanel farmFormPanel;
     private BlockFormPanel blockFormPanel;
+    private ApplProfileFormPanel applProfileFormPanel;
+    private ProductFormPanel productFormPanel;
     private JFileChooser jFileChooser;
     private Controller controller;
     private TablePanel tablePanel;
@@ -48,9 +52,13 @@ public class MainFrame extends JFrame{
         prefsDialog = new PrefsDialog(this);
         farmFormPanel = new FarmFormPanel();
         blockFormPanel = new BlockFormPanel();
+        applProfileFormPanel = new ApplProfileFormPanel();
+        productFormPanel = new ProductFormPanel();
 
         farmFormPanel.setVisible(false);
         blockFormPanel.setVisible(false);
+        applProfileFormPanel.setVisible(false);
+        productFormPanel.setVisible(false);
 
         preferences = Preferences.userRoot().node("db");
 
@@ -138,8 +146,45 @@ public class MainFrame extends JFrame{
             }
         });
 
+        applProfileFormPanel.setApplProfileFormListener(new ApplProfileFormListener() {
+            @Override
+            public void applProfileFormEventOccurred(ApplProfileFormEvent e) {
+                String applName = e.getApplName();
+                String licenseNumber = e.getLicenseNumber();
+                String streetAddress = e.getStreetAddress();
+                String stateCode = e.getStateCode();
+                String city = e.getCity();
+                String zipCode = e.getZipcode();
 
+                controller.addApplProfile(e);
+            }
+        });
+
+        productFormPanel.setProductFormListener(new ProductFormListener() {
+            @Override
+            public void productFormEventOccurred(ProductFormEvent e) {
+                String productName = e.getProductName();
+                String epaNumber = e.getEpaNumber();
+                String rei = e.getReiHrs();
+                String phi = e.getPhiDays();
+
+                controller.addProduct(e);
+            }
+        });
+
+        //TODO: Ensure these work more than 1x
         toolBar.setToolBarListener(new ToolBarListener() {
+            @Override
+            public void newApplicationEventOccurred() {
+                remove(farmFormPanel);
+                remove(blockFormPanel);
+                remove(applProfileFormPanel);
+                remove(productFormPanel);
+
+                add(appFormPanel, BorderLayout.WEST);
+                appFormPanel.setVisible(true);
+            }
+
             @Override
             public void newFarmEventOccurred() {
                 System.out.print("New Farm...");
@@ -147,6 +192,11 @@ public class MainFrame extends JFrame{
 //                controller.save();
                 remove(appFormPanel);
                 remove(blockFormPanel);
+                remove(applProfileFormPanel);
+                remove(productFormPanel);
+
+//                farmFormPanel = new FarmFormPanel();
+
                 add(farmFormPanel, BorderLayout.WEST);
                 farmFormPanel.setVisible(true);
                 appFormPanel.setVisible(false);
@@ -157,8 +207,34 @@ public class MainFrame extends JFrame{
                 System.out.print("New Block...");
                 remove(appFormPanel);
                 remove(farmFormPanel);
+                remove(applProfileFormPanel);
+                remove(productFormPanel);
+
                 add(blockFormPanel, BorderLayout.WEST);
                 blockFormPanel.setVisible(true);
+            }
+
+            @Override
+            public void newApplicatorEventOccurred() {
+                remove(appFormPanel);
+                remove(blockFormPanel);
+                remove(productFormPanel);
+                remove(farmFormPanel);
+
+                add(applProfileFormPanel, BorderLayout.WEST);
+                applProfileFormPanel.setVisible(true);
+            }
+
+            @Override
+            public void newProductEventOccurred() {
+                remove(appFormPanel);
+                remove(blockFormPanel);
+                remove(applProfileFormPanel);
+                remove(farmFormPanel);
+
+                add(productFormPanel, BorderLayout.WEST);
+                productFormPanel.setVisible(true);
+
             }
 
             @Override

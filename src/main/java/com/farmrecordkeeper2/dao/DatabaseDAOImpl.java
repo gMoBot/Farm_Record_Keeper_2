@@ -1,8 +1,6 @@
 package main.java.com.farmrecordkeeper2.dao;
 
-import main.java.com.farmrecordkeeper2.model.Application;
-import main.java.com.farmrecordkeeper2.model.Block;
-import main.java.com.farmrecordkeeper2.model.Farm;
+import main.java.com.farmrecordkeeper2.model.*;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -75,6 +73,39 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().save(block);
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
+
+    public List<ApplicatorProfile> getApplicatorProfiles() {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(ApplicatorProfile.class);
+        criteria.add(Restrictions.isNotNull("farmId"));
+        List list = criteria.list();
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+        return list;
+    }
+
+    public void saveApplicatorProfile(ApplicatorProfile applicatorProfile) {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        sessionFactoryBean.getCurrentSession().save(applicatorProfile);
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
+
+    public List<Product> getProducts() {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Product.class);
+        criteria.add(Restrictions.isNotNull("farmId"));
+        List list = criteria.list();
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+        return list;
+    }
+
+    public void saveProduct(Product product) {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        sessionFactoryBean.getCurrentSession().save(product);
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
+
+
+
 
     public void doSomething(){
         System.out.println("Doing something from the dao...");

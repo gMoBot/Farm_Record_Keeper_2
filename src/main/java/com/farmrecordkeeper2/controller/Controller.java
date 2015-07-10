@@ -1,13 +1,8 @@
 package main.java.com.farmrecordkeeper2.controller;
 
-import main.java.com.farmrecordkeeper2.gui.BlockFormEvent;
-import main.java.com.farmrecordkeeper2.gui.FarmFormEvent;
-import main.java.com.farmrecordkeeper2.model.Application;
-import main.java.com.farmrecordkeeper2.model.Block;
-import main.java.com.farmrecordkeeper2.model.Farm;
-import main.java.com.farmrecordkeeper2.model.StateCodes;
+import main.java.com.farmrecordkeeper2.gui.*;
+import main.java.com.farmrecordkeeper2.model.*;
 import main.java.com.farmrecordkeeper2.service.DatabaseService;
-import main.java.com.farmrecordkeeper2.gui.AppFormEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -125,4 +120,47 @@ public class Controller {
     public void save(Block block){
         db.save(block);
     }
+
+    public void addApplProfile(ApplProfileFormEvent e) {
+        String applName = e.getApplName();
+        String licenseNumber = e.getLicenseNumber();
+        String streetAddress = e.getStreetAddress();
+        String stateCode = e.getStateCode();
+        String city = e.getCity();
+        String zipCode = e.getZipcode();
+
+        //TODO: store/access farmid
+        int farmid = 1;
+
+        ApplicatorProfile applicatorProfile = new ApplicatorProfile(farmid, applName,
+                licenseNumber, streetAddress, stateCode, city, zipCode);
+        save(applicatorProfile);
+    }
+    public void save(ApplicatorProfile applicatorProfile){
+        db.save(applicatorProfile);
+    }
+
+    public List<Product> getProducts(){
+        List<Product> products = db.getProducts();
+        return products;
+    }
+
+    public void addProduct(ProductFormEvent e) {
+        String productName = e.getProductName();
+        String epaNumber = e.getEpaNumber();
+        String rei = e.getReiHrs();
+        String phi = e.getPhiDays();
+
+        int farmid = 1;
+
+        Product product = new Product(farmid, productName,epaNumber, rei, phi);
+        save(product);
+
+    }
+
+    public void save(Product product){
+        db.save(product);
+    }
+
+
 }

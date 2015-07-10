@@ -10,14 +10,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
- * Created by garrettcoggon on 7/9/15.
+ * Created by garrettcoggon on 7/10/15.
  */
-public class FarmFormPanel extends JPanel {
+public class ApplProfileFormPanel extends JPanel {
 
-    private JLabel farmNameLabel;
-    private JTextField farmNameField;
-    private JLabel ownerNameLabel;
-    private JTextField ownerNameField;
+    private JLabel applNameLabel;
+    private JTextField applNameField;
+    private JLabel licenseNumberLabel;
+    private JTextField licenseNumberField;
     private JLabel streetAddressLabel;
     private JTextField streetAddressField;
     private JLabel stateCodeLabel;
@@ -27,29 +27,31 @@ public class FarmFormPanel extends JPanel {
     private JLabel zipCodeLabel;
     private JTextField zipcodeField;
 
+
     private JButton okButton;
 
-    private FarmFormListener farmFormListener;
+    private ApplProfileFormListener applProfileFormListener;
 
-    public FarmFormPanel(){
+    public ApplProfileFormPanel() {
         Dimension dimension = getPreferredSize();
         dimension.width = 300;
         setPreferredSize(dimension);
 
-        farmNameLabel = new JLabel("Farm Name: ");
-        ownerNameLabel = new JLabel("Owner Name: ");
+        applNameLabel = new JLabel("Applicator Name: ");
+        licenseNumberLabel = new JLabel("License Number: ");
         streetAddressLabel = new JLabel("Street Address: ");
         stateCodeLabel = new JLabel("State: ");
         cityLabel = new JLabel("City: ");
         zipCodeLabel = new JLabel("ZipCode: ");
         okButton = new JButton("OK");
 
-        farmNameField = new JTextField(10);
-        ownerNameField = new JTextField(10);
+        applNameField = new JTextField(10);
+        licenseNumberField = new JTextField(10);
         streetAddressField = new JTextField(10);
         stateCodeComboBox = new JComboBox(StateCodes.values());
         cityField = new JTextField(10);
         zipcodeField = new JTextField(10);
+
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
@@ -59,28 +61,36 @@ public class FarmFormPanel extends JPanel {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String farmName = farmNameField.getText();
-                String ownerName = ownerNameField.getText();
+                String applName = applNameField.getText();
+                String licenseNumber = licenseNumberField.getText();
                 String streetAddress = streetAddressField.getText();
                 String stateCode = String.valueOf(stateCodeComboBox.getSelectedItem());
                 String city = cityField.getText();
                 String zipCode = zipcodeField.getText();
 
-                //TODO: implement data handling
 
-                System.out.println(farmName + ownerName);
 
-                FarmFormEvent ev = new FarmFormEvent(e, farmName, ownerName, streetAddress,
+                //TODO: implement data handling for farmid
+                int farmid = 1;
+
+
+                System.out.println(applName + licenseNumber);
+
+
+
+                ApplProfileFormEvent ev = new ApplProfileFormEvent(e, farmid, applName,
+                        licenseNumber,
+                        streetAddress,
                         stateCode, city, zipCode);
 
-                if(farmFormListener != null){
-                    farmFormListener.farmFormEventOccurred(ev);
+                if (applProfileFormListener != null) {
+                    applProfileFormListener.applProfileFormEventOccurred(ev);
                 }
 
             }
         });
 
-        Border innerBorder = BorderFactory.createTitledBorder("Add Farm");
+        Border innerBorder = BorderFactory.createTitledBorder("Add Applicator Profile");
         Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 
@@ -106,7 +116,7 @@ public class FarmFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(farmNameLabel, gc);
+        add(applNameLabel, gc);
 
         gc.gridx = 1;
         gc.gridy = 0;
@@ -116,7 +126,7 @@ public class FarmFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(farmNameField, gc);
+        add(applNameField, gc);
 
 
         // Next Row//
@@ -130,7 +140,7 @@ public class FarmFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_END;
         gc.insets = leftInsets;
 
-        add(ownerNameLabel, gc);
+        add(licenseNumberLabel, gc);
 
         gc.gridx = 1;
         gc.weightx = 1;
@@ -138,7 +148,7 @@ public class FarmFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(ownerNameField, gc);
+        add(licenseNumberField, gc);
 
         // Next Row//
         gc.gridy++;
@@ -240,8 +250,9 @@ public class FarmFormPanel extends JPanel {
 
     }
 
-    public void setFarmFormListener(FarmFormListener farmFormListener){
-        this.farmFormListener = farmFormListener;
+    public void setApplProfileFormListener(ApplProfileFormListener applProfileFormListener) {
+        this.applProfileFormListener = applProfileFormListener;
     }
 
 }
+
