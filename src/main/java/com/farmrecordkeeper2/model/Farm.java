@@ -13,6 +13,7 @@ public class Farm {
 
 //    private static int count = 1;
     @Id
+//    @ManyToOne
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "farm_id", unique = true, nullable = false)
     private int farmId;

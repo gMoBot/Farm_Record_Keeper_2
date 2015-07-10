@@ -5,8 +5,8 @@ import java.util.EventListener;
 /**
  * Created by garrettcoggon on 7/9/15.
  */
-public interface FarmFormListener extends EventListener {
+public interface BlockFormListener extends EventListener {
 
-    public void farmFormEventOccurred(FarmFormEvent e);
+    public void blockFormEventOccurred(BlockFormEvent e);
 
 }

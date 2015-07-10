@@ -6,5 +6,6 @@ package main.java.com.farmrecordkeeper2.gui;
 public interface ToolBarListener {
 
     public void newFarmEventOccurred();
+    public void newBlockEventOccurred();
     public void refreshEventOccurred();
 }

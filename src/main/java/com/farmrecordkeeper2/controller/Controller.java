@@ -1,7 +1,9 @@
 package main.java.com.farmrecordkeeper2.controller;
 
+import main.java.com.farmrecordkeeper2.gui.BlockFormEvent;
 import main.java.com.farmrecordkeeper2.gui.FarmFormEvent;
 import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.Block;
 import main.java.com.farmrecordkeeper2.model.Farm;
 import main.java.com.farmrecordkeeper2.model.StateCodes;
 import main.java.com.farmrecordkeeper2.service.DatabaseService;
@@ -101,5 +103,26 @@ public class Controller {
     }
     public void save(Farm farm){
         db.save(farm);
+    }
+
+    public void addBlock(BlockFormEvent e) {
+
+        String blockName = e.getBlockName();
+        String streetAddress = e.getStreetAddress();
+        String stateCode = e.getStateCode();
+        String city = e.getCity();
+        String zipCode = e.getZipcode();
+        Float blockSize = e.getSize();
+        String blockCrop = e.getBlockCrop();
+
+        //TODO: store/access farmid
+        int farmid = 1;
+
+        Block block = new Block(farmid, blockName, streetAddress, stateCode, city, zipCode,
+                blockSize, blockCrop);
+        save(block);
+    }
+    public void save(Block block){
+        db.save(block);
     }
 }

@@ -1,6 +1,7 @@
 package main.java.com.farmrecordkeeper2.dao;
 
 import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.Block;
 import main.java.com.farmrecordkeeper2.model.Farm;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,10 @@ public interface DatabaseDAO {
     public void saveApplication(Application application);
     public List<Farm> getFarms();
     public void saveFarm(Farm farm);
+    public void saveBlock(Block block);
+    public List<Block> getBlocks();
+
     public void doSomething();
+
+
 }

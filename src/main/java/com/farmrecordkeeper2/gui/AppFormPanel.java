@@ -79,7 +79,7 @@ public class AppFormPanel extends JPanel {
                         notes);
 
                 if(applFormListener != null){
-                    applFormListener.applFormEventOccured(ev);
+                    applFormListener.appFormEventOccurred(ev);
                 }
             }
         });

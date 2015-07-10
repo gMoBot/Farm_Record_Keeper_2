@@ -22,6 +22,7 @@ public class MainFrame extends JFrame{
     private ToolBar toolBar;
     private AppFormPanel appFormPanel;
     private FarmFormPanel farmFormPanel;
+    private BlockFormPanel blockFormPanel;
     private JFileChooser jFileChooser;
     private Controller controller;
     private TablePanel tablePanel;
@@ -46,8 +47,10 @@ public class MainFrame extends JFrame{
         appFormPanel = new AppFormPanel();
         prefsDialog = new PrefsDialog(this);
         farmFormPanel = new FarmFormPanel();
+        blockFormPanel = new BlockFormPanel();
 
         farmFormPanel.setVisible(false);
+        blockFormPanel.setVisible(false);
 
         preferences = Preferences.userRoot().node("db");
 
@@ -85,7 +88,7 @@ public class MainFrame extends JFrame{
 
         appFormPanel.setApplFormListener(new ApplFormListener() {
             @Override
-            public void applFormEventOccured(AppFormEvent e) {
+            public void appFormEventOccurred(AppFormEvent e) {
                 String block = e.getBlock();
                 String date = e.getDate();
                 String time = e.getTime();
@@ -105,7 +108,7 @@ public class MainFrame extends JFrame{
 
         farmFormPanel.setFarmFormListener(new FarmFormListener() {
             @Override
-            public void farmFormEventOccured(FarmFormEvent e) {
+            public void farmFormEventOccurred(FarmFormEvent e) {
                 String farmName = e.getFarmName();
                 String ownerName = e.getOwnerName();
                 String streetAddress = e.getStreetAddress();
@@ -119,6 +122,23 @@ public class MainFrame extends JFrame{
             }
         });
 
+
+        blockFormPanel.setBlockFormListener(new BlockFormListener() {
+            @Override
+            public void blockFormEventOccurred(BlockFormEvent e) {
+                String blockName = e.getBlockName();
+                String streetAddress = e.getStreetAddress();
+                String stateCode = e.getStateCode();
+                String city = e.getCity();
+                String zipCode = e.getZipcode();
+                Float blockSize = e.getSize();
+                String blockCrop = e.getBlockCrop();
+
+                controller.addBlock(e);
+            }
+        });
+
+
         toolBar.setToolBarListener(new ToolBarListener() {
             @Override
             public void newFarmEventOccurred() {
@@ -126,9 +146,19 @@ public class MainFrame extends JFrame{
                 //TODO: replicate for other form buttons and app button
 //                controller.save();
                 remove(appFormPanel);
+                remove(blockFormPanel);
                 add(farmFormPanel, BorderLayout.WEST);
                 farmFormPanel.setVisible(true);
                 appFormPanel.setVisible(false);
+            }
+
+            @Override
+            public void newBlockEventOccurred() {
+                System.out.print("New Block...");
+                remove(appFormPanel);
+                remove(farmFormPanel);
+                add(blockFormPanel, BorderLayout.WEST);
+                blockFormPanel.setVisible(true);
             }
 
             @Override

@@ -1,6 +1,7 @@
 package main.java.com.farmrecordkeeper2.dao;
 
 import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.Block;
 import main.java.com.farmrecordkeeper2.model.Farm;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -57,6 +58,21 @@ public class DatabaseDAOImpl implements DatabaseDAO {
     public void saveFarm(Farm farm){
         sessionFactoryBean.getCurrentSession().beginTransaction();
         sessionFactoryBean.getCurrentSession().save(farm);
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
+
+    public List<Block> getBlocks(){
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Block.class);
+        criteria.add(Restrictions.isNotNull("blockId"));
+        List list = criteria.list();
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+        return list;
+    }
+
+    public void saveBlock(Block block){
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        sessionFactoryBean.getCurrentSession().save(block);
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 

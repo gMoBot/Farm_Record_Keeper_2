@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
  */
 public class ToolBar extends JPanel implements ActionListener {
     private JButton farmFormButton;
+    private JButton blockFormButton;
     private JButton refreshButton;
     private ToolBarListener toolBarListener;
 
@@ -17,14 +18,17 @@ public class ToolBar extends JPanel implements ActionListener {
         setBorder(BorderFactory.createEtchedBorder());
 
         farmFormButton = new JButton("New Farm");
+        blockFormButton = new JButton("New Block");
         refreshButton = new JButton("Refresh");
 
         farmFormButton.addActionListener(this);
+        blockFormButton.addActionListener(this);
         refreshButton.addActionListener(this);
 
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         add(farmFormButton);
+        add(blockFormButton);
         add(refreshButton);
 
     }
@@ -46,6 +50,11 @@ public class ToolBar extends JPanel implements ActionListener {
         else if (clicked == refreshButton){
             if(toolBarListener != null){
                 toolBarListener.refreshEventOccurred();
+            }
+        }
+        else  if(clicked == blockFormButton){
+            if(toolBarListener != null){
+                toolBarListener.newBlockEventOccurred();
             }
         }
 
