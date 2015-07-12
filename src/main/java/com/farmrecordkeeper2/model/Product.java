@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Table(name = "product_profile")
 public class Product {
 
+    public Product(){}
+
     @Column(name = "farm_Id")
     private int farmId;
     @Id

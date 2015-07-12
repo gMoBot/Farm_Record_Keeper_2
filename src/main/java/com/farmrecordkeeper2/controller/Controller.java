@@ -121,6 +121,11 @@ public class Controller {
         db.save(block);
     }
 
+    public List<Block> getBlocks(){
+        List<Block> blocks = db.getBlocks();
+        return blocks;
+    }
+
     public void addApplProfile(ApplProfileFormEvent e) {
         String applName = e.getApplName();
         String licenseNumber = e.getLicenseNumber();

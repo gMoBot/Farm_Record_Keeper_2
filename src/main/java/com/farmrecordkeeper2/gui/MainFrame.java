@@ -2,6 +2,8 @@ package main.java.com.farmrecordkeeper2.gui;
 
 import main.java.com.farmrecordkeeper2.AppConfig;
 import main.java.com.farmrecordkeeper2.controller.Controller;
+import main.java.com.farmrecordkeeper2.model.Block;
+import main.java.com.farmrecordkeeper2.model.Product;
 import main.java.com.farmrecordkeeper2.model.StateCodes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -12,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 /**
@@ -46,14 +50,24 @@ public class MainFrame extends JFrame{
         controller.doSomething();
 
 
+        java.util.List<Product> enteredProducts =  controller.getProducts();
+        List<Block> enteredBlocks = controller.getBlocks();
+
+
         toolBar = new ToolBar();
         tablePanel = new TablePanel();
-        appFormPanel = new AppFormPanel();
+        appFormPanel = new AppFormPanel(enteredBlocks, enteredProducts);
         prefsDialog = new PrefsDialog(this);
         farmFormPanel = new FarmFormPanel();
         blockFormPanel = new BlockFormPanel();
         applProfileFormPanel = new ApplProfileFormPanel();
         productFormPanel = new ProductFormPanel();
+
+
+//        farmFormPanel.setEnabled(false);
+//        blockFormPanel.setEnabled(false);
+//        applProfileFormPanel.setEnabled(false);
+//        productFormPanel.setEnabled(false);
 
         farmFormPanel.setVisible(false);
         blockFormPanel.setVisible(false);
@@ -183,7 +197,12 @@ public class MainFrame extends JFrame{
                 remove(productFormPanel);
 
                 add(appFormPanel, BorderLayout.WEST);
+                appFormPanel.setEnabled(true);
                 appFormPanel.setVisible(true);
+
+                revalidate();
+                repaint();
+
             }
 
             @Override
@@ -200,7 +219,13 @@ public class MainFrame extends JFrame{
 
                 add(farmFormPanel, BorderLayout.WEST);
                 farmFormPanel.setVisible(true);
-                appFormPanel.setVisible(false);
+//                appFormPanel.setVisible(false);
+//                blockFormPanel.setVisible(false);
+//                applProfileFormPanel.setVisible(false);
+//                productFormPanel.setVisible(false);
+
+                revalidate();
+                repaint();
             }
 
             @Override
@@ -213,6 +238,9 @@ public class MainFrame extends JFrame{
 
                 add(blockFormPanel, BorderLayout.WEST);
                 blockFormPanel.setVisible(true);
+
+                revalidate();
+                repaint();
             }
 
             @Override
@@ -224,6 +252,9 @@ public class MainFrame extends JFrame{
 
                 add(applProfileFormPanel, BorderLayout.WEST);
                 applProfileFormPanel.setVisible(true);
+
+                revalidate();
+                repaint();
             }
 
             @Override
@@ -235,6 +266,9 @@ public class MainFrame extends JFrame{
 
                 add(productFormPanel, BorderLayout.WEST);
                 productFormPanel.setVisible(true);
+
+                revalidate();
+                repaint();
 
             }
 

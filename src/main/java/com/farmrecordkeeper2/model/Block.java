@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "block_profile")
 public class Block {
+    public Block(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

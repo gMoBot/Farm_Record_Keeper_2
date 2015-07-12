@@ -1,18 +1,24 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.Block;
+import main.java.com.farmrecordkeeper2.model.Product;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by garrettcoggon on 7/2/15.
  */
 public class AppFormPanel extends JPanel {
     private JLabel blockLabel;
-    private JTextField blockField;
+//    private JTextField blockField;
+    private JComboBox<String> blockList;
     private JLabel dateLabel;
     private JTextField dateField;
     private JLabel timeLabel;
@@ -22,7 +28,8 @@ public class AppFormPanel extends JPanel {
     private JLabel targetLabel;
     private JTextField targetField;
     private JLabel productLabel;
-    private JTextField productField;
+//    private JTextField productField;
+    private JComboBox<String> productList;
     private JLabel rateLabel;
     private JTextField rateField;
     private JLabel notesLabel;
@@ -30,7 +37,7 @@ public class AppFormPanel extends JPanel {
     private JButton okButton;
     private ApplFormListener applFormListener;
 
-    public AppFormPanel(){
+    public AppFormPanel(List<Block> enteredBlocks, List<Product> enteredProducts){
         Dimension dimension = getPreferredSize();
         dimension.width = 300;
         setPreferredSize(dimension);
@@ -45,12 +52,25 @@ public class AppFormPanel extends JPanel {
         notesLabel = new JLabel("Application Notes: ");
         okButton = new JButton("OK");
 
-        blockField = new JTextField(10);
+        Vector productVector = new Vector();
+        for(Product product : enteredProducts){
+            productVector.add(product.getProductName());
+        }
+
+        Vector blockVector = new Vector();
+        for (Block block : enteredBlocks){
+            blockVector.add(block.getBlockName());
+        }
+
+        blockList = new JComboBox<String>(blockVector);
         dateField = new JTextField(10);
         timeField = new JTextField(10);
         appField = new JTextField(10);
         targetField = new JTextField(10);
-        productField = new JTextField(10);
+//        productField = new JTextField(10);
+
+        productList = new JComboBox<String>(productVector);
+        productList.setSelectedIndex(-1);
         rateField = new JTextField(10);
         notesField = new JTextArea(3, 10);
 
@@ -62,12 +82,14 @@ public class AppFormPanel extends JPanel {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String block = blockField.getText();
+//                String block = blockField.getText();
+                String block = blockList.getSelectedItem().toString();
                 String date = dateField.getText();
                 String time = timeField.getText();
                 String appl = appField.getText();
                 String target = targetField.getText();
-                String product = productField.getText();
+//                String product = productField.getText();
+                String product = productList.getSelectedItem().toString();
                 String rate = rateField.getText();
                 String notes = notesField.getText();
 
@@ -120,7 +142,8 @@ public class AppFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(blockField, gc);
+//        add(blockField, gc);
+        add(blockList, gc);
 
 
         // Next Row//
@@ -226,7 +249,9 @@ public class AppFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(productField, gc);
+//        add(productField, gc);
+        add(productList, gc);
+
 
         // Next Row//
         gc.gridy++;
