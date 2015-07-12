@@ -2,6 +2,7 @@ package main.java.com.farmrecordkeeper2.gui;
 
 import main.java.com.farmrecordkeeper2.AppConfig;
 import main.java.com.farmrecordkeeper2.controller.Controller;
+import main.java.com.farmrecordkeeper2.model.ApplicatorProfile;
 import main.java.com.farmrecordkeeper2.model.Block;
 import main.java.com.farmrecordkeeper2.model.Product;
 import main.java.com.farmrecordkeeper2.model.StateCodes;
@@ -52,11 +53,12 @@ public class MainFrame extends JFrame{
 
         java.util.List<Product> enteredProducts =  controller.getProducts();
         List<Block> enteredBlocks = controller.getBlocks();
+        List<ApplicatorProfile> enteredApplicators = controller.getApplicatorProfiles();
 
 
         toolBar = new ToolBar();
         tablePanel = new TablePanel();
-        appFormPanel = new AppFormPanel(enteredBlocks, enteredProducts);
+        appFormPanel = new AppFormPanel(enteredBlocks, enteredApplicators, enteredProducts);
         prefsDialog = new PrefsDialog(this);
         farmFormPanel = new FarmFormPanel();
         blockFormPanel = new BlockFormPanel();

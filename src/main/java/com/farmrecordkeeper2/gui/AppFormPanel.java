@@ -1,5 +1,6 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.ApplicatorProfile;
 import main.java.com.farmrecordkeeper2.model.Block;
 import main.java.com.farmrecordkeeper2.model.Product;
 
@@ -9,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -20,11 +22,14 @@ public class AppFormPanel extends JPanel {
 //    private JTextField blockField;
     private JComboBox<String> blockList;
     private JLabel dateLabel;
-    private JTextField dateField;
+//    private JTextField dateField;
+    private JSpinner dateSpinner;
     private JLabel timeLabel;
-    private JTextField timeField;
+//    private JTextField timeField;
+    private JSpinner timeSpinner;
     private JLabel appLabel;
-    private JTextField appField;
+//    private JTextField appField;
+    private JComboBox<String> appList;
     private JLabel targetLabel;
     private JTextField targetField;
     private JLabel productLabel;
@@ -37,7 +42,9 @@ public class AppFormPanel extends JPanel {
     private JButton okButton;
     private ApplFormListener applFormListener;
 
-    public AppFormPanel(List<Block> enteredBlocks, List<Product> enteredProducts){
+    public AppFormPanel(List<Block> enteredBlocks, List<ApplicatorProfile> enteredApplicators,
+                        List<Product>
+            enteredProducts){
         Dimension dimension = getPreferredSize();
         dimension.width = 300;
         setPreferredSize(dimension);
@@ -52,6 +59,8 @@ public class AppFormPanel extends JPanel {
         notesLabel = new JLabel("Application Notes: ");
         okButton = new JButton("OK");
 
+        // Set ComboBox values //
+
         Vector productVector = new Vector();
         for(Product product : enteredProducts){
             productVector.add(product.getProductName());
@@ -62,10 +71,31 @@ public class AppFormPanel extends JPanel {
             blockVector.add(block.getBlockName());
         }
 
+        Vector appVector = new Vector();
+        for(ApplicatorProfile applicatorProfile: enteredApplicators){
+            appVector.add(applicatorProfile.getApplName());
+        }
+
+        SpinnerDateModel timeModel = new SpinnerDateModel();
+        timeModel.setCalendarField(Calendar.MINUTE);
+
+        SpinnerDateModel dateModel = new SpinnerDateModel();
+        dateModel.setCalendarField(Calendar.DATE);
+
         blockList = new JComboBox<String>(blockVector);
-        dateField = new JTextField(10);
-        timeField = new JTextField(10);
-        appField = new JTextField(10);
+//        dateField = new JTextField(10);
+        dateSpinner = new JSpinner();
+        dateSpinner.setModel(dateModel);
+        dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "MM/dd/yyyy"));
+        dateSpinner.setValue(new Date());
+
+        timeSpinner = new JSpinner();
+        timeSpinner.setModel(timeModel);
+        timeSpinner.setEditor(new JSpinner.DateEditor(timeSpinner, "h:mm a"));
+        timeSpinner.setValue(new Date());
+//        timeField = new JTextField(10);
+//        appField = new JTextField(10);
+        appList = new JComboBox<>(appVector);
         targetField = new JTextField(10);
 //        productField = new JTextField(10);
 
@@ -84,9 +114,15 @@ public class AppFormPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
 //                String block = blockField.getText();
                 String block = blockList.getSelectedItem().toString();
-                String date = dateField.getText();
-                String time = timeField.getText();
-                String appl = appField.getText();
+//                String date = dateField.getText();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                String date = dateFormat.format(dateSpinner.getValue());
+
+//                String time = timeField.getText();
+                SimpleDateFormat formatTime = new SimpleDateFormat("h:mm a");
+                String time = formatTime.format(timeSpinner.getValue());
+//                String appl = appField.getText();
+                String appl = appList.getSelectedItem().toString();
                 String target = targetField.getText();
 //                String product = productField.getText();
                 String product = productList.getSelectedItem().toString();
@@ -95,7 +131,7 @@ public class AppFormPanel extends JPanel {
 
                 //TODO: implement data handling
 
-                System.out.println(block + target);
+                System.out.println(block + target + time + date);
 
                 AppFormEvent ev = new AppFormEvent(e, block, date, time, appl, target, product, rate,
                         notes);
@@ -165,7 +201,8 @@ public class AppFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(dateField, gc);
+//        add(dateField, gc);
+        add(dateSpinner, gc);
 
         // Next Row//
         gc.gridy++;
@@ -186,7 +223,8 @@ public class AppFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(timeField, gc);
+//        add(timeField, gc);
+        add(timeSpinner, gc);
 
         // Next Row//
         gc.gridy++;
@@ -207,7 +245,9 @@ public class AppFormPanel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         gc.insets = rightInsets;
 
-        add(appField, gc);
+//        add(appField, gc);
+        add(appList, gc);
+
 
         // Next Row//
         gc.gridy++;

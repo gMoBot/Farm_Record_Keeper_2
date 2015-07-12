@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Table(name = "applicator_profile")
 public class ApplicatorProfile {
 
+    public ApplicatorProfile(){}
+
     @Column(name = "farm_id")
     private int farmId;
     @Column(name = "app_name")

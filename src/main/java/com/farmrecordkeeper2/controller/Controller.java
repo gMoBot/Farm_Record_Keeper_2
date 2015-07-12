@@ -168,4 +168,9 @@ public class Controller {
     }
 
 
+    public List<ApplicatorProfile> getApplicatorProfiles() {
+        List<ApplicatorProfile> applicators = db.getApplicatorProfiles();
+        return applicators;
+
+    }
 }
