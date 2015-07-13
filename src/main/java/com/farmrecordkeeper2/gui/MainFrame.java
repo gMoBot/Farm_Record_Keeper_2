@@ -82,6 +82,8 @@ public class MainFrame extends JFrame{
             public void rowDeleted(int row) {
                 System.out.println(row);
                 controller.removeApplication(row);
+                tablePanel.setData(controller.getApplications());
+                tablePanel.refresh();
             }
         });
 

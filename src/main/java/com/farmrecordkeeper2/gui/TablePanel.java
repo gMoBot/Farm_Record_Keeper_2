@@ -49,11 +49,14 @@ public class TablePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
+                int id = (int) appTableModel.getValueAt(row, 0);
+//                        table.getModel().getValueAt(row, 0);
 
-                System.out.println(row + "Removing item");
+
+                System.out.println(row + id + "Removing item");
 
                 if(applicationTableListener != null){
-                    applicationTableListener.rowDeleted(row);
+                    applicationTableListener.rowDeleted(id);
                     appTableModel.fireTableRowsDeleted(row, row);
                 }
 

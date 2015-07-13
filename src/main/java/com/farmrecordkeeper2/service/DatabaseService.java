@@ -79,7 +79,9 @@ public class DatabaseService {
     }
 
     public void removeApplicationAtIndex(int row){
-        applicationList.remove(row);
+//        applicationList.remove(row);
+//        int adjRow = row - 1;
+        databaseDAO.removeSelectedApplication(row);
 
         //TODO: remove row from DB
     }

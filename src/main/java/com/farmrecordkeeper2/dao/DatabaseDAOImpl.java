@@ -45,6 +45,19 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 
+    public void removeSelectedApplication(int row){
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+//        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
+//                .class);
+//        criteria.add(Restrictions.eq("id", row));
+//        List list = criteria.list();
+        Object selectedApp = sessionFactoryBean.getCurrentSession().load(Application.class, row);
+        if(selectedApp != null){
+            sessionFactoryBean.getCurrentSession().delete(selectedApp);
+        }
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
+
     public List<Farm> getFarms(){
         sessionFactoryBean.getCurrentSession().beginTransaction();
         Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Farm.class);
