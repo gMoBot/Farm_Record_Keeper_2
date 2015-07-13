@@ -76,6 +76,8 @@ public class AppFormPanel extends JPanel {
             appVector.add(applicatorProfile.getApplName());
         }
 
+
+        // Set Date Models //
         SpinnerDateModel timeModel = new SpinnerDateModel();
         timeModel.setCalendarField(Calendar.MINUTE);
 
@@ -106,6 +108,7 @@ public class AppFormPanel extends JPanel {
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
+
 
 
         // Set OK Button

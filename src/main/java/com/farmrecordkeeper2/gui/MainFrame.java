@@ -51,14 +51,14 @@ public class MainFrame extends JFrame{
         controller.doSomething();
 
 
-        java.util.List<Product> enteredProducts =  controller.getProducts();
-        List<Block> enteredBlocks = controller.getBlocks();
-        List<ApplicatorProfile> enteredApplicators = controller.getApplicatorProfiles();
+//        List<Product> enteredProducts = getProducts();
+//        List<Block> enteredBlocks = getBlocks();
+//        List<ApplicatorProfile> enteredApplicators = getApplicatorProfiles();
 
 
         toolBar = new ToolBar();
         tablePanel = new TablePanel();
-        appFormPanel = new AppFormPanel(enteredBlocks, enteredApplicators, enteredProducts);
+        appFormPanel = new AppFormPanel(getBlocks(), getApplicatorProfiles(), getProducts());
         prefsDialog = new PrefsDialog(this);
         farmFormPanel = new FarmFormPanel();
         blockFormPanel = new BlockFormPanel();
@@ -66,10 +66,6 @@ public class MainFrame extends JFrame{
         productFormPanel = new ProductFormPanel();
 
 
-//        farmFormPanel.setEnabled(false);
-//        blockFormPanel.setEnabled(false);
-//        applProfileFormPanel.setEnabled(false);
-//        productFormPanel.setEnabled(false);
 
         farmFormPanel.setVisible(false);
         blockFormPanel.setVisible(false);
@@ -126,6 +122,14 @@ public class MainFrame extends JFrame{
                         rate + notes + "\n");
 
                 controller.addAppl(e);
+
+                tablePanel.setData(controller.getApplications());
+                tablePanel.refresh();
+
+                //TODO: REFRESH form panels
+//                appFormPanel.revalidate();
+//                appFormPanel.repaint();
+//                appFormPanel.updateUI();
             }
         });
 
@@ -198,6 +202,8 @@ public class MainFrame extends JFrame{
                 remove(applProfileFormPanel);
                 remove(productFormPanel);
 
+                appFormPanel = new AppFormPanel(getBlocks(), getApplicatorProfiles(), getProducts());
+
                 add(appFormPanel, BorderLayout.WEST);
                 appFormPanel.setEnabled(true);
                 appFormPanel.setVisible(true);
@@ -217,7 +223,7 @@ public class MainFrame extends JFrame{
                 remove(applProfileFormPanel);
                 remove(productFormPanel);
 
-//                farmFormPanel = new FarmFormPanel();
+                farmFormPanel = new FarmFormPanel();
 
                 add(farmFormPanel, BorderLayout.WEST);
                 farmFormPanel.setVisible(true);
@@ -238,6 +244,8 @@ public class MainFrame extends JFrame{
                 remove(applProfileFormPanel);
                 remove(productFormPanel);
 
+                blockFormPanel = new BlockFormPanel();
+
                 add(blockFormPanel, BorderLayout.WEST);
                 blockFormPanel.setVisible(true);
 
@@ -252,6 +260,8 @@ public class MainFrame extends JFrame{
                 remove(productFormPanel);
                 remove(farmFormPanel);
 
+                applProfileFormPanel = new ApplProfileFormPanel();
+
                 add(applProfileFormPanel, BorderLayout.WEST);
                 applProfileFormPanel.setVisible(true);
 
@@ -265,6 +275,8 @@ public class MainFrame extends JFrame{
                 remove(blockFormPanel);
                 remove(applProfileFormPanel);
                 remove(farmFormPanel);
+
+                productFormPanel = new ProductFormPanel();
 
                 add(productFormPanel, BorderLayout.WEST);
                 productFormPanel.setVisible(true);
@@ -294,6 +306,18 @@ public class MainFrame extends JFrame{
         setSize(850, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private List<Product> getProducts() {
+        return controller.getProducts();
+    }
+
+    private List<ApplicatorProfile> getApplicatorProfiles() {
+        return controller.getApplicatorProfiles();
+    }
+
+    private List<Block> getBlocks() {
+        return controller.getBlocks();
     }
 
     private JMenuBar createMenuBar() {
