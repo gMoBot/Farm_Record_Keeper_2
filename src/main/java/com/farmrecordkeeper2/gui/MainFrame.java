@@ -225,8 +225,8 @@ public class MainFrame extends JFrame{
         add(toolBar, BorderLayout.NORTH);
 
         // MainFrame Window Settings
-        setMinimumSize(new Dimension(500, 450));
-        setSize(850, 450);
+        setMinimumSize(new Dimension(600, 600));
+        setSize(900, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
@@ -331,8 +331,10 @@ public class MainFrame extends JFrame{
         return controller.getApplicatorProfiles();
     }
 
+
+    //TODO: select user's farm
     private Farm getFarm(){
-        return controller.getFarm().get(1);
+        return controller.getFarm().get(0);
     }
 
     private List<Block> getBlocks() {

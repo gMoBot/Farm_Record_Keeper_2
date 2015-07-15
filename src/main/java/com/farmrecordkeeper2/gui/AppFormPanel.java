@@ -86,7 +86,8 @@ public class AppFormPanel extends JPanel {
         ozRadioButton.setActionCommand("oz");
         galRadioButton.setActionCommand("gal");
 
-        rateUnitGroup.add(okButton);
+        rateUnitGroup = new ButtonGroup();
+        rateUnitGroup.add(ozRadioButton);
         rateUnitGroup.add(galRadioButton);
 
         // Set ComboBox values //
@@ -363,13 +364,24 @@ public class AppFormPanel extends JPanel {
 
         add(rateField, gc);
 
-        gc.gridx = 2;
-        gc.weightx = 0.5;
-        gc.anchor = GridBagConstraints.LINE_START;
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
 
         add(ozRadioButton, gc);
 
-        gc.gridx = 3;
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
 
         add(galRadioButton, gc);
 
