@@ -80,9 +80,9 @@ public class Controller {
         db.doSomething();
     }
 
-    public List<Farm> getFarms(){
-        List<Farm> farms = db.getFarms();
-        return farms;
+    public List<Farm> getFarm(){
+        List<Farm> returnedfarm = db.getFarm();
+        return returnedfarm;
     }
 
     public void addFarm(FarmFormEvent e) {

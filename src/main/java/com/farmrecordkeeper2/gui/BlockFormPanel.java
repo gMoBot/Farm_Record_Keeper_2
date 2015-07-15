@@ -1,5 +1,6 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.Farm;
 import main.java.com.farmrecordkeeper2.model.StateCodes;
 
 import javax.swing.*;
@@ -19,6 +20,7 @@ public class BlockFormPanel extends JPanel {
 
     private JLabel blockNameLabel;
     private JTextField blockNameField;
+    private JCheckBox useFarmAddressCheckBox;
     private JLabel streetAddressLabel;
     private JTextField streetAddressField;
     private JLabel stateCodeLabel;
@@ -31,15 +33,18 @@ public class BlockFormPanel extends JPanel {
     private JFormattedTextField blocksizeField;
     private JLabel blockCropLabel;
     private JTextField blockCropField;
+    private Farm farm;
 
     private JButton okButton;
 
     private BlockFormListener blockFormListener;
 
-    public BlockFormPanel() {
+    public BlockFormPanel(Farm farm) {
         Dimension dimension = getPreferredSize();
         dimension.width = 300;
         setPreferredSize(dimension);
+
+        this.farm = farm;
 
         blockNameLabel = new JLabel("Block Name: ");
         streetAddressLabel = new JLabel("Street Address: ");
@@ -55,6 +60,7 @@ public class BlockFormPanel extends JPanel {
         numberFormat.setMaximumFractionDigits(3);
 
         blockNameField = new JTextField(10);
+        useFarmAddressCheckBox = new JCheckBox();
         streetAddressField = new JTextField(10);
         stateCodeComboBox = new JComboBox(StateCodes.values());
         cityField = new JTextField(10);
@@ -73,6 +79,48 @@ public class BlockFormPanel extends JPanel {
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
+
+        // Set Address Fields
+        useFarmAddressCheckBox.setSelected(true);
+
+        streetAddressField.setText(farm.getStreetAddress());
+        stateCodeComboBox.getModel().setSelectedItem(farm.getStateCode());
+        cityField.setText(farm.getCity());
+        zipcodeField.setText(farm.getZipcode());
+        stateCodeComboBox.updateUI();
+
+        streetAddressField.setEditable(false);
+//        stateCodeComboBox.setse(false);
+        cityField.setEditable(false);
+        zipcodeField.setEditable(false);
+
+
+
+        useFarmAddressCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean isChecked = useFarmAddressCheckBox.isSelected();
+
+                streetAddressField.setEditable(!isChecked);
+//                stateCodeComboBox.setEditable(!isChecked);
+                cityField.setEditable(!isChecked);
+                zipcodeField.setEditable(!isChecked);
+
+//                if (isChecked == false){
+//
+//                }
+
+                if(isChecked == true)
+                //TODO: set Farm Address Data
+                streetAddressField.setText(farm.getStreetAddress());
+                stateCodeComboBox.getModel().setSelectedItem(farm.getStateCode());
+                cityField.setText(farm.getCity());
+                zipcodeField.setText(farm.getZipcode());
+                stateCodeComboBox.updateUI();
+
+            }
+        });
+
 
 
         // Set OK Button
@@ -94,7 +142,7 @@ public class BlockFormPanel extends JPanel {
                 int farmid = 1;
 
 
-                System.out.println(blockName + blockCrop);
+                System.out.println(blockName + streetAddress + blockCrop);
 
 
 
@@ -102,6 +150,7 @@ public class BlockFormPanel extends JPanel {
                         stateCode, city, zipCode, blockSizeFloat, blockCrop);
 
                 if (blockFormListener != null) {
+                    System.out.println("raising block form event");
                     blockFormListener.blockFormEventOccurred(ev);
                 }
 
@@ -146,6 +195,26 @@ public class BlockFormPanel extends JPanel {
 
         add(blockNameField, gc);
 
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(new JLabel("Use Farm Address: "), gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(useFarmAddressCheckBox, gc);
 
         // Next Row//
         gc.gridy++;

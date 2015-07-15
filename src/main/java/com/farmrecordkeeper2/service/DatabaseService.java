@@ -98,9 +98,9 @@ public class DatabaseService {
         databaseDAO.saveApplication(application);
     }
 
-    public List<Farm> getFarms(){
-        List<Farm> farms = databaseDAO.getFarms();
-        return farms;
+    public List<Farm> getFarm(){
+        List<Farm> returnedFarm = databaseDAO.getFarm();
+        return returnedFarm;
     }
 
     public void save(Farm farm){

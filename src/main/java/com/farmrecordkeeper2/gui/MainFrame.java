@@ -2,10 +2,7 @@ package main.java.com.farmrecordkeeper2.gui;
 
 import main.java.com.farmrecordkeeper2.AppConfig;
 import main.java.com.farmrecordkeeper2.controller.Controller;
-import main.java.com.farmrecordkeeper2.model.ApplicatorProfile;
-import main.java.com.farmrecordkeeper2.model.Block;
-import main.java.com.farmrecordkeeper2.model.Product;
-import main.java.com.farmrecordkeeper2.model.StateCodes;
+import main.java.com.farmrecordkeeper2.model.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -61,10 +58,9 @@ public class MainFrame extends JFrame{
         appFormPanel = new AppFormPanel(getBlocks(), getApplicatorProfiles(), getProducts());
         prefsDialog = new PrefsDialog(this);
         farmFormPanel = new FarmFormPanel();
-        blockFormPanel = new BlockFormPanel();
+        blockFormPanel = new BlockFormPanel(getFarm());
         applProfileFormPanel = new ApplProfileFormPanel();
         productFormPanel = new ProductFormPanel();
-
 
 
         farmFormPanel.setVisible(false);
@@ -108,94 +104,13 @@ public class MainFrame extends JFrame{
         int port = preferences.getInt("port", 7532);
         prefsDialog.setDefaults(user, password, port);
 
-        appFormPanel.setApplFormListener(new ApplFormListener() {
-            @Override
-            public void appFormEventOccurred(AppFormEvent e) {
-                String block = e.getBlock();
-                String date = e.getDate();
-                String time = e.getTime();
-                String appl = e.getAppl();
-                String target = e.getTarget();
-                String product = e.getProduct();
-                String rate = e.getRate();
-                String notes = e.getNotes();
 
-                System.out.println("Main frame: " + block + date + time + appl + target + product +
-                        rate + notes + "\n");
+        setApplFormListener();
+        setFarmFormListener();
+        setBlockFormListener();
+        setApplProfileFormListener();
+        setProductFormListener();
 
-                controller.addAppl(e);
-
-                tablePanel.setData(controller.getApplications());
-                tablePanel.refresh();
-
-                //TODO: REFRESH form panels
-//                appFormPanel.revalidate();
-//                appFormPanel.repaint();
-//                appFormPanel.updateUI();
-            }
-        });
-
-
-        farmFormPanel.setFarmFormListener(new FarmFormListener() {
-            @Override
-            public void farmFormEventOccurred(FarmFormEvent e) {
-                String farmName = e.getFarmName();
-                String ownerName = e.getOwnerName();
-                String streetAddress = e.getStreetAddress();
-                String stateCode = e.getStateCode();
-                String city = e.getCity();
-                String zipCode = e.getZipcode();
-
-                System.out.println("Main Frame :" + farmName + ownerName);
-
-                controller.addFarm(e);
-            }
-        });
-
-
-        blockFormPanel.setBlockFormListener(new BlockFormListener() {
-            @Override
-            public void blockFormEventOccurred(BlockFormEvent e) {
-                String blockName = e.getBlockName();
-                String streetAddress = e.getStreetAddress();
-                String stateCode = e.getStateCode();
-                String city = e.getCity();
-                String zipCode = e.getZipcode();
-                Float blockSize = e.getSize();
-                String blockCrop = e.getBlockCrop();
-
-                controller.addBlock(e);
-            }
-        });
-
-        applProfileFormPanel.setApplProfileFormListener(new ApplProfileFormListener() {
-            @Override
-            public void applProfileFormEventOccurred(ApplProfileFormEvent e) {
-                String applName = e.getApplName();
-                String licenseNumber = e.getLicenseNumber();
-                String streetAddress = e.getStreetAddress();
-                String stateCode = e.getStateCode();
-                String city = e.getCity();
-                String zipCode = e.getZipcode();
-
-                controller.addApplProfile(e);
-            }
-        });
-
-        productFormPanel.setProductFormListener(new ProductFormListener() {
-            @Override
-            public void productFormEventOccurred(ProductFormEvent e) {
-                String productName = e.getProductName();
-                String epaNumber = e.getEpaNumber();
-                String rei = e.getReiHrs();
-                String phi = e.getPhiDays();
-
-                controller.addProduct(e);
-            }
-        });
-
-        //TODO: Ensure these work more than 1x
-        //TODO: setvisible?
         toolBar.setToolBarListener(new ToolBarListener() {
             @Override
             public void newApplicationEventOccurred() {
@@ -205,6 +120,7 @@ public class MainFrame extends JFrame{
                 remove(productFormPanel);
 
                 appFormPanel = new AppFormPanel(getBlocks(), getApplicatorProfiles(), getProducts());
+                setApplFormListener();
 
                 add(appFormPanel, BorderLayout.WEST);
                 appFormPanel.setEnabled(true);
@@ -226,6 +142,7 @@ public class MainFrame extends JFrame{
                 remove(productFormPanel);
 
                 farmFormPanel = new FarmFormPanel();
+                setFarmFormListener();
 
                 add(farmFormPanel, BorderLayout.WEST);
                 farmFormPanel.setVisible(true);
@@ -246,7 +163,8 @@ public class MainFrame extends JFrame{
                 remove(applProfileFormPanel);
                 remove(productFormPanel);
 
-                blockFormPanel = new BlockFormPanel();
+                blockFormPanel = new BlockFormPanel(getFarm());
+                setBlockFormListener();
 
                 add(blockFormPanel, BorderLayout.WEST);
                 blockFormPanel.setVisible(true);
@@ -263,6 +181,7 @@ public class MainFrame extends JFrame{
                 remove(farmFormPanel);
 
                 applProfileFormPanel = new ApplProfileFormPanel();
+                setApplProfileFormListener();
 
                 add(applProfileFormPanel, BorderLayout.WEST);
                 applProfileFormPanel.setVisible(true);
@@ -279,6 +198,8 @@ public class MainFrame extends JFrame{
                 remove(farmFormPanel);
 
                 productFormPanel = new ProductFormPanel();
+                setProductFormListener();
+
 
                 add(productFormPanel, BorderLayout.WEST);
                 productFormPanel.setVisible(true);
@@ -310,12 +231,108 @@ public class MainFrame extends JFrame{
         setVisible(true);
     }
 
+    private void setProductFormListener() {
+        productFormPanel.setProductFormListener(new ProductFormListener() {
+            @Override
+            public void productFormEventOccurred(ProductFormEvent e) {
+                String productName = e.getProductName();
+                String epaNumber = e.getEpaNumber();
+                String rei = e.getReiHrs();
+                String phi = e.getPhiDays();
+
+                controller.addProduct(e);
+            }
+        });
+    }
+
+    private void setApplProfileFormListener() {
+        applProfileFormPanel.setApplProfileFormListener(new ApplProfileFormListener() {
+            @Override
+            public void applProfileFormEventOccurred(ApplProfileFormEvent e) {
+                String applName = e.getApplName();
+                String licenseNumber = e.getLicenseNumber();
+                String streetAddress = e.getStreetAddress();
+                String stateCode = e.getStateCode();
+                String city = e.getCity();
+                String zipCode = e.getZipcode();
+
+                controller.addApplProfile(e);
+            }
+        });
+    }
+
+    private void setFarmFormListener() {
+        farmFormPanel.setFarmFormListener(new FarmFormListener() {
+            @Override
+            public void farmFormEventOccurred(FarmFormEvent e) {
+                String farmName = e.getFarmName();
+                String ownerName = e.getOwnerName();
+                String streetAddress = e.getStreetAddress();
+                String stateCode = e.getStateCode();
+                String city = e.getCity();
+                String zipCode = e.getZipcode();
+
+                System.out.println("Main Frame :" + farmName + ownerName);
+
+                controller.addFarm(e);
+            }
+        });
+    }
+
+    private void setApplFormListener() {
+        appFormPanel.setApplFormListener(new ApplFormListener() {
+            @Override
+            public void appFormEventOccurred(AppFormEvent e) {
+                String block = e.getBlock();
+                String date = e.getDate();
+                String time = e.getTime();
+                String appl = e.getAppl();
+                String target = e.getTarget();
+                String product = e.getProduct();
+                String rate = e.getRate();
+                String notes = e.getNotes();
+
+                System.out.println("Main frame: " + block + date + time + appl + target + product +
+                        rate + notes + "\n");
+
+                controller.addAppl(e);
+
+                tablePanel.setData(controller.getApplications());
+                tablePanel.refresh();
+            }
+        });
+    }
+
+    private void setBlockFormListener() {
+        blockFormPanel.setBlockFormListener(new BlockFormListener() {
+            @Override
+            public void blockFormEventOccurred(BlockFormEvent e) {
+                String blockName = e.getBlockName();
+                String streetAddress = e.getStreetAddress();
+                String stateCode = e.getStateCode();
+                String city = e.getCity();
+                String zipCode = e.getZipcode();
+                Float blockSize = e.getSize();
+                String blockCrop = e.getBlockCrop();
+
+                System.out.println("New Block: " + blockName + streetAddress + stateCode + city +
+                        zipCode);
+
+                controller.addBlock(e);
+            }
+        });
+    }
+
     private List<Product> getProducts() {
         return controller.getProducts();
     }
 
     private List<ApplicatorProfile> getApplicatorProfiles() {
         return controller.getApplicatorProfiles();
+    }
+
+    private Farm getFarm(){
+        return controller.getFarm().get(0);
     }
 
     private List<Block> getBlocks() {

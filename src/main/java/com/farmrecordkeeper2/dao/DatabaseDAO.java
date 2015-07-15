@@ -14,7 +14,7 @@ public interface DatabaseDAO {
     public List<Application> getApplications();
     public void saveApplication(Application application);
     public void removeSelectedApplication(int row);
-    public List<Farm> getFarms();
+    public List<Farm> getFarm();
     public void saveFarm(Farm farm);
     public void saveBlock(Block block);
     public List<Block> getBlocks();

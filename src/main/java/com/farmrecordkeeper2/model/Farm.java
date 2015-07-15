@@ -11,6 +11,8 @@ import javax.persistence.*;
 @Table(name = "farm_profile")
 public class Farm {
 
+    public Farm(){}
+
 //    private static int count = 1;
     @Id
 //    @ManyToOne
