@@ -16,6 +16,8 @@ public class Product {
     @Id
     @Column(name = "product_name")
     private String productName;
+    @Column (name = "active_ingredient")
+    private String activeIngredient;
     @Column(name = "epa_number")
     private String epaNumber;
     @Column(name = "rei_hrs")
@@ -23,10 +25,12 @@ public class Product {
     @Column(name = "phi_days")
     private String phiDays;
 
-    public Product(int farmId, String productName, String epaNumber, String reiHrs, String
+    public Product(int farmId, String productName, String activeIngredient, String epaNumber,
+                   String reiHrs, String
             phiDays) {
         this.farmId = farmId;
         this.productName = productName;
+        this.activeIngredient = activeIngredient;
         this.epaNumber = epaNumber;
         this.reiHrs = reiHrs;
         this.phiDays = phiDays;
@@ -38,6 +42,14 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getActiveIngredient() {
+        return activeIngredient;
+    }
+
+    public void setActiveIngredient(String activeIngredient) {
+        this.activeIngredient = activeIngredient;
     }
 
     public int getFarmId() {

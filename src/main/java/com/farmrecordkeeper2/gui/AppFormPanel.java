@@ -1,8 +1,6 @@
 package main.java.com.farmrecordkeeper2.gui;
 
-import main.java.com.farmrecordkeeper2.model.ApplicatorProfile;
-import main.java.com.farmrecordkeeper2.model.Block;
-import main.java.com.farmrecordkeeper2.model.Product;
+import main.java.com.farmrecordkeeper2.model.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -37,6 +35,21 @@ public class AppFormPanel extends JPanel {
     private JComboBox<String> productList;
     private JLabel rateLabel;
     private JTextField rateField;
+    private JRadioButton ozRadioButton;
+    private JRadioButton galRadioButton;
+    private ButtonGroup rateUnitGroup;
+    private JLabel appMethodLabel;
+    private JLabel carrierLabel;
+    private JTextField carrierField;
+    private JComboBox appMethodJComboBox;
+    private JLabel weatherCondition;
+    private JComboBox weatherCodesJComboBox;
+    private JLabel tempLabel;
+    private JTextField tempField;
+    private JLabel windSpeedLabel;
+    private JSpinner windSpeedSpinner;
+    private JLabel windDirectionLabel;
+    private JComboBox windDirectionJComboBox;
     private JLabel notesLabel;
     private JTextArea notesField;
     private JButton okButton;
@@ -46,7 +59,7 @@ public class AppFormPanel extends JPanel {
                         List<Product>
             enteredProducts){
         Dimension dimension = getPreferredSize();
-        dimension.width = 300;
+        dimension.width = 350;
         setPreferredSize(dimension);
 
         blockLabel = new JLabel("Block: ");
@@ -55,9 +68,26 @@ public class AppFormPanel extends JPanel {
         appLabel = new JLabel("Applicator: ");
         targetLabel = new JLabel("Target Pest(s): ");
         productLabel = new JLabel("Product Name: ");
-        rateLabel = new JLabel("Rate Applied: ");
+        rateLabel = new JLabel("Rate Applied/acre: ");
+        carrierLabel = new JLabel("Carrier Vol/Acre (gal): ");
+        appMethodLabel = new JLabel("Application Method: ");
+        weatherCondition = new JLabel("Weather Condition: ");
+        tempLabel = new JLabel("Temperature (°F): ");
+        windSpeedLabel = new JLabel("Wind Speed (mph): ");
+        windDirectionLabel = new JLabel("Wind Direction: ");
         notesLabel = new JLabel("Application Notes: ");
         okButton = new JButton("OK");
+
+        // Set Radio Buttons //
+        ozRadioButton = new JRadioButton("oz.");
+        ozRadioButton.setSelected(true);
+        galRadioButton = new JRadioButton("gal.");
+
+        ozRadioButton.setActionCommand("oz");
+        galRadioButton.setActionCommand("gal");
+
+        rateUnitGroup.add(okButton);
+        rateUnitGroup.add(galRadioButton);
 
         // Set ComboBox values //
 
@@ -77,12 +107,14 @@ public class AppFormPanel extends JPanel {
         }
 
 
-        // Set Date Models //
+        // Set Spinner Models //
         SpinnerDateModel timeModel = new SpinnerDateModel();
         timeModel.setCalendarField(Calendar.MINUTE);
 
         SpinnerDateModel dateModel = new SpinnerDateModel();
         dateModel.setCalendarField(Calendar.DATE);
+
+        SpinnerNumberModel windModel = new SpinnerNumberModel(3, 0, 35, 1);
 
         blockList = new JComboBox<String>(blockVector);
 //        dateField = new JTextField(10);
@@ -104,6 +136,12 @@ public class AppFormPanel extends JPanel {
         productList = new JComboBox<String>(productVector);
         productList.setSelectedIndex(-1);
         rateField = new JTextField(10);
+        carrierField = new JTextField(10);
+        appMethodJComboBox = new JComboBox<>(AppMethod.values());
+        weatherCodesJComboBox = new JComboBox<>(WeatherCodes.values());
+        tempField = new JTextField(10);
+        windSpeedSpinner = new JSpinner(windModel);
+        windDirectionJComboBox = new JComboBox(WindDirection.values());
         notesField = new JTextArea(3, 10);
 
         // Set Mnemonics
@@ -130,14 +168,22 @@ public class AppFormPanel extends JPanel {
 //                String product = productField.getText();
                 String product = productList.getSelectedItem().toString();
                 String rate = rateField.getText();
+                String rateUnit = rateUnitGroup.getSelection().getActionCommand();
+                String carrierVol = carrierField.getText();
+                String appMethod = appMethodJComboBox.getSelectedItem().toString();
+                String weatherCondition = weatherCodesJComboBox.getSelectedItem().toString();
+                String temp = tempField.getText();
+                String windSpeed = windSpeedSpinner.getValue().toString();
+                String windDirection = windDirectionJComboBox.getSelectedItem().toString();
                 String notes = notesField.getText();
 
                 //TODO: implement data handling
 
                 System.out.println(block + target + time + date);
 
-                AppFormEvent ev = new AppFormEvent(e, block, date, time, appl, target, product, rate,
-                        notes);
+                AppFormEvent ev = new AppFormEvent(e, block, date, time, appl, target, product,
+                        rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
+                        windDirection, notes);
 
                 if(applFormListener != null){
                     applFormListener.appFormEventOccurred(ev);
@@ -316,6 +362,142 @@ public class AppFormPanel extends JPanel {
         gc.insets = rightInsets;
 
         add(rateField, gc);
+
+        gc.gridx = 2;
+        gc.weightx = 0.5;
+        gc.anchor = GridBagConstraints.LINE_START;
+
+        add(ozRadioButton, gc);
+
+        gc.gridx = 3;
+
+        add(galRadioButton, gc);
+
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(carrierLabel, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(carrierField, gc);
+
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(appMethodLabel, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(appMethodJComboBox, gc);
+
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(weatherCondition, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(weatherCodesJComboBox, gc);
+
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(tempLabel, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(tempField, gc);
+
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(windSpeedLabel, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(windSpeedSpinner, gc);
+
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(windDirectionLabel, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(windDirectionJComboBox, gc);
 
         // Next Row//
         gc.gridy++;

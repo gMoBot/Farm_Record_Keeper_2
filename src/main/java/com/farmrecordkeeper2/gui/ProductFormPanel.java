@@ -17,6 +17,8 @@ public class ProductFormPanel extends JPanel {
 
     private JLabel productNameLabel;
     private JTextField productNameField;
+    private JLabel activeIngredientLabel;
+    private JTextField activeIngredientField;
     private JLabel epaNumberLabel;
     private JTextField epaNumberField;
     private JLabel reiLabel;
@@ -31,10 +33,11 @@ public class ProductFormPanel extends JPanel {
 
     public ProductFormPanel() {
         Dimension dimension = getPreferredSize();
-        dimension.width = 300;
+        dimension.width = 350;
         setPreferredSize(dimension);
 
         productNameLabel = new JLabel("Product Name: ");
+        activeIngredientLabel = new JLabel("Active Ingredient: ");
         epaNumberLabel = new JLabel("EPA Reg. Number: ");
         reiLabel = new JLabel("REI (hrs): ");
         phiLabel = new JLabel("PHI (days): ");
@@ -42,6 +45,7 @@ public class ProductFormPanel extends JPanel {
         okButton = new JButton("OK");
 
         productNameField = new JTextField(10);
+        activeIngredientField = new JTextField(10);
         epaNumberField = new JTextField(10);
         reiField = new JTextField(10);
         phiField = new JTextField(10);
@@ -56,6 +60,7 @@ public class ProductFormPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String productName = productNameField.getText();
+                String activeIngredient = activeIngredientField.getText();
                 String epaNumber = epaNumberField.getText();
                 String rei = reiField.getText();
                 String phi = phiField.getText();
@@ -69,8 +74,8 @@ public class ProductFormPanel extends JPanel {
 
 
 
-                ProductFormEvent ev = new ProductFormEvent(e, farmid, productName, epaNumber, rei,
-                        phi);
+                ProductFormEvent ev = new ProductFormEvent(e, farmid, productName,
+                        activeIngredient, epaNumber, rei, phi);
 
                 if (productFormListener != null) {
                     productFormListener.productFormEventOccurred(ev);
@@ -117,6 +122,26 @@ public class ProductFormPanel extends JPanel {
 
         add(productNameField, gc);
 
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(activeIngredientLabel, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(activeIngredientField, gc);
 
         // Next Row//
         gc.gridy++;

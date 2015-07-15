@@ -62,7 +62,7 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().beginTransaction();
         Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Farm.class);
         criteria.add(Restrictions.isNotNull("id"));
-        criteria.setMaxResults(1);
+        criteria.setMaxResults(2);
         List list = criteria.list();
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
         return list;

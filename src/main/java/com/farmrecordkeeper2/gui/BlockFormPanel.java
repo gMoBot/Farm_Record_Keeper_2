@@ -41,7 +41,7 @@ public class BlockFormPanel extends JPanel {
 
     public BlockFormPanel(Farm farm) {
         Dimension dimension = getPreferredSize();
-        dimension.width = 300;
+        dimension.width = 350;
         setPreferredSize(dimension);
 
         this.farm = farm;

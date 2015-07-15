@@ -34,7 +34,7 @@ public class ApplProfileFormPanel extends JPanel {
 
     public ApplProfileFormPanel() {
         Dimension dimension = getPreferredSize();
-        dimension.width = 300;
+        dimension.width = 350;
         setPreferredSize(dimension);
 
         applNameLabel = new JLabel("Applicator Name: ");

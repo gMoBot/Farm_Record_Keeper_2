@@ -34,13 +34,21 @@ public class Controller {
         String target = e.getTarget();
         String product = e.getProduct();
         String rate = e.getRate();
+        String rateUnit = e.getRateUnit();
+        String carrierVol = e.getCarrierVol();
+        String appMethod = e.getAppMethod();
+        String weatherCondition = e.getWeatherCondition();
+        String temp = e.getTemp();
+        String windSpeed = e.getWindSpeed();
+        String windDirection = e.getWindDirection();
         String notes = e.getNotes();
 
         System.out.println("Controller : " + block + date + time + appl + target + product +
                 rate + notes);
 
         Application application = new Application (block, date, time, appl, target, product,
-                rate, notes);
+                rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
+                windDirection, notes);
         save(application);
     }
 
@@ -152,13 +160,14 @@ public class Controller {
 
     public void addProduct(ProductFormEvent e) {
         String productName = e.getProductName();
+        String activeIngredient = e.getActiveIngredient();
         String epaNumber = e.getEpaNumber();
         String rei = e.getReiHrs();
         String phi = e.getPhiDays();
 
         int farmid = 1;
 
-        Product product = new Product(farmid, productName,epaNumber, rei, phi);
+        Product product = new Product(farmid, productName, activeIngredient, epaNumber, rei, phi);
         save(product);
 
     }

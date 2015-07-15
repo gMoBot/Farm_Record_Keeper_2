@@ -332,7 +332,7 @@ public class MainFrame extends JFrame{
     }
 
     private Farm getFarm(){
-        return controller.getFarm().get(0);
+        return controller.getFarm().get(1);
     }
 
     private List<Block> getBlocks() {

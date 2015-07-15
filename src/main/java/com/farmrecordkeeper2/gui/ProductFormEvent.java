@@ -9,14 +9,17 @@ public class ProductFormEvent extends EventObject {
 
     private int farmId;
     private String productName;
+    private String activeIngredient;
     private String epaNumber;
     private String reiHrs;
     private String phiDays;
 
-    public ProductFormEvent(Object source, int farmId, String productName, String epaNumber, String reiHrs, String phiDays) {
+    public ProductFormEvent(Object source, int farmId, String productName, String
+            activeIngredient, String epaNumber, String reiHrs, String phiDays) {
         super(source);
         this.farmId = farmId;
         this.productName = productName;
+        this.activeIngredient = activeIngredient;
         this.epaNumber = epaNumber;
         this.reiHrs = reiHrs;
         this.phiDays = phiDays;
@@ -36,6 +39,14 @@ public class ProductFormEvent extends EventObject {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getActiveIngredient() {
+        return activeIngredient;
+    }
+
+    public void setActiveIngredient(String activeIngredient) {
+        this.activeIngredient = activeIngredient;
     }
 
     public String getEpaNumber() {
