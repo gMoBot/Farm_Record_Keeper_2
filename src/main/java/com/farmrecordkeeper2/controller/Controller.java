@@ -93,7 +93,8 @@ public class Controller {
         return returnedfarm;
     }
 
-    public void addFarm(FarmFormEvent e) {
+    public void editFarm(FarmFormEvent e) {
+        int farmId = e.getFarmId();
         String farmName = e.getFarmName();
         String ownerName = e.getOwnerName();
         String streetAddress = e.getStreetAddress();
@@ -101,11 +102,11 @@ public class Controller {
         String city = e.getCity();
         String zipCode = e.getZipcode();
 
-        Farm farm = new Farm(farmName, ownerName, streetAddress, stateCode, city, zipCode);
-        save(farm);
+        Farm farm = new Farm(farmId, farmName, ownerName, streetAddress, stateCode, city, zipCode);
+        edit(farm);
     }
-    public void save(Farm farm){
-        db.save(farm);
+    public void edit(Farm farm){
+        db.edit(farm);
     }
 
     public void addBlock(BlockFormEvent e) {

@@ -21,7 +21,7 @@ public class ToolBar extends JPanel implements ActionListener {
         setBorder(BorderFactory.createEtchedBorder());
 
         applicationButton = new JButton("New Application");
-        farmFormButton = new JButton("New Farm");
+        farmFormButton = new JButton("Edit Farm");
         blockFormButton = new JButton("New Block");
         applicatorButton = new JButton("New Applicator Profile");
         productButton = new JButton("New Product Profile");
@@ -38,10 +38,10 @@ public class ToolBar extends JPanel implements ActionListener {
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
         add(applicationButton);
-        add(farmFormButton);
         add(blockFormButton);
-        add(applicatorButton);
         add(productButton);
+        add(applicatorButton);
+        add(farmFormButton);
         add(refreshButton);
 
     }
@@ -62,7 +62,7 @@ public class ToolBar extends JPanel implements ActionListener {
 
         if (clicked == farmFormButton){
             if (toolBarListener != null){
-                toolBarListener.newFarmEventOccurred();
+                toolBarListener.editFarmEventOccurred();
             }
         }
 

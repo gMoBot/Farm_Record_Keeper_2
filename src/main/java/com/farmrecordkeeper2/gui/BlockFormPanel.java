@@ -139,7 +139,7 @@ public class BlockFormPanel extends JPanel {
 
 
                 //TODO: implement data handling for farmid
-                int farmid = 1;
+                int farmid = 0;
 
 
                 System.out.println(blockName + streetAddress + blockCrop);

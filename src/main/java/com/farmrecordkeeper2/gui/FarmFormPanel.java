@@ -68,9 +68,11 @@ public class FarmFormPanel extends JPanel {
 
                 //TODO: implement data handling
 
+                int farmId = 0;
+
                 System.out.println(farmName + ownerName);
 
-                FarmFormEvent ev = new FarmFormEvent(e, farmName, ownerName, streetAddress,
+                FarmFormEvent ev = new FarmFormEvent(e, farmId, farmName, ownerName, streetAddress,
                         stateCode, city, zipCode);
 
                 if(farmFormListener != null){
@@ -80,7 +82,7 @@ public class FarmFormPanel extends JPanel {
             }
         });
 
-        Border innerBorder = BorderFactory.createTitledBorder("Add Farm");
+        Border innerBorder = BorderFactory.createTitledBorder("Edit Farm");
         Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 

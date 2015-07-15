@@ -12,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
 import java.util.prefs.Preferences;
 
@@ -132,10 +131,10 @@ public class MainFrame extends JFrame{
             }
 
             @Override
-            public void newFarmEventOccurred() {
-                System.out.print("New Farm...");
+            public void editFarmEventOccurred() {
+                System.out.print("Editing Farm...");
                 //TODO: replicate for other form buttons and app button
-//                controller.save();
+//                controller.edit();
                 remove(appFormPanel);
                 remove(blockFormPanel);
                 remove(applProfileFormPanel);
@@ -274,7 +273,7 @@ public class MainFrame extends JFrame{
 
                 System.out.println("Main Frame :" + farmName + ownerName);
 
-                controller.addFarm(e);
+                controller.editFarm(e);
             }
         });
     }

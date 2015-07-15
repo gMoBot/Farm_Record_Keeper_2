@@ -7,6 +7,7 @@ import java.util.EventObject;
  */
 public class FarmFormEvent extends EventObject {
 
+    private int farmId;
     private String farmName;
     private String ownerName;
     private String streetAddress;
@@ -14,14 +15,25 @@ public class FarmFormEvent extends EventObject {
     private String city;
     private String zipcode;
 
-    public FarmFormEvent(Object source, String farmName, String ownerName, String streetAddress, String stateCode, String city, String zipcode) {
+    public FarmFormEvent(Object source, int farmId, String farmName, String ownerName, String
+            streetAddress,
+                         String stateCode, String city, String zipcode) {
         super(source);
+        this.farmId = farmId;
         this.farmName = farmName;
         this.ownerName = ownerName;
         this.streetAddress = streetAddress;
         this.stateCode = stateCode;
         this.city = city;
         this.zipcode = zipcode;
+    }
+
+    public int getFarmId() {
+        return farmId;
+    }
+
+    public void setFarmId(int farmId) {
+        this.farmId = farmId;
     }
 
     public String getFarmName() {

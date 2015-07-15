@@ -1,13 +1,10 @@
 package main.java.com.farmrecordkeeper2.service;
 
 import main.java.com.farmrecordkeeper2.dao.DatabaseDAO;
-import main.java.com.farmrecordkeeper2.dao.DatabaseDAOImpl;
 import main.java.com.farmrecordkeeper2.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collections;
@@ -103,8 +100,8 @@ public class DatabaseService {
         return returnedFarm;
     }
 
-    public void save(Farm farm){
-        databaseDAO.saveFarm(farm);
+    public void edit(Farm farm){
+        databaseDAO.editFarm(farm);
     }
 
     public void save(Block block){

@@ -67,9 +67,10 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
         return list;
     }
-    public void saveFarm(Farm farm){
+
+    public void editFarm(Farm farm){
         sessionFactoryBean.getCurrentSession().beginTransaction();
-        sessionFactoryBean.getCurrentSession().save(farm);
+        sessionFactoryBean.getCurrentSession().saveOrUpdate(farm);
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 

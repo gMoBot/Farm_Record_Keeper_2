@@ -13,10 +13,7 @@ public class Farm {
 
     public Farm(){}
 
-//    private static int count = 1;
     @Id
-//    @ManyToOne
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "farm_id", unique = true, nullable = false)
     private int farmId;
     @Column(name = "farm_name")
@@ -33,9 +30,9 @@ public class Farm {
     private String zipcode;
 
 
-    public Farm(String farmName, String ownerName, String streetAddress, String stateCode,
-                String city, String zipcode) {
-//        this.farmId = farmId;
+    public Farm(int farmId, String farmName, String ownerName, String streetAddress, String
+            stateCode, String city, String zipcode) {
+        this.farmId = farmId;
         this.farmName = farmName;
         this.ownerName = ownerName;
         this.streetAddress = streetAddress;
@@ -43,17 +40,6 @@ public class Farm {
         this.city = city;
         this.zipcode = zipcode;
     }
-//
-//    public Farm(String farmName, );
-//
-//
-//    public static int getCount() {
-//        return count;
-//    }
-//
-//    public static void setCount(int count) {
-//        Farm.count = count;
-//    }
 
     public int getFarmId() {
         return farmId;
