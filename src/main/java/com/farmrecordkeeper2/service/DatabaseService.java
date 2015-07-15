@@ -113,6 +113,9 @@ public class DatabaseService {
         return blocks;
     }
 
+    public void removeBlockAtIndex(int row) {
+        databaseDAO.removeSelectedBlock(row);
+    }
 
     public void doSomething(){
         databaseDAO.doSomething();
@@ -127,6 +130,9 @@ public class DatabaseService {
         return applicatorProfiles;
     }
 
+    public void removeApplicatorAtIndex(int row) {databaseDAO.removeSelectedApplicator(row);
+    }
+
     public List<Product> getProducts() {
         List<Product> products = databaseDAO.getProducts();
         return products;
@@ -136,4 +142,7 @@ public class DatabaseService {
         databaseDAO.saveProduct(product);
 
     }
+
+    public void removeSelectedProduct(int row){databaseDAO.removeSelectedProduct(row); }
+
 }

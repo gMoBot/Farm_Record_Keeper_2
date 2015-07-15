@@ -135,6 +135,10 @@ public class Controller {
         return blocks;
     }
 
+    public void removeBlock(int row) {
+        db.removeBlockAtIndex(row);
+    }
+
     public void addApplProfile(ApplProfileFormEvent e) {
         String applName = e.getApplName();
         String licenseNumber = e.getLicenseNumber();
@@ -177,10 +181,19 @@ public class Controller {
         db.save(product);
     }
 
+    public void removeProduct(int row){
+        db.removeSelectedProduct(row);
+    }
+
 
     public List<ApplicatorProfile> getApplicatorProfiles() {
         List<ApplicatorProfile> applicators = db.getApplicatorProfiles();
         return applicators;
 
     }
+
+    public void removeApplicator(int row) {
+        db.removeApplicatorAtIndex(row);
+    }
+
 }

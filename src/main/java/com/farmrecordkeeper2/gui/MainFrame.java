@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,9 +31,12 @@ public class MainFrame extends JFrame{
     private ProductFormPanel productFormPanel;
     private JFileChooser jFileChooser;
     private Controller controller;
-    private TablePanel tablePanel;
+    private AppTablePanel appTablePanel;
     private PrefsDialog prefsDialog;
     private Preferences preferences;
+    private BlockTablePanel blockTablePanel;
+    private ApplicatorTablePanel applicatorTablePanel;
+    private ProductTablePanel productTablePanel;
 
 
 
@@ -53,13 +57,16 @@ public class MainFrame extends JFrame{
 
 
         toolBar = new ToolBar();
-        tablePanel = new TablePanel();
+        appTablePanel = new AppTablePanel();
         appFormPanel = new AppFormPanel(getBlocks(), getApplicatorProfiles(), getProducts());
         prefsDialog = new PrefsDialog(this);
         farmFormPanel = new FarmFormPanel(getFarm());
         blockFormPanel = new BlockFormPanel(getFarm());
         applProfileFormPanel = new ApplProfileFormPanel();
         productFormPanel = new ProductFormPanel();
+        blockTablePanel = new BlockTablePanel();
+        applicatorTablePanel = new ApplicatorTablePanel();
+        productTablePanel = new ProductTablePanel();
 
 
         farmFormPanel.setVisible(false);
@@ -67,20 +74,20 @@ public class MainFrame extends JFrame{
         applProfileFormPanel.setVisible(false);
         productFormPanel.setVisible(false);
 
+        blockTablePanel.setVisible(false);
+        applicatorTablePanel.setVisible(false);
+        productTablePanel.setVisible(false);
+
         preferences = Preferences.userRoot().node("db");
 
 
-        tablePanel.setData(controller.getApplications());
+        appTablePanel.setData(controller.getApplications());
 
-        tablePanel.setApplicationTableListener(new ApplicationTableListener() {
-            @Override
-            public void rowDeleted(int row) {
-                System.out.println(row);
-                controller.removeApplication(row);
-                tablePanel.setData(controller.getApplications());
-                tablePanel.refresh();
-            }
-        });
+        setApplicationTableListener();
+        setBlockTableListener();
+        setApplicatorTableListener();
+        setProductTableListener();
+
 
         jFileChooser = new JFileChooser();
         jFileChooser.addChoosableFileFilter(new ApplicationFileFilter());
@@ -209,25 +216,125 @@ public class MainFrame extends JFrame{
             }
 
             @Override
-            public void refreshEventOccurred() {
+            public void showAppsEventOccurred() {
+
+                remove(blockTablePanel);
+                remove(applicatorTablePanel);
+                remove(productTablePanel);
+                setApplicationTableListener();
 
                 //TODO: refresh Table Data
                 System.out.print("refresh");
-                tablePanel.setData(controller.getApplications());
-                tablePanel.refresh();
+                appTablePanel.setData(controller.getApplications());
+
+                add(appTablePanel, BorderLayout.CENTER);
+                appTablePanel.setVisible(true);
+                appTablePanel.refresh();
+            }
+
+            @Override
+            public void showBlocksEventOccurred() {
+                remove(appTablePanel);
+                remove(applicatorTablePanel);
+                remove(productTablePanel);
+
+                setBlockTableListener();
+                blockTablePanel.setData(controller.getBlocks());
+
+                add(blockTablePanel, BorderLayout.CENTER);
+                blockTablePanel.setVisible(true);
+                blockTablePanel.refresh();
+            }
+
+            @Override
+            public void showProductsEventOccurred() {
+                remove(appTablePanel);
+                remove(applicatorTablePanel);
+                remove(blockTablePanel);
+
+                setProductTableListener();
+                productTablePanel.setData(controller.getProducts());
+
+                add(productTablePanel, BorderLayout.CENTER);
+                productTablePanel.setVisible(true);
+                productTablePanel.refresh();
+            }
+
+            @Override
+            public void showAppProfileEventOccurred() {
+                remove(appTablePanel);
+                remove(productTablePanel);
+                remove(blockTablePanel);
+
+                setApplProfileFormListener();
+                applicatorTablePanel.setData(controller.getApplicatorProfiles());
+
+                add(applicatorTablePanel, BorderLayout.CENTER);
+                applicatorTablePanel.setVisible(true);
+                applicatorTablePanel.refresh();
             }
         });
 
 
         add(appFormPanel, BorderLayout.WEST);
-        add(tablePanel, BorderLayout.CENTER);
+        add(appTablePanel, BorderLayout.CENTER);
         add(toolBar, BorderLayout.NORTH);
 
         // MainFrame Window Settings
         setMinimumSize(new Dimension(600, 600));
-        setSize(900, 600);
+        setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    private void setBlockTableListener() {
+        blockTablePanel.setBlockTableListener(new BlockTableListener() {
+            @Override
+            public void rowDeleted(int row) {
+                System.out.println(row);
+                controller.removeBlock(row);
+                blockTablePanel.setData(controller.getBlocks());
+                blockTablePanel.refresh();
+            }
+        });
+    }
+
+    private void setApplicationTableListener() {
+        appTablePanel.setApplicationTableListener(new ApplicationTableListener() {
+            @Override
+            public void rowDeleted(int row) {
+                System.out.println(row);
+                controller.removeApplication(row);
+                appTablePanel.setData(controller.getApplications());
+                appTablePanel.refresh();
+            }
+        });
+    }
+
+    private void setApplicatorTableListener(){
+        applicatorTablePanel.setApplicatorTableListener(new ApplicatorTableListener() {
+            @Override
+            public void rowDeleted(int row) {
+                System.out.println(row);
+                controller.removeApplicator(row);
+
+                applicatorTablePanel.setData(controller.getApplicatorProfiles());
+                applicatorTablePanel.refresh();
+            }
+        });
+    }
+
+    private void setProductTableListener(){
+        productTablePanel.setProductTableListener(new ProductTableListener() {
+            @Override
+            public void rowDeleted(int row) {
+                System.out.println(row);
+                controller.removeProduct(row);
+
+                productTablePanel.setData(controller.getProducts());
+                productTablePanel.refresh();
+            }
+        });
     }
 
     private void setProductFormListener() {
@@ -240,6 +347,11 @@ public class MainFrame extends JFrame{
                 String phi = e.getPhiDays();
 
                 controller.addProduct(e);
+
+                if(productTablePanel != null){
+                    productTablePanel.setData(controller.getProducts());
+                    productTablePanel.refresh();
+                }
             }
         });
     }
@@ -256,6 +368,11 @@ public class MainFrame extends JFrame{
                 String zipCode = e.getZipcode();
 
                 controller.addApplProfile(e);
+
+                if (applicatorTablePanel != null) {
+                    applicatorTablePanel.setData(controller.getApplicatorProfiles());
+                    applicatorTablePanel.refresh();
+                }
             }
         });
     }
@@ -296,8 +413,10 @@ public class MainFrame extends JFrame{
 
                 controller.addAppl(e);
 
-                tablePanel.setData(controller.getApplications());
-                tablePanel.refresh();
+                if(appTablePanel != null) {
+                    appTablePanel.setData(controller.getApplications());
+                    appTablePanel.refresh();
+                }
             }
         });
     }
@@ -318,6 +437,10 @@ public class MainFrame extends JFrame{
                         zipCode);
 
                 controller.addBlock(e);
+                if (blockTablePanel != null) {
+                    blockTablePanel.setData(controller.getBlocks());
+                    blockTablePanel.refresh();
+                }
             }
         });
     }
@@ -331,7 +454,6 @@ public class MainFrame extends JFrame{
     }
 
 
-    //TODO: select user's farm
     private Farm getFarm(){
         return controller.getFarm().get(0);
     }

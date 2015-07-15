@@ -18,13 +18,15 @@ public interface DatabaseDAO {
     public void editFarm(Farm farm);
     public void saveBlock(Block block);
     public List<Block> getBlocks();
+    public void removeSelectedBlock(int row);
     public List<ApplicatorProfile> getApplicatorProfiles();
     public void saveApplicatorProfile(ApplicatorProfile applicatorProfile);
+    public void removeSelectedApplicator(int row);
     public List<Product> getProducts();
     public void saveProduct(Product product);
+    public void removeSelectedProduct(int row);
 
     public void doSomething();
-
 
 
 }

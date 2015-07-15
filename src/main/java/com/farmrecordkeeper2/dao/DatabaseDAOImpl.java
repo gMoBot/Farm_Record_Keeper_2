@@ -47,10 +47,6 @@ public class DatabaseDAOImpl implements DatabaseDAO {
 
     public void removeSelectedApplication(int row){
         sessionFactoryBean.getCurrentSession().beginTransaction();
-//        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
-//                .class);
-//        criteria.add(Restrictions.eq("id", row));
-//        List list = criteria.list();
         Object selectedApp = sessionFactoryBean.getCurrentSession().load(Application.class, row);
         if(selectedApp != null){
             sessionFactoryBean.getCurrentSession().delete(selectedApp);
@@ -89,6 +85,15 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 
+    public void removeSelectedBlock(int row){
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Object selectedBlock = sessionFactoryBean.getCurrentSession().load(Block.class, row);
+        if(selectedBlock != null){
+            sessionFactoryBean.getCurrentSession().delete(selectedBlock);
+        }
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
+
     public List<ApplicatorProfile> getApplicatorProfiles() {
         sessionFactoryBean.getCurrentSession().beginTransaction();
         Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(ApplicatorProfile.class);
@@ -101,6 +106,14 @@ public class DatabaseDAOImpl implements DatabaseDAO {
     public void saveApplicatorProfile(ApplicatorProfile applicatorProfile) {
         sessionFactoryBean.getCurrentSession().beginTransaction();
         sessionFactoryBean.getCurrentSession().save(applicatorProfile);
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
+    public void removeSelectedApplicator(int row){
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Object selectedApplicator = sessionFactoryBean.getCurrentSession().load(ApplicatorProfile.class, row);
+        if(selectedApplicator != null){
+            sessionFactoryBean.getCurrentSession().delete(selectedApplicator);
+        }
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 
@@ -119,6 +132,14 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 
+    public void removeSelectedProduct(int row){
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Object selectedProduct = sessionFactoryBean.getCurrentSession().load(Product.class, row);
+        if(selectedProduct != null){
+            sessionFactoryBean.getCurrentSession().delete(selectedProduct);
+        }
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+    }
 
 
 

@@ -14,25 +14,38 @@ public class ToolBar extends JPanel implements ActionListener {
     private JButton blockFormButton;
     private JButton applicatorButton;
     private JButton productButton;
-    private JButton refreshButton;
+    private JButton showApplButton;
+    private JButton showBlocksButton;
+    private JButton showAppProfileButton;
+    private JButton showProductsButton;
     private ToolBarListener toolBarListener;
 
     public ToolBar(){
+        Dimension dimension = getPreferredSize();
+        dimension.height = 70;
+        setPreferredSize(dimension);
+
         setBorder(BorderFactory.createEtchedBorder());
 
         applicationButton = new JButton("New Application");
         farmFormButton = new JButton("Edit Farm");
         blockFormButton = new JButton("New Block");
-        applicatorButton = new JButton("New Applicator Profile");
-        productButton = new JButton("New Product Profile");
-        refreshButton = new JButton("Refresh");
+        applicatorButton = new JButton("New Applicator");
+        productButton = new JButton("New Product");
+        showApplButton = new JButton("Show Applications");
+        showBlocksButton = new JButton("Show Blocks");
+        showAppProfileButton = new JButton("Show Applicators");
+        showProductsButton = new JButton("Show Products");
 
         applicationButton.addActionListener(this);
         farmFormButton.addActionListener(this);
         blockFormButton.addActionListener(this);
         applicatorButton.addActionListener(this);
         productButton.addActionListener(this);
-        refreshButton.addActionListener(this);
+        showApplButton.addActionListener(this);
+        showBlocksButton.addActionListener(this);
+        showAppProfileButton.addActionListener(this);
+        showProductsButton.addActionListener(this);
 
 
         setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -42,7 +55,10 @@ public class ToolBar extends JPanel implements ActionListener {
         add(productButton);
         add(applicatorButton);
         add(farmFormButton);
-        add(refreshButton);
+        add(showApplButton);
+        add(showBlocksButton);
+        add(showAppProfileButton);
+        add(showProductsButton);
 
     }
 
@@ -78,9 +94,24 @@ public class ToolBar extends JPanel implements ActionListener {
             }
         }
 
-        if (clicked == refreshButton){
+        if (clicked == showApplButton){
             if(toolBarListener != null){
-                toolBarListener.refreshEventOccurred();
+                toolBarListener.showAppsEventOccurred();
+            }
+        }
+        if (clicked  == showBlocksButton){
+            if(toolBarListener != null){
+                toolBarListener.showBlocksEventOccurred();
+            }
+        }
+        if (clicked == showAppProfileButton){
+            if(toolBarListener != null){
+                toolBarListener.showAppProfileEventOccurred();
+            }
+        }
+        if(clicked == showProductsButton){
+            if(toolBarListener != null){
+                toolBarListener.showProductsEventOccurred();
             }
         }
         else  if(clicked == blockFormButton){

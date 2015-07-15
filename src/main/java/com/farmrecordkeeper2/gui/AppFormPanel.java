@@ -59,7 +59,7 @@ public class AppFormPanel extends JPanel {
                         List<Product>
             enteredProducts){
         Dimension dimension = getPreferredSize();
-        dimension.width = 350;
+        dimension.width = 375;
         setPreferredSize(dimension);
 
         blockLabel = new JLabel("Block: ");

@@ -1,6 +1,7 @@
 package main.java.com.farmrecordkeeper2.gui;
 
-import main.java.com.farmrecordkeeper2.model.Application;
+import main.java.com.farmrecordkeeper2.model.ApplicatorProfile;
+import main.java.com.farmrecordkeeper2.model.Product;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,22 +9,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
-import java.util.List;
 
 /**
- * Created by garrettcoggon on 7/2/15.
+ * Created by garrettcoggon on 7/15/15.
  */
-public class TablePanel extends JPanel {
+public class ProductTablePanel extends JPanel {
+
     private JTable table;
-    private AppTableModel appTableModel;
+    private ProductTableModel productTableModel;
     private JPopupMenu popupMenu;
-    private ApplicationTableListener applicationTableListener;
+    private ProductTableListener productTableListener;
 
-
-    public TablePanel(){
-        appTableModel = new AppTableModel();
-        table = new JTable(appTableModel);
+    public ProductTablePanel() {
+        productTableModel = new ProductTableModel();
+        table = new JTable(productTableModel);
         popupMenu = new JPopupMenu();
 
         JMenuItem removeItem = new JMenuItem("Delete Row");
@@ -49,15 +48,14 @@ public class TablePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                int id = (int) appTableModel.getValueAt(row, 0);
-//                        table.getModel().getValueAt(row, 0);
+                int id = (int) productTableModel.getValueAt(row, 0);
 
 
                 System.out.println(row + id + "Removing item");
 
-                if(applicationTableListener != null){
-                    applicationTableListener.rowDeleted(id);
-                    appTableModel.fireTableRowsDeleted(row, row);
+                if (productTableListener != null) {
+                    productTableListener.rowDeleted(id);
+                    productTableModel.fireTableRowsDeleted(row, row);
                 }
 
             }
@@ -67,17 +65,16 @@ public class TablePanel extends JPanel {
         setLayout(new BorderLayout());
         add(new JScrollPane(table), BorderLayout.CENTER);
 
+
     }
 
-    public void setData(List<Application> db){
-        appTableModel.setData(db);
+    public void setData(java.util.List<Product> db){
+        productTableModel.setData(db);
     }
     public void refresh(){
-        appTableModel.fireTableDataChanged();
+        productTableModel.fireTableDataChanged();
     }
-    public void setApplicationTableListener(ApplicationTableListener applicationTableListener){
-        this.applicationTableListener = applicationTableListener;
+    public void setProductTableListener(ProductTableListener productTableListener){
+        this.productTableListener = productTableListener;
     }
-
-
 }

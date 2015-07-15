@@ -10,6 +10,9 @@ public interface ToolBarListener {
     public void newBlockEventOccurred();
     public void newApplicatorEventOccurred();
     public void newProductEventOccurred();
-    public void refreshEventOccurred();
+    public void showAppsEventOccurred();
+    public void showBlocksEventOccurred();
+    public void showProductsEventOccurred();
+    public void showAppProfileEventOccurred();
 
 }
