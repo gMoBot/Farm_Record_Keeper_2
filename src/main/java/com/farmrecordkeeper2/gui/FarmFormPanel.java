@@ -1,5 +1,6 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.Farm;
 import main.java.com.farmrecordkeeper2.model.StateCodes;
 
 import javax.swing.*;
@@ -26,15 +27,17 @@ public class FarmFormPanel extends JPanel {
     private JTextField cityField;
     private JLabel zipCodeLabel;
     private JTextField zipcodeField;
-
     private JButton okButton;
 
     private FarmFormListener farmFormListener;
+    private Farm farm;
 
-    public FarmFormPanel(){
+    public FarmFormPanel(Farm farm){
         Dimension dimension = getPreferredSize();
         dimension.width = 300;
         setPreferredSize(dimension);
+
+        this.farm = farm;
 
         farmNameLabel = new JLabel("Farm Name: ");
         ownerNameLabel = new JLabel("Owner Name: ");
@@ -53,6 +56,14 @@ public class FarmFormPanel extends JPanel {
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
+
+        // Set Fields for Editing //
+        farmNameField.setText(farm.getFarmName());
+        ownerNameField.setText(farm.getOwnerName());
+        streetAddressField.setText(farm.getStreetAddress());
+        stateCodeComboBox.getModel().setSelectedItem(farm.getStateCode());
+        cityField.setText(farm.getCity());
+        zipcodeField.setText(farm.getZipcode());
 
 
         // Set OK Button

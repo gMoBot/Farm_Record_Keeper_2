@@ -56,7 +56,7 @@ public class MainFrame extends JFrame{
         tablePanel = new TablePanel();
         appFormPanel = new AppFormPanel(getBlocks(), getApplicatorProfiles(), getProducts());
         prefsDialog = new PrefsDialog(this);
-        farmFormPanel = new FarmFormPanel();
+        farmFormPanel = new FarmFormPanel(getFarm());
         blockFormPanel = new BlockFormPanel(getFarm());
         applProfileFormPanel = new ApplProfileFormPanel();
         productFormPanel = new ProductFormPanel();
@@ -140,7 +140,7 @@ public class MainFrame extends JFrame{
                 remove(applProfileFormPanel);
                 remove(productFormPanel);
 
-                farmFormPanel = new FarmFormPanel();
+                farmFormPanel = new FarmFormPanel(getFarm());
                 setFarmFormListener();
 
                 add(farmFormPanel, BorderLayout.WEST);

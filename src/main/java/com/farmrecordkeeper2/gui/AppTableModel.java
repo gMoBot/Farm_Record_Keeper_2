@@ -11,8 +11,8 @@ import java.util.List;
 public class AppTableModel extends AbstractTableModel {
 
     private List<Application> db;
-    private String[] colNames = {"Id", "Block Name", "Application Date", "Application Time",
-            "Applicator Number", "Target Pest", "Product Name", "Application Rate", "Application " +
+    private String[] colNames = {"Id", "Block Name", "Date", "Time",
+            "Applicator", "Target Pest", "Product Name", "Rate", "Units",
             "Notes"};
 
     public AppTableModel(){}
@@ -33,7 +33,7 @@ public class AppTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -58,6 +58,8 @@ public class AppTableModel extends AbstractTableModel {
             case 7:
                 return application.getRate();
             case 8:
+                return application.getRateUnit();
+            case 9:
                 return application.getNotes();
             default:
                 return null;

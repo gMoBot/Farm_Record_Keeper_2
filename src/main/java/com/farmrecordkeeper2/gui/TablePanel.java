@@ -63,6 +63,7 @@ public class TablePanel extends JPanel {
             }
         });
 
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);
         setLayout(new BorderLayout());
         add(new JScrollPane(table), BorderLayout.CENTER);
 
