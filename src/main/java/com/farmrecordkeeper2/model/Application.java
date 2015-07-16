@@ -2,6 +2,7 @@ package main.java.com.farmrecordkeeper2.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by garrettcoggon on 7/6/15.
@@ -18,7 +19,9 @@ public class Application implements Serializable{
     @Column(name = "app_id", unique = true, nullable = false)
     private int id;
     @Column(name = "block_name")
-    private String block;
+    private String blockName;
+    @Column(name = "block_id")
+    private int blockId = 0;
     @Column(name = "app_date")
     private String date;
     @Column(name = "app_time")
@@ -48,10 +51,13 @@ public class Application implements Serializable{
     @Column(name = "app_notes")
     private String notes;
 
-    public Application(String block, String date, String time, String appl, String target,
+//    private Block block;
+
+
+    public Application(String blockName, String date, String time, String appl, String target,
                        String product, String rate, String rateUnit, String
                                carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
-        this.block = block;
+        this.blockName = blockName;
         this.date = date;
         this.time = time;
         this.appl = appl;
@@ -79,7 +85,19 @@ public class Application implements Serializable{
         this.id = id;
     }
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "app_block_jtable",
+            joinColumns = @JoinColumn(name = "app_id"),
+            inverseJoinColumns = @JoinColumn(name = "block_id"))
+    private Set<Block> blockSet;
 
+
+    public void setBlockProfile(Set<Block> block) {
+        //    private Block block;
+
+        this.blockSet = block;
+    }
+    public Set<Block> getBlockProfile(){ return blockSet;}
 
     public int getId() {
         return id;
@@ -90,11 +108,11 @@ public class Application implements Serializable{
     }
 
     public String getBlock() {
-        return block;
+        return blockName;
     }
 
     public void setBlock(String block) {
-        this.block = block;
+        this.blockName = blockName;
     }
 
     public String getDate() {

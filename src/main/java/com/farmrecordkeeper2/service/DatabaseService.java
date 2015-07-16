@@ -145,4 +145,6 @@ public class DatabaseService {
 
     public void removeSelectedProduct(int row){databaseDAO.removeSelectedProduct(row); }
 
+    public List getAllInfo() { List info = databaseDAO.getAllInfo(); return info;
+    }
 }

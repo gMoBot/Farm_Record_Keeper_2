@@ -48,7 +48,11 @@ public class MainFrame extends JFrame{
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
         controller = context.getBean("controller", Controller.class);
-        controller.doSomething();
+//        controller.doSomething();
+//       List info = controller.getAllInfo();
+//        for(Object object : info){
+//           System.out.println(object.toString());
+//        }
 
 
 //        List<Product> enteredProducts = getProducts();

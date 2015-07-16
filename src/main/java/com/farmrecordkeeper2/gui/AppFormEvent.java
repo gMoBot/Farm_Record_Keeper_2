@@ -1,5 +1,7 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.Block;
+
 import java.util.EventObject;
 
 /**
@@ -8,6 +10,7 @@ import java.util.EventObject;
 public class AppFormEvent extends EventObject {
 
     private String block;
+    private Block selectedBlock;
     private String date;
     private String time;
     private String appl;
@@ -23,9 +26,13 @@ public class AppFormEvent extends EventObject {
     private String windDirection;
     private String notes;
 
-    public AppFormEvent(Object source, String block, String date, String time, String appl, String target, String product, String rate, String rateUnit, String carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes) {
+    public AppFormEvent(Object source, Block selectedBlock, String block, String date, String time,
+                        String
+            appl,
+                        String target, String product, String rate, String rateUnit, String carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes) {
         super(source);
         this.block = block;
+        this.selectedBlock = selectedBlock;
         this.date = date;
         this.time = time;
         this.appl = appl;
@@ -41,6 +48,8 @@ public class AppFormEvent extends EventObject {
         this.windDirection = windDirection;
         this.notes = notes;
     }
+
+    public Block getSelectedBlock(){return selectedBlock;}
 
     public String getBlock() {
         return block;

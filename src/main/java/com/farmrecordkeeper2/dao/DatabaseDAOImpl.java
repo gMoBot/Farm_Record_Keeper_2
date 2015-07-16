@@ -3,7 +3,10 @@ package main.java.com.farmrecordkeeper2.dao;
 import main.java.com.farmrecordkeeper2.model.*;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -141,7 +144,22 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 
+    public List getAllInfo() {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+//        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
+//                .class);
+//        criteria.createAlias("block", "blockName", JoinType.LEFT_OUTER_JOIN);
+        DetachedCriteria appCriteria = DetachedCriteria.forClass(Application.class);
+        appCriteria.setProjection(Property.forName("blockName"));
+        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Block.class);
+        criteria.add(Property.forName("blockName").in(appCriteria));
+        List list = criteria.list();
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+        return list;
 
+//        System.out.println(String.valueOf(list.get(0).toString()));
+
+    }
 
     public void doSomething(){
         System.out.println("Doing something from the dao...");

@@ -15,6 +15,7 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 
+import javax.persistence.MapKeyJoinColumn;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -62,12 +63,10 @@ public class AppConfig {
         sessionFactoryBuilder.addAnnotatedClasses(Application.class, Farm.class, Block.class,
                 ApplicatorProfile.class, Product.class);
         sessionFactoryBuilder.addProperties(getHibernateProperties());
-
         return sessionFactoryBuilder.buildSessionFactory();
 
 
     }
-
 
 //    @Bean(name = "hibernateProperties")
     private Properties getHibernateProperties(){

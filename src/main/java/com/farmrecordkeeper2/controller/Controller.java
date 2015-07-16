@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by garrettcoggon on 7/2/15.
@@ -28,6 +30,7 @@ public class Controller {
 
     public void addAppl(AppFormEvent e){
         String block = e.getBlock();
+        Block selectedBlock = e.getSelectedBlock();
         String date = e.getDate();
         String time = e.getTime();
         String appl = e.getAppl();
@@ -49,6 +52,11 @@ public class Controller {
         Application application = new Application (block, date, time, appl, target, product,
                 rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
                 windDirection, notes);
+
+        Set<Block> blockSet = new HashSet<Block>();
+        blockSet.add(selectedBlock);
+
+        application.setBlockProfile(blockSet);
         save(application);
     }
 
@@ -196,4 +204,6 @@ public class Controller {
         db.removeApplicatorAtIndex(row);
     }
 
+    public List getAllInfo() { List info = db.getAllInfo(); return info;
+    }
 }

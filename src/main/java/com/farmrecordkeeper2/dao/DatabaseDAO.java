@@ -29,4 +29,6 @@ public interface DatabaseDAO {
     public void doSomething();
 
 
+    public List getAllInfo();
+
 }

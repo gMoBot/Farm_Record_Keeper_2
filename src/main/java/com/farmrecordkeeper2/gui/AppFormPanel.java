@@ -99,7 +99,8 @@ public class AppFormPanel extends JPanel {
 
         Vector blockVector = new Vector();
         for (Block block : enteredBlocks){
-            blockVector.add(block.getBlockName());
+//            blockVector.add(block.getBlockName());
+            blockVector.add(block);
         }
 
         Vector appVector = new Vector();
@@ -117,7 +118,20 @@ public class AppFormPanel extends JPanel {
 
         SpinnerNumberModel windModel = new SpinnerNumberModel(3, 0, 35, 1);
 
-        blockList = new JComboBox<String>(blockVector);
+//        blockList = new JComboBox<String>(blockVector);
+        blockList = new JComboBox(new DefaultComboBoxModel<>(blockVector));
+        blockList.setRenderer(new DefaultListCellRenderer(){
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if(value instanceof Block){
+                    Block block = (Block) value;
+                    setText(block.getBlockName());
+                }
+                return this;
+            }
+        });
+
 //        dateField = new JTextField(10);
         dateSpinner = new JSpinner();
         dateSpinner.setModel(dateModel);
@@ -155,7 +169,8 @@ public class AppFormPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                String block = blockField.getText();
-                String block = blockList.getSelectedItem().toString();
+                Block selectedBlock = (Block) blockList.getModel().getSelectedItem();
+                String block = selectedBlock.getBlockName();
 //                String date = dateField.getText();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 String date = dateFormat.format(dateSpinner.getValue());
@@ -182,9 +197,12 @@ public class AppFormPanel extends JPanel {
 
                 System.out.println(block + target + time + date);
 
-                AppFormEvent ev = new AppFormEvent(e, block, date, time, appl, target, product,
+                AppFormEvent ev = new AppFormEvent(e, selectedBlock, block, date, time, appl,
+                        target,
+                        product,
                         rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
                         windDirection, notes);
+
 
                 if(applFormListener != null){
                     applFormListener.appFormEventOccurred(ev);
