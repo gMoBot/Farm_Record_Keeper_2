@@ -20,7 +20,7 @@ public class Application implements Serializable {
     private int id;
     @Column(name = "block_name")
     private String blockName;
-    @Column(name = "app_block_id")
+    @Column(name = "block_id")
     private int blockId;
     @Column(name = "app_date")
     private String date;
@@ -28,8 +28,8 @@ public class Application implements Serializable {
     private String time;
     @Column(name = "app_number")
     private String appl;
-    @Column(name = "app_appl_id")
-    private int applId;
+//    @Column(name = "app_appl_id")
+//    private int applId;
     @Column(name = "target_pest")
     private String target;
     @Column(name = "product_name")
@@ -102,21 +102,15 @@ public class Application implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "block_id"))
     private Set<Block> blockSet;
 
-//    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
-//            inverseJoinColumns = @JoinColumn(name = "appl_id"))
-//    @JoinColumn(name = "app_id")
-    @OneToMany(mappedBy = "appl_id")
-    private Set<ApplicatorProfile> appProfileSet;
-
-
-
-//    @OneToMany(cascade = CascadeType.ALL)
-////    @JoinTable(name = "app_block_jtable",
-////            joinColumns = {@JoinColumn(name = "app_id"), @JoinColumn(name =
-////                    "block_id")},
+////    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
 ////            inverseJoinColumns = @JoinColumn(name = "appl_id"))
-//    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"), inverseJoinColumns = @JoinColumn(name = "appl_id"))
 ////    @JoinColumn(name = "app_id")
+//    @OneToMany(mappedBy = "appl_id")
+//    private Set<ApplicatorProfile> appProfileSet;
+
+
+
+
 
     public void setBlockProfile(Set<Block> block) {
         //    private Block block;
@@ -125,13 +119,13 @@ public class Application implements Serializable {
     }
     public Set<Block> getBlockProfile(){ return blockSet;}
 
-    public Set<ApplicatorProfile> getAppProfileSet() {
-        return appProfileSet;
-    }
-
-    public void setAppProfileSet(Set<ApplicatorProfile> appProfileSet) {
-        this.appProfileSet = appProfileSet;
-    }
+//    public Set<ApplicatorProfile> getAppProfileSet() {
+//        return appProfileSet;
+//    }
+//
+//    public void setAppProfileSet(Set<ApplicatorProfile> appProfileSet) {
+//        this.appProfileSet = appProfileSet;
+//    }
 
 
     public int getId() {
@@ -233,13 +227,13 @@ public class Application implements Serializable {
     }
 
 
-    public int getApplId() {
-        return applId;
-    }
-
-    public void setApplId(int applId) {
-        this.applId = applId;
-    }
+//    public int getApplId() {
+//        return applId;
+//    }
+//
+//    public void setApplId(int applId) {
+//        this.applId = applId;
+//    }
 
 
     public String getWeatherCondition() {

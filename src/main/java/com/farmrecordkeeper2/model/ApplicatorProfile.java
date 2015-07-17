@@ -17,8 +17,8 @@ public class ApplicatorProfile implements Serializable{
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "appl_id", unique = true, nullable = false)
-    private int applId;
+//    @Column(name = "appl_id", unique = true, nullable = false)
+//    private int applId;
     @Column(name = "farm_id")
     private int farmId;
     @Column(name = "app_name")
@@ -63,13 +63,13 @@ public class ApplicatorProfile implements Serializable{
     }
 
 
-    public int getApplId() {
-        return applId;
-    }
-
-    public void setApplId(int applId) {
-        this.applId = applId;
-    }
+//    public int getApplId() {
+//        return applId;
+//    }
+//
+//    public void setApplId(int applId) {
+//        this.applId = applId;
+//    }
 
     public String getApplName() {
         return applName;

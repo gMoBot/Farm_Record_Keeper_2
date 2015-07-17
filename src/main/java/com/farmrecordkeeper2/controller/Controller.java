@@ -63,7 +63,7 @@ public class Controller {
         appProfileSet.add(selectedAppProfile);
 
         application.setBlockProfile(blockSet);
-        application.setAppProfileSet(appProfileSet);
+//        application.setAppProfileSet(appProfileSet);
         save(application);
     }
 
