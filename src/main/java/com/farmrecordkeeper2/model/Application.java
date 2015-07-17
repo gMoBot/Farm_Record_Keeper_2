@@ -20,8 +20,8 @@ public class Application implements Serializable {
     private int id;
     @Column(name = "block_name")
     private String blockName;
-    @Column(name = "block_id")
-    private int blockId;
+//    @Column(name = "block_id")
+//    private int blockId;
     @Column(name = "app_date")
     private String date;
     @Column(name = "app_time")
@@ -56,12 +56,12 @@ public class Application implements Serializable {
 //    private Block block;
 
 
-    public Application(String blockName, int blockId, String date, String time, String appl, String
+    public Application(String blockName, String date, String time, String appl, String
             target,
                        String product, String rate, String rateUnit, String
                                carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
         this.blockName = blockName;
-        this.blockId = blockId;
+//        this.blockId = blockId;
         this.date = date;
         this.time = time;
         this.appl = appl;
@@ -81,26 +81,35 @@ public class Application implements Serializable {
         count++;
     }
 
-    public Application(int id, String block, int blockId, String date, String time, String appl,
+    public Application(int id, String block, String date, String time, String appl,
                        String target,
                        String product, String rate, String rateUnit, String
                                carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
-        this(block, blockId, date, time, appl, target, product, rate, rateUnit, carrierVol,
+        this(block, date, time, appl, target, product, rate, rateUnit, carrierVol,
                 appMethod,
                 weatherCondition, temp, windSpeed,
                 windDirection, notes);
         this.id = id;
     }
 
+
+    @ManyToOne
+    @JoinColumn(name = "block_id")
+    private Block block;
+
+    public void setBlock(Block block) {
+        this.block = block;
+    }
+
     //TODO: Change to single instances, combine
-    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "app_block_jtable",
-//            joinColumns = {@JoinColumn(name = "app_id"), @JoinColumn(name =
-//                    "appl_id")},
+//    @OneToMany(cascade = CascadeType.ALL)
+////    @JoinTable(name = "app_block_jtable",
+////            joinColumns = {@JoinColumn(name = "app_id"), @JoinColumn(name =
+////                    "appl_id")},
+////            inverseJoinColumns = @JoinColumn(name = "block_id"))
+//    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
 //            inverseJoinColumns = @JoinColumn(name = "block_id"))
-    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
-            inverseJoinColumns = @JoinColumn(name = "block_id"))
-    private Set<Block> blockSet;
+//    private Set<Block> blockSet;
 
 ////    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
 ////            inverseJoinColumns = @JoinColumn(name = "appl_id"))
@@ -111,13 +120,13 @@ public class Application implements Serializable {
 
 
 
-
-    public void setBlockProfile(Set<Block> block) {
-        //    private Block block;
-
-        this.blockSet = block;
-    }
-    public Set<Block> getBlockProfile(){ return blockSet;}
+//
+//    public void setBlockProfile(Set<Block> block) {
+//        //    private Block block;
+//
+//        this.blockSet = block;
+//    }
+//    public Set<Block> getBlockProfile(){ return blockSet;}
 
 //    public Set<ApplicatorProfile> getAppProfileSet() {
 //        return appProfileSet;
@@ -145,13 +154,13 @@ public class Application implements Serializable {
     }
 
 
-    public int getBlockId() {
-        return blockId;
-    }
-
-    public void setBlockId(int blockId) {
-        this.blockId = blockId;
-    }
+//    public int getBlockId() {
+//        return blockId;
+//    }
+//
+//    public void setBlockId(int blockId) {
+//        this.blockId = blockId;
+//    }
 
 
     public String getDate() {

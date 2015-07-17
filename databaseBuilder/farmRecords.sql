@@ -95,4 +95,6 @@ create table app_block_jtable (
 
 .separator ,
 .import farmProfile.txt farm_profile
-
+.import block_profile.txt block_profile
+.import applicator_profile.txt applicator_profile
+.import product_profile.txt product_profile

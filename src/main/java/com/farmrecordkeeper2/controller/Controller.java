@@ -31,7 +31,7 @@ public class Controller {
     public void addAppl(AppFormEvent e){
         String block = e.getBlock();
         Block selectedBlock = e.getSelectedBlock();
-        int blockId = e.getBlockId();
+//        int blockId = e.getBlockId();
         String date = e.getDate();
         String time = e.getTime();
         String appl = e.getAppl();
@@ -51,18 +51,19 @@ public class Controller {
         System.out.println("Controller : " + block + date + time + appl + target + product +
                 rate + notes);
 
-        Application application = new Application (block, blockId, date, time, appl, target,
+        Application application = new Application (block, date, time, appl, target,
                 product,
                 rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
                 windDirection, notes);
 
-        Set<Block> blockSet = new HashSet<Block>();
-        blockSet.add(selectedBlock);
+//        Set<Block> blockSet = new HashSet<Block>();
+//        blockSet.add(selectedBlock);
 
         Set<ApplicatorProfile> appProfileSet = new HashSet<ApplicatorProfile>();
         appProfileSet.add(selectedAppProfile);
 
-        application.setBlockProfile(blockSet);
+        application.setBlock(selectedBlock);
+//        application.setBlockProfile(blockSet);
 //        application.setAppProfileSet(appProfileSet);
         save(application);
     }
