@@ -44,7 +44,7 @@ public class AppTableModel extends AbstractTableModel {
             case 0:
                 return application.getId();
             case 1:
-                return application.getBlock();
+                return application.getBlockName();
             case 2:
                 return application.getDate();
             case 3:

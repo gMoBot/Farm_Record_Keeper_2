@@ -101,6 +101,11 @@ public class Application implements Serializable {
         this.block = block;
     }
 
+    public Block getBlock(){
+        return block;
+    }
+
+
     //TODO: Change to single instances, combine
 //    @OneToMany(cascade = CascadeType.ALL)
 ////    @JoinTable(name = "app_block_jtable",
@@ -145,11 +150,11 @@ public class Application implements Serializable {
         this.id = id;
     }
 
-    public String getBlock() {
+    public String getBlockName() {
         return blockName;
     }
 
-    public void setBlock(String block) {
+    public void setBlockName(String block) {
         this.blockName = blockName;
     }
 
