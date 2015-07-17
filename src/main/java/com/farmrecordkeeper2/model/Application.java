@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "application_profile")
-public class Application implements Serializable{
+public class Application implements Serializable {
     public Application(){}
 
     private static int count = 1;
@@ -20,14 +20,16 @@ public class Application implements Serializable{
     private int id;
     @Column(name = "block_name")
     private String blockName;
-    @Column(name = "block_id")
-    private int blockId = 0;
+    @Column(name = "app_block_id")
+    private int blockId;
     @Column(name = "app_date")
     private String date;
     @Column(name = "app_time")
     private String time;
     @Column(name = "app_number")
     private String appl;
+    @Column(name = "app_appl_id")
+    private int applId;
     @Column(name = "target_pest")
     private String target;
     @Column(name = "product_name")
@@ -54,10 +56,12 @@ public class Application implements Serializable{
 //    private Block block;
 
 
-    public Application(String blockName, String date, String time, String appl, String target,
+    public Application(String blockName, int blockId, String date, String time, String appl, String
+            target,
                        String product, String rate, String rateUnit, String
                                carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
         this.blockName = blockName;
+        this.blockId = blockId;
         this.date = date;
         this.time = time;
         this.appl = appl;
@@ -77,20 +81,42 @@ public class Application implements Serializable{
         count++;
     }
 
-    public Application(int id, String block, String date, String time, String appl, String target,
+    public Application(int id, String block, int blockId, String date, String time, String appl,
+                       String target,
                        String product, String rate, String rateUnit, String
                                carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
-        this(block, date, time, appl, target, product, rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
+        this(block, blockId, date, time, appl, target, product, rate, rateUnit, carrierVol,
+                appMethod,
+                weatherCondition, temp, windSpeed,
                 windDirection, notes);
         this.id = id;
     }
 
+    //TODO: Change to single instances, combine
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "app_block_jtable",
-            joinColumns = @JoinColumn(name = "app_id"),
+//    @JoinTable(name = "app_block_jtable",
+//            joinColumns = {@JoinColumn(name = "app_id"), @JoinColumn(name =
+//                    "appl_id")},
+//            inverseJoinColumns = @JoinColumn(name = "block_id"))
+    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
             inverseJoinColumns = @JoinColumn(name = "block_id"))
     private Set<Block> blockSet;
 
+//    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
+//            inverseJoinColumns = @JoinColumn(name = "appl_id"))
+//    @JoinColumn(name = "app_id")
+    @OneToMany(mappedBy = "appl_id")
+    private Set<ApplicatorProfile> appProfileSet;
+
+
+
+//    @OneToMany(cascade = CascadeType.ALL)
+////    @JoinTable(name = "app_block_jtable",
+////            joinColumns = {@JoinColumn(name = "app_id"), @JoinColumn(name =
+////                    "block_id")},
+////            inverseJoinColumns = @JoinColumn(name = "appl_id"))
+//    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"), inverseJoinColumns = @JoinColumn(name = "appl_id"))
+////    @JoinColumn(name = "app_id")
 
     public void setBlockProfile(Set<Block> block) {
         //    private Block block;
@@ -98,6 +124,15 @@ public class Application implements Serializable{
         this.blockSet = block;
     }
     public Set<Block> getBlockProfile(){ return blockSet;}
+
+    public Set<ApplicatorProfile> getAppProfileSet() {
+        return appProfileSet;
+    }
+
+    public void setAppProfileSet(Set<ApplicatorProfile> appProfileSet) {
+        this.appProfileSet = appProfileSet;
+    }
+
 
     public int getId() {
         return id;
@@ -114,6 +149,16 @@ public class Application implements Serializable{
     public void setBlock(String block) {
         this.blockName = blockName;
     }
+
+
+    public int getBlockId() {
+        return blockId;
+    }
+
+    public void setBlockId(int blockId) {
+        this.blockId = blockId;
+    }
+
 
     public String getDate() {
         return date;
@@ -186,6 +231,16 @@ public class Application implements Serializable{
     public void setAppMethod(String appMethod) {
         this.appMethod = appMethod;
     }
+
+
+    public int getApplId() {
+        return applId;
+    }
+
+    public void setApplId(int applId) {
+        this.applId = applId;
+    }
+
 
     public String getWeatherCondition() {
         return weatherCondition;

@@ -1,5 +1,6 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.ApplicatorProfile;
 import main.java.com.farmrecordkeeper2.model.Block;
 
 import java.util.EventObject;
@@ -11,9 +12,11 @@ public class AppFormEvent extends EventObject {
 
     private String block;
     private Block selectedBlock;
+    private int blockId;
     private String date;
     private String time;
     private String appl;
+    private ApplicatorProfile applProfile;
     private String target;
     private String product;
     private String rate;
@@ -26,16 +29,19 @@ public class AppFormEvent extends EventObject {
     private String windDirection;
     private String notes;
 
-    public AppFormEvent(Object source, Block selectedBlock, String block, String date, String time,
+    public AppFormEvent(Object source, Block selectedBlock, int blockId, String block, String date,
+                        String time,
                         String
-            appl,
+            appl, ApplicatorProfile applProfile,
                         String target, String product, String rate, String rateUnit, String carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes) {
         super(source);
         this.block = block;
         this.selectedBlock = selectedBlock;
+        this.blockId = blockId;
         this.date = date;
         this.time = time;
         this.appl = appl;
+        this.applProfile = applProfile;
         this.target = target;
         this.product = product;
         this.rate = rate;
@@ -51,12 +57,25 @@ public class AppFormEvent extends EventObject {
 
     public Block getSelectedBlock(){return selectedBlock;}
 
+
+    public ApplicatorProfile getApplProfile() {
+        return applProfile;
+    }
+
+    public void setApplProfile(ApplicatorProfile applProfile) {
+        this.applProfile = applProfile;
+    }
+
     public String getBlock() {
         return block;
     }
 
     public void setBlock(String block) {
         this.block = block;
+    }
+
+    public int getBlockId() {
+        return blockId;
     }
 
     public String getDate() {
