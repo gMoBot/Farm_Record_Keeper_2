@@ -26,7 +26,6 @@ public class Controller {
         this.db = db;
     }
 
-
     public void addAppl(AppFormEvent e){
         String block = e.getBlock();
         Block selectedBlock = e.getSelectedBlock();
@@ -75,9 +74,6 @@ public class Controller {
         db.save(application);
     }
 
-    public void loadFromFile(File file) throws IOException{
-        db.loadFromFile(file);
-    }
 
     public void saveMIDataToFile(File file) throws IOException{
         db.saveMIRecordsToFile(file);
@@ -124,7 +120,6 @@ public class Controller {
         Float blockSize = e.getSize();
         String blockCrop = e.getBlockCrop();
 
-        //TODO: store/access farmid
         int farmid = 1;
 
         Block block = new Block(farmid, blockName, streetAddress, stateCode, city, zipCode,

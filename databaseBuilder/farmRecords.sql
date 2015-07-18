@@ -4,7 +4,6 @@ drop table if exists block_profile;
 drop table if exists application_profile;
 drop table if exists product_profile;
 drop table if exists applicator_profile;
-drop table if exists app_block_jtable;
 
 create table farm_profile (
 	farm_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,8 +64,6 @@ create table application_profile (
 	wind_direction char (20),
 	FOREIGN KEY(farm_id) references farm_profile(farm_id),
 	FOREIGN KEY(block_id) references block_profile(block_id),
---remove fk desig from blockName
---	FOREIGN KEY(block_name) references block_profile(block_name),
 	FOREIGN KEY(prod_id) references product_profile(prod_id),
 	FOREIGN KEY(appl_id) references applicator_profile(appl_id)
 );
@@ -82,21 +79,6 @@ create table product_profile (
  FOREIGN KEY(farm_id) references farm_profile(farm_id)
 
 );
-
---create table app_block_jtable (
---		app_id INTEGER NOT NULL UNIQUE,
---		block_id INTEGER NOT NULL,
---		PRIMARY KEY (app_id, block_id),
-----		UNIQUE KEY app_id_UNIQUE (app_id),
-----		KEY fk_app (app_id),
-----		KEY fk_block (block_id),
-----		CONSTRAINT fk_app
---		FOREIGN KEY (app_id) REFERENCES application_profile (app_id),
-----		CONSTRAINT fk_block
---		FOREIGN KEY (block_id) REFERENCES block_profile (block_id)
---
---);
-
 
 .separator ,
 .import farmProfile.txt farm_profile

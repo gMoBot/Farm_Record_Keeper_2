@@ -34,7 +34,6 @@ public class AppConfig {
     @Bean(name = "databaseService")
     public DatabaseService getDatabaseService(){
         DatabaseService databaseService = new DatabaseService();
-//        databaseService.setDatabaseDAO(getDatabaseDAO());
         return databaseService;
     }
 

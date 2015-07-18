@@ -20,16 +20,12 @@ public class Application implements Serializable {
     private int id;
     @Column(name = "block_name")
     private String blockName;
-//    @Column(name = "block_id")
-//    private int blockId;
     @Column(name = "app_date")
     private String date;
     @Column(name = "app_time")
     private String time;
     @Column(name = "app_number")
     private String appl;
-//    @Column(name = "app_appl_id")
-//    private int applId;
     @Column(name = "target_pest")
     private String target;
     @Column(name = "product_name")
@@ -253,5 +249,4 @@ public class Application implements Serializable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
-
 }

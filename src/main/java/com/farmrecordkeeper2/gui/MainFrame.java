@@ -391,7 +391,7 @@ public class MainFrame extends JFrame{
         JMenuItem exportMIDataItem = new JMenuItem("Export MI Data...");
         JMenuItem exportFederalDataItem = new JMenuItem("Export Federal Data...");
         JMenuItem exportProcessorDataItem = new JMenuItem("Export Processor Data...");
-        JMenuItem importDataItem = new JMenuItem("Import Data...");
+
         JMenuItem exitItem = new JMenuItem("Exit");
 
         JMenuItem prefsItem = new JMenuItem("Preferences...");
@@ -401,7 +401,6 @@ public class MainFrame extends JFrame{
         fileMenu.add(exportMIDataItem);
         fileMenu.add(exportProcessorDataItem);
         fileMenu.add(exportFederalDataItem);
-        fileMenu.add(importDataItem);
         fileMenu.addSeparator();
         fileMenu.add(exitItem);
 
@@ -425,21 +424,6 @@ public class MainFrame extends JFrame{
 
         exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.META_MASK));
 
-        importDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
-
-        importDataItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (jFileChooser.showOpenDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
-                    try {
-                        controller.loadFromFile(jFileChooser.getSelectedFile());
-                    } catch (IOException e1) {
-                        JOptionPane.showMessageDialog(MainFrame.this, "Could not load data from " +
-                                "file", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        });
 
         // Look and Feel component here is strange, but seems to be specific to mac... //
         // could implement custom Look and Feel to try and improve //

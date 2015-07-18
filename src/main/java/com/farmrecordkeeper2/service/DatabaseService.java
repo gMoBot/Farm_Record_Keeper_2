@@ -24,28 +24,11 @@ public class DatabaseService {
 
     @Autowired
     public DatabaseService(DatabaseDAO databaseDAO){
-        System.out.print("constructing databaseDAO");
-        this.databaseDAO = databaseDAO;
-    }
-
-    public void setDatabaseDAO(DatabaseDAO databaseDAO){
         this.databaseDAO = databaseDAO;
     }
 
     private List<Application> applicationList;
 
-//    private
-    public void DatabaseService(){
-        applicationList = new LinkedList<Application>();
-    }
-
-    public void addApplication(Application application){
-        applicationList.add(application);
-    }
-
-    public List<Application> getApplicationList(){
-        return Collections.unmodifiableList(applicationList);
-    }
     public void saveMIRecordsToFile(File file) throws IOException{
         FileWriter fw = new FileWriter(file);
 
@@ -114,13 +97,10 @@ public class DatabaseService {
 
 
     public void saveProcessorRecordsToFile(File file) throws IOException{
-//        FileOutputStream fos = new FileOutputStream(file);
         FileWriter fw = new FileWriter(file);
-//        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        //TODO: Load app list, iterate through to add data to array of correct type //
 
         List<Application> allApps = databaseDAO.getApplications();
+
         String processorHeaders = ("Product Name, EPA Number, Amount/Acre, Date, Time, Block, " +
                 "Crop, " +
                 "Block " +
@@ -162,21 +142,15 @@ public class DatabaseService {
             fw.append("\n");
         }
 
-
-//        oos.writeObject(applicationsArray);
-
         fw.flush();
         fw.close();
     }
 
     public void saveFedRecordsToFile(File file) throws IOException{
-//        FileOutputStream fos = new FileOutputStream(file);
         FileWriter fw = new FileWriter(file);
-//        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        //TODO: Load app list, iterate through to add data to array of correct type //
 
         List<Application> allApps = databaseDAO.getApplications();
+
         String fedHeaders = ("Product Name, EPA Number, Amount/Acre, Date, Time, Block, Crop, " +
                 "Block " +
                 "Size, Applicator, Applicator Number, Active Ingredients, REI\n");
@@ -215,35 +189,13 @@ public class DatabaseService {
             fw.append("\n");
         }
 
-
-//        oos.writeObject(applicationsArray);
-
         fw.flush();
         fw.close();
     }
 
-    public void loadFromFile(File file) throws IOException{
-        FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-
-        try {
-            Application[] applicationArray = (Application[]) ois.readObject();
-
-            applicationList.clear();
-            applicationList.addAll(Arrays.asList(applicationArray));
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        ois.close();
-    }
 
     public void removeApplicationAtIndex(int row){
-//        applicationList.remove(row);
-//        int adjRow = row - 1;
         databaseDAO.removeSelectedApplication(row);
-
-        //TODO: remove row from DB
     }
 
 
@@ -254,7 +206,6 @@ public class DatabaseService {
 
 
     public void save(Application application) {
-        //TODO:Implement saveorupdate
         databaseDAO.saveApplication(application);
     }
 
@@ -299,11 +250,7 @@ public class DatabaseService {
 
     public void save(Product product){
         databaseDAO.saveProduct(product);
-
     }
 
     public void removeSelectedProduct(int row){databaseDAO.removeSelectedProduct(row); }
-
-//    public List getAllInfo() { List info = databaseDAO.getAllInfo(); return info;
-//    }
 }
