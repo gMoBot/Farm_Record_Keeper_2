@@ -90,7 +90,7 @@ public class Application implements Serializable {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "block_id")
     private Block block;
 
@@ -103,7 +103,7 @@ public class Application implements Serializable {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "appl_id")
     private ApplicatorProfile applicatorProfile;
 
@@ -116,7 +116,7 @@ public class Application implements Serializable {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "prod_id")
     private Product product;
 
