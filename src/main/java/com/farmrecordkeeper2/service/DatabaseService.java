@@ -280,10 +280,6 @@ public class DatabaseService {
         databaseDAO.removeSelectedBlock(row);
     }
 
-//    public void doSomething(){
-//        databaseDAO.doSomething();
-//    }
-
     public void save(ApplicatorProfile applicatorProfile) {
         databaseDAO.saveApplicatorProfile(applicatorProfile);
     }

@@ -23,7 +23,6 @@ public class Controller {
     public DatabaseService db;
 
     public void setDatabaseService(DatabaseService db){
-        System.out.print("setting databaseService");
         this.db = db;
     }
 
@@ -31,7 +30,6 @@ public class Controller {
     public void addAppl(AppFormEvent e){
         String block = e.getBlock();
         Block selectedBlock = e.getSelectedBlock();
-//        int blockId = e.getBlockId();
         String date = e.getDate();
         String time = e.getTime();
         String appl = e.getAppl();
@@ -49,25 +47,15 @@ public class Controller {
         String windDirection = e.getWindDirection();
         String notes = e.getNotes();
 
-        System.out.println("Controller : " + block + date + time + appl + target + productName +
-                rate + notes);
-
         Application application = new Application (block, date, time, appl, target,
                 productName,
                 rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
                 windDirection, notes);
 
-//        Set<Block> blockSet = new HashSet<Block>();
-//        blockSet.add(selectedBlock);
-
-//        Set<ApplicatorProfile> appProfileSet = new HashSet<ApplicatorProfile>();
-//        appProfileSet.add(selectedAppProfile);
-
         application.setBlock(selectedBlock);
         application.setApplicatorProfile(selectedAppProfile);
         application.setProduct(selectedProduct);
-//        application.setBlockProfile(blockSet);
-//        application.setAppProfileSet(appProfileSet);
+
         save(application);
     }
 
@@ -78,14 +66,10 @@ public class Controller {
             System.out.print("No Applications Found");
         }
         else {
-            //TODO: Load into table
             System.out.print("Applications Found");
         }
         return appList;
-
-
     }
-
 
     public void save(Application application) {
         db.save(application);
@@ -108,10 +92,6 @@ public class Controller {
     public void removeApplication(int row){
         db.removeApplicationAtIndex(row);
     }
-
-//    public void doSomething(){
-//        db.doSomething();
-//    }
 
     public List<Farm> getFarm(){
         List<Farm> returnedfarm = db.getFarm();
@@ -172,7 +152,7 @@ public class Controller {
         String city = e.getCity();
         String zipCode = e.getZipcode();
 
-        //TODO: store/access farmid
+        // Farmid could be expanded if app is used for multiple farms //
         int farmid = 1;
 
         ApplicatorProfile applicatorProfile = new ApplicatorProfile(farmid, applName,
@@ -199,7 +179,6 @@ public class Controller {
 
         Product product = new Product(farmid, productName, activeIngredient, epaNumber, rei, phi);
         save(product);
-
     }
 
     public void save(Product product){
@@ -210,17 +189,13 @@ public class Controller {
         db.removeSelectedProduct(row);
     }
 
-
     public List<ApplicatorProfile> getApplicatorProfiles() {
         List<ApplicatorProfile> applicators = db.getApplicatorProfiles();
         return applicators;
-
     }
 
     public void removeApplicator(int row) {
         db.removeApplicatorAtIndex(row);
     }
 
-//    public List getAllInfo() { List info = db.getAllInfo(); return info;
-//    }
 }

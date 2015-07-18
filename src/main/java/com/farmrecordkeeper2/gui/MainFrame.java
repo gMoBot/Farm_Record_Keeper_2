@@ -38,26 +38,12 @@ public class MainFrame extends JFrame{
     private ProductTablePanel productTablePanel;
 
 
-
-    //TODO: intercept window closing to disconnect from db-maybe different with hiberate-check
-
     public MainFrame(){
         super("Farm Records App");
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
         controller = context.getBean("controller", Controller.class);
-//        controller.doSomething();
-//       List info = controller.getAllInfo();
-//        for(Object object : info){
-//           System.out.println(object.toString());
-//        }
-
-
-//        List<Product> enteredProducts = getProducts();
-//        List<Block> enteredBlocks = getBlocks();
-//        List<ApplicatorProfile> enteredApplicators = getApplicatorProfiles();
-
 
         toolBar = new ToolBar();
         appTablePanel = new AppTablePanel();
@@ -101,8 +87,6 @@ public class MainFrame extends JFrame{
         prefsDialog.setPrefsListener(new PrefsListener() {
             @Override
             public void preferencesSet(String user, String password, int port) {
-                System.out.println(user + ";" + password + ";" + port);
-
                 preferences.put("user", user);
                 preferences.put("password", password);
                 preferences.putInt("port", port);
@@ -143,9 +127,6 @@ public class MainFrame extends JFrame{
 
             @Override
             public void editFarmEventOccurred() {
-                System.out.print("Editing Farm...");
-                //TODO: replicate for other form buttons and app button
-//                controller.edit();
                 remove(appFormPanel);
                 remove(blockFormPanel);
                 remove(applProfileFormPanel);
@@ -156,18 +137,12 @@ public class MainFrame extends JFrame{
 
                 add(farmFormPanel, BorderLayout.WEST);
                 farmFormPanel.setVisible(true);
-//                appFormPanel.setVisible(false);
-//                blockFormPanel.setVisible(false);
-//                applProfileFormPanel.setVisible(false);
-//                productFormPanel.setVisible(false);
-
                 revalidate();
                 repaint();
             }
 
             @Override
             public void newBlockEventOccurred() {
-                System.out.print("New Block...");
                 remove(appFormPanel);
                 remove(farmFormPanel);
                 remove(applProfileFormPanel);
@@ -210,25 +185,20 @@ public class MainFrame extends JFrame{
                 productFormPanel = new ProductFormPanel();
                 setProductFormListener();
 
-
                 add(productFormPanel, BorderLayout.WEST);
                 productFormPanel.setVisible(true);
 
                 revalidate();
                 repaint();
-
             }
 
             @Override
             public void showAppsEventOccurred() {
-
                 remove(blockTablePanel);
                 remove(applicatorTablePanel);
                 remove(productTablePanel);
                 setApplicationTableListener();
 
-                //TODO: refresh Table Data
-                System.out.print("refresh");
                 appTablePanel.setData(controller.getApplications());
 
                 add(appTablePanel, BorderLayout.CENTER);
@@ -295,7 +265,6 @@ public class MainFrame extends JFrame{
         blockTablePanel.setBlockTableListener(new BlockTableListener() {
             @Override
             public void rowDeleted(int row) {
-                System.out.println(row);
                 controller.removeBlock(row);
                 blockTablePanel.setData(controller.getBlocks());
                 blockTablePanel.refresh();
@@ -307,7 +276,6 @@ public class MainFrame extends JFrame{
         appTablePanel.setApplicationTableListener(new ApplicationTableListener() {
             @Override
             public void rowDeleted(int row) {
-                System.out.println(row);
                 controller.removeApplication(row);
                 appTablePanel.setData(controller.getApplications());
                 appTablePanel.refresh();
@@ -319,9 +287,7 @@ public class MainFrame extends JFrame{
         applicatorTablePanel.setApplicatorTableListener(new ApplicatorTableListener() {
             @Override
             public void rowDeleted(int row) {
-                System.out.println(row);
                 controller.removeApplicator(row);
-
                 applicatorTablePanel.setData(controller.getApplicatorProfiles());
                 applicatorTablePanel.refresh();
             }
@@ -332,9 +298,7 @@ public class MainFrame extends JFrame{
         productTablePanel.setProductTableListener(new ProductTableListener() {
             @Override
             public void rowDeleted(int row) {
-                System.out.println(row);
                 controller.removeProduct(row);
-
                 productTablePanel.setData(controller.getProducts());
                 productTablePanel.refresh();
             }
@@ -345,11 +309,6 @@ public class MainFrame extends JFrame{
         productFormPanel.setProductFormListener(new ProductFormListener() {
             @Override
             public void productFormEventOccurred(ProductFormEvent e) {
-                String productName = e.getProductName();
-                String epaNumber = e.getEpaNumber();
-                String rei = e.getReiHrs();
-                String phi = e.getPhiDays();
-
                 controller.addProduct(e);
 
                 if(productTablePanel != null){
@@ -364,13 +323,6 @@ public class MainFrame extends JFrame{
         applProfileFormPanel.setApplProfileFormListener(new ApplProfileFormListener() {
             @Override
             public void applProfileFormEventOccurred(ApplProfileFormEvent e) {
-                String applName = e.getApplName();
-                String licenseNumber = e.getLicenseNumber();
-                String streetAddress = e.getStreetAddress();
-                String stateCode = e.getStateCode();
-                String city = e.getCity();
-                String zipCode = e.getZipcode();
-
                 controller.addApplProfile(e);
 
                 if (applicatorTablePanel != null) {
@@ -385,15 +337,6 @@ public class MainFrame extends JFrame{
         farmFormPanel.setFarmFormListener(new FarmFormListener() {
             @Override
             public void farmFormEventOccurred(FarmFormEvent e) {
-                String farmName = e.getFarmName();
-                String ownerName = e.getOwnerName();
-                String streetAddress = e.getStreetAddress();
-                String stateCode = e.getStateCode();
-                String city = e.getCity();
-                String zipCode = e.getZipcode();
-
-                System.out.println("Main Frame :" + farmName + ownerName);
-
                 controller.editFarm(e);
             }
         });
@@ -403,18 +346,6 @@ public class MainFrame extends JFrame{
         appFormPanel.setApplFormListener(new ApplFormListener() {
             @Override
             public void appFormEventOccurred(AppFormEvent e) {
-                String block = e.getBlock();
-                String date = e.getDate();
-                String time = e.getTime();
-                String appl = e.getAppl();
-                String target = e.getTarget();
-                String product = e.getProductName();
-                String rate = e.getRate();
-                String notes = e.getNotes();
-
-                System.out.println("Main frame: " + block + date + time + appl + target + product +
-                        rate + notes + "\n");
-
                 controller.addAppl(e);
 
                 if(appTablePanel != null) {
@@ -429,17 +360,6 @@ public class MainFrame extends JFrame{
         blockFormPanel.setBlockFormListener(new BlockFormListener() {
             @Override
             public void blockFormEventOccurred(BlockFormEvent e) {
-                String blockName = e.getBlockName();
-                String streetAddress = e.getStreetAddress();
-                String stateCode = e.getStateCode();
-                String city = e.getCity();
-                String zipCode = e.getZipcode();
-                Float blockSize = e.getSize();
-                String blockCrop = e.getBlockCrop();
-
-                System.out.println("New Block: " + blockName + streetAddress + stateCode + city +
-                        zipCode);
-
                 controller.addBlock(e);
                 if (blockTablePanel != null) {
                     blockTablePanel.setData(controller.getBlocks());
@@ -456,7 +376,6 @@ public class MainFrame extends JFrame{
     private List<ApplicatorProfile> getApplicatorProfiles() {
         return controller.getApplicatorProfiles();
     }
-
 
     private Farm getFarm(){
         return controller.getFarm().get(0);
@@ -477,19 +396,8 @@ public class MainFrame extends JFrame{
         JMenuItem importDataItem = new JMenuItem("Import Data...");
         JMenuItem exitItem = new JMenuItem("Exit");
 
-        JMenu showMenu = new JMenu("Show");
-
         JMenuItem prefsItem = new JMenuItem("Preferences...");
 
-        JCheckBoxMenuItem showAppFormItem = new JCheckBoxMenuItem("Application Form");
-        showAppFormItem.setSelected(true);
-
-        JCheckBoxMenuItem showFarmFormItem = new JCheckBoxMenuItem("Farm Form");
-        showFarmFormItem.setSelected(false);
-
-        showMenu.add(showAppFormItem);
-        showMenu.add(showFarmFormItem);
-        windowMenu.add(showMenu);
         windowMenu.add(prefsItem);
 
         fileMenu.add(exportMIDataItem);
@@ -506,23 +414,6 @@ public class MainFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 prefsDialog.setVisible(true);
-            }
-        });
-
-        //TODO:REMOVE //
-        showAppFormItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
-                appFormPanel.setVisible(menuItem.isSelected());
-            }
-        });
-
-        showFarmFormItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JCheckBoxMenuItem menuItem = (JCheckBoxMenuItem) e.getSource();
-                appFormPanel.setVisible(menuItem.isSelected());
             }
         });
 

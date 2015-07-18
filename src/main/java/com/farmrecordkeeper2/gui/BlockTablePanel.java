@@ -52,9 +52,6 @@ public class BlockTablePanel extends JPanel{
                 int row = table.getSelectedRow();
                 int id = (int) blockTableModel.getValueAt(row, 0);
 
-
-                System.out.println(row + id + "Removing item");
-
                 if (blockTableListener != null) {
                     blockTableListener.rowDeleted(id);
                     blockTableModel.fireTableRowsDeleted(row, row);

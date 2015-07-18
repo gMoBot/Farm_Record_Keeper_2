@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Created by garrettcoggon on 7/7/15.
  */
-//@Repository
 public interface DatabaseDAO {
 
     public List<Application> getApplications();
@@ -25,10 +24,4 @@ public interface DatabaseDAO {
     public List<Product> getProducts();
     public void saveProduct(Product product);
     public void removeSelectedProduct(int row);
-
-//    public void doSomething();
-
-
-//    public List getAllInfo();
-
 }

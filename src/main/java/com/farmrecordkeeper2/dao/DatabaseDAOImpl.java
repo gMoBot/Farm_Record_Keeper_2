@@ -27,7 +27,6 @@ public class DatabaseDAOImpl implements DatabaseDAO {
     private SessionFactory sessionFactoryBean;
 
     public DatabaseDAOImpl(SessionFactory sessionFactoryBean) {
-        System.out.println("Setting daoimpl sessionfactorybean");
         this.sessionFactoryBean = sessionFactoryBean;
     }
 
@@ -143,25 +142,4 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         }
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
-
-//    public List getAllInfo() {
-//        sessionFactoryBean.getCurrentSession().beginTransaction();
-////        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
-////                .class);
-////        criteria.createAlias("block", "blockName", JoinType.LEFT_OUTER_JOIN);
-//        DetachedCriteria appCriteria = DetachedCriteria.forClass(Application.class);
-//        appCriteria.setProjection(Property.forName("blockName"));
-//        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Block.class);
-//        criteria.add(Property.forName("blockName").in(appCriteria));
-//        List list = criteria.list();
-//        sessionFactoryBean.getCurrentSession().getTransaction().commit();
-//        return list;
-//
-////        System.out.println(String.valueOf(list.get(0).toString()));
-//
-//    }
-//
-//    public void doSomething(){
-//        System.out.println("Doing something from the dao...");
-//    }
 }
