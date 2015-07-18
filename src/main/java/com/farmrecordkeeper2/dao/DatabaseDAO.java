@@ -26,9 +26,9 @@ public interface DatabaseDAO {
     public void saveProduct(Product product);
     public void removeSelectedProduct(int row);
 
-    public void doSomething();
+//    public void doSomething();
 
 
-    public List getAllInfo();
+//    public List getAllInfo();
 
 }

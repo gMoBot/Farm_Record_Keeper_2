@@ -60,8 +60,8 @@ public class Controller {
 //        Set<Block> blockSet = new HashSet<Block>();
 //        blockSet.add(selectedBlock);
 
-        Set<ApplicatorProfile> appProfileSet = new HashSet<ApplicatorProfile>();
-        appProfileSet.add(selectedAppProfile);
+//        Set<ApplicatorProfile> appProfileSet = new HashSet<ApplicatorProfile>();
+//        appProfileSet.add(selectedAppProfile);
 
         application.setBlock(selectedBlock);
         application.setApplicatorProfile(selectedAppProfile);
@@ -109,9 +109,9 @@ public class Controller {
         db.removeApplicationAtIndex(row);
     }
 
-    public void doSomething(){
-        db.doSomething();
-    }
+//    public void doSomething(){
+//        db.doSomething();
+//    }
 
     public List<Farm> getFarm(){
         List<Farm> returnedfarm = db.getFarm();
@@ -221,6 +221,6 @@ public class Controller {
         db.removeApplicatorAtIndex(row);
     }
 
-    public List getAllInfo() { List info = db.getAllInfo(); return info;
-    }
+//    public List getAllInfo() { List info = db.getAllInfo(); return info;
+//    }
 }

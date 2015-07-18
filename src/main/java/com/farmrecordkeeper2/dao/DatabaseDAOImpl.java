@@ -100,7 +100,7 @@ public class DatabaseDAOImpl implements DatabaseDAO {
     public List<ApplicatorProfile> getApplicatorProfiles() {
         sessionFactoryBean.getCurrentSession().beginTransaction();
         Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(ApplicatorProfile.class);
-        criteria.add(Restrictions.isNotNull("farmId"));
+        criteria.add(Restrictions.isNotNull("applId"));
         List list = criteria.list();
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
         return list;
@@ -123,7 +123,7 @@ public class DatabaseDAOImpl implements DatabaseDAO {
     public List<Product> getProducts() {
         sessionFactoryBean.getCurrentSession().beginTransaction();
         Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Product.class);
-        criteria.add(Restrictions.isNotNull("farmId"));
+        criteria.add(Restrictions.isNotNull("prodId"));
         List list = criteria.list();
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
         return list;
@@ -144,24 +144,24 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
 
-    public List getAllInfo() {
-        sessionFactoryBean.getCurrentSession().beginTransaction();
-//        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
-//                .class);
-//        criteria.createAlias("block", "blockName", JoinType.LEFT_OUTER_JOIN);
-        DetachedCriteria appCriteria = DetachedCriteria.forClass(Application.class);
-        appCriteria.setProjection(Property.forName("blockName"));
-        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Block.class);
-        criteria.add(Property.forName("blockName").in(appCriteria));
-        List list = criteria.list();
-        sessionFactoryBean.getCurrentSession().getTransaction().commit();
-        return list;
-
-//        System.out.println(String.valueOf(list.get(0).toString()));
-
-    }
-
-    public void doSomething(){
-        System.out.println("Doing something from the dao...");
-    }
+//    public List getAllInfo() {
+//        sessionFactoryBean.getCurrentSession().beginTransaction();
+////        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
+////                .class);
+////        criteria.createAlias("block", "blockName", JoinType.LEFT_OUTER_JOIN);
+//        DetachedCriteria appCriteria = DetachedCriteria.forClass(Application.class);
+//        appCriteria.setProjection(Property.forName("blockName"));
+//        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Block.class);
+//        criteria.add(Property.forName("blockName").in(appCriteria));
+//        List list = criteria.list();
+//        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+//        return list;
+//
+////        System.out.println(String.valueOf(list.get(0).toString()));
+//
+//    }
+//
+//    public void doSomething(){
+//        System.out.println("Doing something from the dao...");
+//    }
 }

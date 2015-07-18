@@ -1,2 +1,2 @@
-0,aProduct,1,12345,someChemical,12,21
-1,otherProduct,1,9876,anotherChemical,34,32
+1,aProduct,1,12345,someChemical,12,21
+2,otherProduct,1,9876,anotherChemical,34,32

@@ -51,7 +51,6 @@ public class ApplicatorProfile implements Serializable{
         this.farmId = farmId;
     }
 
-
     public int getApplId() {
         return applId;
     }

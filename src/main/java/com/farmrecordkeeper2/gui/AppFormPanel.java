@@ -192,45 +192,6 @@ public class AppFormPanel extends JPanel {
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
 
-//        okButton.setEnabled(false);
-
-//        blockList.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JComboBox cb = (JComboBox) e.getSource();
-//                int selectedValue = cb.getSelectedIndex();
-//                if (selectedValue != -1) {
-//                    selectionCount++;
-//                }
-//            }
-//        });
-//
-//        appList.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JComboBox cb = (JComboBox) e.getSource();
-//                int selectedValue = cb.getSelectedIndex();
-//                if (selectedValue != -1) {
-//                    selectionCount++;
-//                }
-//            }
-//        });
-//
-//        productList.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                JComboBox cb = (JComboBox) e.getSource();
-//                int selectedValue = cb.getSelectedIndex();
-//                if (selectedValue != -1) {
-//                    selectionCount++;
-//                }
-//            }
-//        });
-
-//        //TODO: this wont work in this spot-needs to persist
-//        while (selectionCount >= 3){
-//            okButton.setEnabled(true);
-//        }
 
         // Set OK Button
         okButton.addActionListener(new ActionListener() {
