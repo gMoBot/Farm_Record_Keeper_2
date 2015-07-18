@@ -481,7 +481,7 @@ public class MainFrame extends JFrame{
         JMenu fileMenu = new JMenu("File");
         JMenu windowMenu = new JMenu("Window");
 
-        JMenuItem exportAllDataItem = new JMenuItem("Export All Data...");
+        JMenuItem exportMIDataItem = new JMenuItem("Export MI Data...");
         JMenuItem exportFederalDataItem = new JMenuItem("Export Federal Data...");
         JMenuItem exportProcessorDataItem = new JMenuItem("Export Processor Data...");
         JMenuItem importDataItem = new JMenuItem("Import Data...");
@@ -502,7 +502,7 @@ public class MainFrame extends JFrame{
         windowMenu.add(showMenu);
         windowMenu.add(prefsItem);
 
-        fileMenu.add(exportAllDataItem);
+        fileMenu.add(exportMIDataItem);
         fileMenu.add(exportProcessorDataItem);
         fileMenu.add(exportFederalDataItem);
         fileMenu.add(importDataItem);
@@ -564,12 +564,12 @@ public class MainFrame extends JFrame{
 
         // Look and Feel component here is strange, but seems to be specific to mac... //
         // could implement custom Look and Feel to try and improve //
-        exportAllDataItem.addActionListener(new ActionListener() {
+        exportMIDataItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jFileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                     try {
-                        controller.saveAllDataToFile(jFileChooser.getSelectedFile());
+                        controller.saveMIDataToFile(jFileChooser.getSelectedFile());
                     } catch (IOException e1) {
                         JOptionPane.showMessageDialog(MainFrame.this, "Could not save data to " +
                                 "file", "Error", JOptionPane.ERROR_MESSAGE);

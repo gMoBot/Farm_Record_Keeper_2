@@ -46,17 +46,14 @@ public class DatabaseService {
     public List<Application> getApplicationList(){
         return Collections.unmodifiableList(applicationList);
     }
-    public void saveAllRecordsToFile(File file) throws IOException{
+    public void saveMIRecordsToFile(File file) throws IOException{
         FileWriter fw = new FileWriter(file);
-//        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        //TODO: Load app list, iterate through to add data to array of correct type //
 
         List<Application> allApps = databaseDAO.getApplications();
         String allHeaders = ("App Id, Product Name, EPA Number, Amount/Acre, Date, Time, Block, " +
-                "Crop, " +
-                "Block " +
-                "Size, Applicator, Applicator Number, Active Ingredients, REI, PHI\n");
+                "Crop, " + "Block Size, Applicator, Applicator Number, Active Ingredients, REI, " +
+                "PHI, Target Pest, Carrier Vol, App Method, Weather Condition, Temp, Wind Speed, " +
+                "Wind Direction, App Notes\n");
 
 
         Application[] applicationsArray = allApps.toArray(new Application[allApps.size()]);
@@ -92,11 +89,24 @@ public class DatabaseService {
             fw.append(application.getProduct().getReiHrs());
             fw.append(",");
             fw.append(application.getProduct().getPhiDays());
+            fw.append(",");
+            fw.append(application.getTarget());
+            fw.append(",");
+            fw.append(application.getCarrierVol());
+            fw.append(",");
+            fw.append(application.getAppMethod());
+            fw.append(",");
+            fw.append(application.getWeatherCondition());
+            fw.append(",");
+            fw.append(application.getTemp());
+            fw.append(",");
+            fw.append(application.getWindSpeed());
+            fw.append(",");
+            fw.append(application.getWindDirection());
+            fw.append(",");
+            fw.append(application.getNotes());
             fw.append("\n");
         }
-
-
-//        oos.writeObject(applicationsArray);
 
         fw.flush();
         fw.close();
