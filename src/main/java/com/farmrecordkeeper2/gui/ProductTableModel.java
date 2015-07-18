@@ -11,7 +11,6 @@ import java.util.List;
  */
 public class ProductTableModel extends AbstractTableModel {
 
-
     private List<Product> db;
     private String[] colNames = {"Id", "Product Name", "Active Ingredient", "EPA Number", "REI hrs",
             "PHI days"};

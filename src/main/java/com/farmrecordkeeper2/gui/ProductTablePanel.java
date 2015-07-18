@@ -32,14 +32,10 @@ public class ProductTablePanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 int row = table.rowAtPoint(e.getPoint());
-
                 table.getSelectionModel().setSelectionInterval(row, row);
 
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     popupMenu.show(table, e.getX(), e.getY());
-
-                    System.out.println(row);
-
                 }
             }
         });
@@ -50,22 +46,16 @@ public class ProductTablePanel extends JPanel {
                 int row = table.getSelectedRow();
                 int id = (int) productTableModel.getValueAt(row, 0);
 
-
-                System.out.println(row + id + "Removing item");
-
                 if (productTableListener != null) {
                     productTableListener.rowDeleted(id);
                     productTableModel.fireTableRowsDeleted(row, row);
                 }
-
             }
         });
 
         table.getColumnModel().getColumn(0).setPreferredWidth(10);
         setLayout(new BorderLayout());
         add(new JScrollPane(table), BorderLayout.CENTER);
-
-
     }
 
     public void setData(java.util.List<Product> db){

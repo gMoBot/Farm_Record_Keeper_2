@@ -59,7 +59,6 @@ public class ToolBar extends JPanel implements ActionListener {
         add(showBlocksButton);
         add(showAppProfileButton);
         add(showProductsButton);
-
     }
 
     public void setToolBarListener(ToolBarListener toolBarListener){
@@ -119,7 +118,5 @@ public class ToolBar extends JPanel implements ActionListener {
                 toolBarListener.newBlockEventOccurred();
             }
         }
-
     }
-
 }

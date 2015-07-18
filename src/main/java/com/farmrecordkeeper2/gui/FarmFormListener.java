@@ -6,7 +6,5 @@ import java.util.EventListener;
  * Created by garrettcoggon on 7/9/15.
  */
 public interface FarmFormListener extends EventListener {
-
     public void farmFormEventOccurred(FarmFormEvent e);
-
 }

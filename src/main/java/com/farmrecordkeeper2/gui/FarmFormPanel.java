@@ -77,11 +77,7 @@ public class FarmFormPanel extends JPanel {
                 String city = cityField.getText();
                 String zipCode = zipcodeField.getText();
 
-                //TODO: implement data handling
-
                 int farmId = 0;
-
-                System.out.println(farmName + ownerName);
 
                 FarmFormEvent ev = new FarmFormEvent(e, farmId, farmName, ownerName, streetAddress,
                         stateCode, city, zipCode);
@@ -89,7 +85,6 @@ public class FarmFormPanel extends JPanel {
                 if(farmFormListener != null){
                     farmFormListener.farmFormEventOccurred(ev);
                 }
-
             }
         });
 
@@ -249,12 +244,9 @@ public class FarmFormPanel extends JPanel {
         gc.insets = leftInsets;
 
         add(okButton, gc);
-
-
     }
 
     public void setFarmFormListener(FarmFormListener farmFormListener){
         this.farmFormListener = farmFormListener;
     }
-
 }

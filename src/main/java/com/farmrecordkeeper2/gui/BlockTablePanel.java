@@ -26,7 +26,6 @@ public class BlockTablePanel extends JPanel{
         table = new JTable(blockTableModel);
         popupMenu = new JPopupMenu();
 
-
         JMenuItem removeItem = new JMenuItem("Delete Row");
         popupMenu.add(removeItem);
 
@@ -34,14 +33,10 @@ public class BlockTablePanel extends JPanel{
             @Override
             public void mousePressed(MouseEvent e) {
                 int row = table.rowAtPoint(e.getPoint());
-
                 table.getSelectionModel().setSelectionInterval(row, row);
 
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     popupMenu.show(table, e.getX(), e.getY());
-
-                    System.out.println(row);
-
                 }
             }
         });
@@ -64,8 +59,6 @@ public class BlockTablePanel extends JPanel{
         table.getColumnModel().getColumn(0).setPreferredWidth(10);
         setLayout(new BorderLayout());
         add(new JScrollPane(table), BorderLayout.CENTER);
-
-
     }
 
     public void setData(java.util.List<Block> db){

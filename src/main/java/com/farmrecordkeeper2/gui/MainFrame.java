@@ -18,10 +18,9 @@ import java.util.prefs.Preferences;
 /**
  * Created by garrettcoggon on 7/2/15.
  */
-//TODO change panel class border names
 
 public class MainFrame extends JFrame{
-//    private TextPanel textPanel;
+
     private ToolBar toolBar;
     private AppFormPanel appFormPanel;
     private FarmFormPanel farmFormPanel;
@@ -68,7 +67,6 @@ public class MainFrame extends JFrame{
         productTablePanel.setVisible(false);
 
         preferences = Preferences.userRoot().node("db");
-
 
         appTablePanel.setData(controller.getApplications());
 

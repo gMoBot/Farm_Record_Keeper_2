@@ -68,15 +68,7 @@ public class ApplProfileFormPanel extends JPanel {
                 String city = cityField.getText();
                 String zipCode = zipcodeField.getText();
 
-
-
-                //TODO: implement data handling for farmid
                 int farmid = 0;
-
-
-                System.out.println(applName + licenseNumber);
-
-
 
                 ApplProfileFormEvent ev = new ApplProfileFormEvent(e, farmid, applName,
                         licenseNumber,
@@ -246,13 +238,10 @@ public class ApplProfileFormPanel extends JPanel {
         gc.insets = leftInsets;
 
         add(okButton, gc);
-
-
     }
 
     public void setApplProfileFormListener(ApplProfileFormListener applProfileFormListener) {
         this.applProfileFormListener = applProfileFormListener;
     }
-
 }
 

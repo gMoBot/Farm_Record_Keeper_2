@@ -20,10 +20,12 @@ public class ApplicationFileFilter extends FileFilter {
         if (extension == null){
             return false;
         }
-        else if(extension.equals("app")){
+        if(extension.equals("app")){
             return true;
         }
-        return false;
+        else {
+            return false;
+        }
     }
 
     @Override

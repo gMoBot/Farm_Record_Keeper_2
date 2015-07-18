@@ -19,21 +19,16 @@ import java.util.List;
  */
 public class AppFormPanel extends JPanel {
     private JLabel blockLabel;
-//    private JTextField blockField;
     private JComboBox<String> blockList;
     private JLabel dateLabel;
-//    private JTextField dateField;
     private JSpinner dateSpinner;
     private JLabel timeLabel;
-//    private JTextField timeField;
     private JSpinner timeSpinner;
     private JLabel appLabel;
-//    private JTextField appField;
     private JComboBox<String> appList;
     private JLabel targetLabel;
     private JTextField targetField;
     private JLabel productLabel;
-//    private JTextField productField;
     private JComboBox<String> productList;
     private JLabel rateLabel;
     private JTextField rateField;
@@ -95,22 +90,18 @@ public class AppFormPanel extends JPanel {
         rateUnitGroup.add(galRadioButton);
 
         // Set ComboBox values //
-
         Vector productVector = new Vector();
         for(Product product : enteredProducts){
-//            productVector.add(product.getProductName());
             productVector.add(product);
         }
 
         Vector blockVector = new Vector();
         for (Block block : enteredBlocks){
-//            blockVector.add(block.getBlockName());
             blockVector.add(block);
         }
 
         Vector appVector = new Vector();
         for(ApplicatorProfile applicatorProfile: enteredApplicators){
-//            appVector.add(applicatorProfile.getApplName());
             appVector.add(applicatorProfile);
         }
 
@@ -124,7 +115,7 @@ public class AppFormPanel extends JPanel {
 
         SpinnerNumberModel windModel = new SpinnerNumberModel(3, 0, 35, 1);
 
-//        blockList = new JComboBox<String>(blockVector);
+        // Set other components //
         blockList = new JComboBox(new DefaultComboBoxModel<>(blockVector));
         blockList.setRenderer(new DefaultListCellRenderer(){
             @Override
@@ -138,7 +129,6 @@ public class AppFormPanel extends JPanel {
             }
         });
 
-//        dateField = new JTextField(10);
         dateSpinner = new JSpinner();
         dateSpinner.setModel(dateModel);
         dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "MM/dd/yyyy"));
@@ -148,8 +138,7 @@ public class AppFormPanel extends JPanel {
         timeSpinner.setModel(timeModel);
         timeSpinner.setEditor(new JSpinner.DateEditor(timeSpinner, "h:mm a"));
         timeSpinner.setValue(new Date());
-//        timeField = new JTextField(10);
-//        appField = new JTextField(10);
+
         appList = new JComboBox(new DefaultComboBoxModel<>(appVector));
         appList.setRenderer(new DefaultListCellRenderer(){
             @Override
@@ -164,9 +153,7 @@ public class AppFormPanel extends JPanel {
         });
 
         targetField = new JTextField(10);
-//        productField = new JTextField(10);
 
-//        productList = new JComboBox<String>(productVector);
         productList = new JComboBox(new DefaultComboBoxModel<>(productVector));
         productList.setRenderer(new DefaultListCellRenderer() {
             @Override
@@ -192,7 +179,6 @@ public class AppFormPanel extends JPanel {
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
 
-
         // Set OK Button
         okButton.addActionListener(new ActionListener() {
             @Override
@@ -206,25 +192,18 @@ public class AppFormPanel extends JPanel {
                 }
 
                 else {
-//                String block = blockField.getText();
                 Block selectedBlock = (Block) blockList.getModel().getSelectedItem();
                 String block = selectedBlock.getBlockName();
                 int blockId = selectedBlock.getBlockId();
-//                String date = dateField.getText();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 String date = dateFormat.format(dateSpinner.getValue());
-
-//                String time = timeField.getText();
                 SimpleDateFormat formatTime = new SimpleDateFormat("h:mm a");
                 String time = formatTime.format(timeSpinner.getValue());
-//                String appl = appField.getText();
                 ApplicatorProfile selectedAppProfile = (ApplicatorProfile) appList.getModel()
                         .getSelectedItem();
                 String appl = selectedAppProfile.getApplName();
                 String target = targetField.getText();
-//                String product = productField.getText();
                 Product selectedProduct = (Product) productList.getModel().getSelectedItem();
-//                String product = productList.getSelectedItem().toString();
                 String product = selectedProduct.getProductName();
                 String rate = rateField.getText();
                 String rateUnit = rateUnitGroup.getSelection().getActionCommand();
@@ -235,11 +214,6 @@ public class AppFormPanel extends JPanel {
                 String windSpeed = windSpeedSpinner.getValue().toString();
                 String windDirection = windDirectionJComboBox.getSelectedItem().toString();
                 String notes = notesField.getText();
-
-                //TODO: implement data handling
-
-
-                    System.out.println(block + target + time + date);
 
                     AppFormEvent ev = new AppFormEvent(e, selectedBlock, blockId, block, date, time,
                             appl, selectedAppProfile, target, product, selectedProduct,
@@ -613,5 +587,4 @@ public class AppFormPanel extends JPanel {
     public void setApplFormListener(ApplFormListener applFormListener){
         this.applFormListener = applFormListener;
     }
-
 }

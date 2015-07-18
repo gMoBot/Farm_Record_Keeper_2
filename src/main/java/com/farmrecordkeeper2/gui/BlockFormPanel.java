@@ -68,14 +68,8 @@ public class BlockFormPanel extends JPanel {
         blocksizeField = new JFormattedTextField(numberFormat);
         blockCropField = new JTextField(10);
 
-//        new DecimalFormat("#.00")
-//        float startingAcres = 10.00f;
         double startingAcres = 10.00;
         blocksizeField.setValue(startingAcres);
-
-//        double d = 10.00;
-//        Number number = d;
-//        number.floatValue();
 
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
@@ -90,7 +84,6 @@ public class BlockFormPanel extends JPanel {
         stateCodeComboBox.updateUI();
 
         streetAddressField.setEditable(false);
-//        stateCodeComboBox.setse(false);
         cityField.setEditable(false);
         zipcodeField.setEditable(false);
 
@@ -102,22 +95,16 @@ public class BlockFormPanel extends JPanel {
                 boolean isChecked = useFarmAddressCheckBox.isSelected();
 
                 streetAddressField.setEditable(!isChecked);
-//                stateCodeComboBox.setEditable(!isChecked);
                 cityField.setEditable(!isChecked);
                 zipcodeField.setEditable(!isChecked);
 
-//                if (isChecked == false){
-//
-//                }
-
-                if(isChecked == true)
-                //TODO: set Farm Address Data
-                streetAddressField.setText(farm.getStreetAddress());
-                stateCodeComboBox.getModel().setSelectedItem(farm.getStateCode());
-                cityField.setText(farm.getCity());
-                zipcodeField.setText(farm.getZipcode());
-                stateCodeComboBox.updateUI();
-
+                if(isChecked == true) {
+                    streetAddressField.setText(farm.getStreetAddress());
+                    stateCodeComboBox.getModel().setSelectedItem(farm.getStateCode());
+                    cityField.setText(farm.getCity());
+                    zipcodeField.setText(farm.getZipcode());
+                    stateCodeComboBox.updateUI();
+                }
             }
         });
 
@@ -136,24 +123,14 @@ public class BlockFormPanel extends JPanel {
                 float blockSizeFloat = blockSizeNumber.floatValue();
                 String blockCrop = blockCropField.getText();
 
-
-
-                //TODO: implement data handling for farmid
                 int farmid = 0;
-
-
-                System.out.println(blockName + streetAddress + blockCrop);
-
-
 
                 BlockFormEvent ev = new BlockFormEvent(e, farmid, blockName, streetAddress,
                         stateCode, city, zipCode, blockSizeFloat, blockCrop);
 
                 if (blockFormListener != null) {
-                    System.out.println("raising block form event");
                     blockFormListener.blockFormEventOccurred(ev);
                 }
-
             }
         });
 
@@ -354,13 +331,10 @@ public class BlockFormPanel extends JPanel {
         gc.insets = leftInsets;
 
         add(okButton, gc);
-
-
     }
 
     public void setBlockFormListener(BlockFormListener blockFormListener) {
         this.blockFormListener = blockFormListener;
     }
-
 }
 

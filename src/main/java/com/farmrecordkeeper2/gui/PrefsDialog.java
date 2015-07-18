@@ -60,7 +60,6 @@ public class PrefsDialog extends JDialog {
 
         setSize(300, 200);
         setLocationRelativeTo(parent);
-
     }
 
     private void layoutControls() {
@@ -143,7 +142,6 @@ public class PrefsDialog extends JDialog {
         setLayout(new BorderLayout());
         add(controlsPanel, BorderLayout.CENTER);
         add(buttonsPanel, BorderLayout.SOUTH);
-
     }
 
     public void setPrefsListener(PrefsListener prefsListener){
@@ -155,5 +153,4 @@ public class PrefsDialog extends JDialog {
         passwordField.setText(password);
         portSpinner.setValue(port);
     }
-
 }

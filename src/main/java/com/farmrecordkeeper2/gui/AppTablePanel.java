@@ -38,9 +38,6 @@ public class AppTablePanel extends JPanel {
 
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     popupMenu.show(table, e.getX(), e.getY());
-
-                    System.out.println(row);
-
                 }
             }
         });
@@ -50,9 +47,6 @@ public class AppTablePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 int id = (int) appTableModel.getValueAt(row, 0);
-
-
-                System.out.println(row + id + "Removing item");
 
                 if (applicationTableListener != null) {
                     applicationTableListener.rowDeleted(id);
@@ -77,6 +71,4 @@ public class AppTablePanel extends JPanel {
     public void setApplicationTableListener(ApplicationTableListener applicationTableListener){
         this.applicationTableListener = applicationTableListener;
     }
-
-
 }

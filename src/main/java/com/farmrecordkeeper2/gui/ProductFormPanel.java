@@ -14,7 +14,6 @@ import java.awt.event.KeyEvent;
  */
 public class ProductFormPanel extends JPanel {
 
-
     private JLabel productNameLabel;
     private JTextField productNameField;
     private JLabel activeIngredientLabel;
@@ -25,7 +24,6 @@ public class ProductFormPanel extends JPanel {
     private JTextField reiField;
     private JLabel phiLabel;
     private JTextField phiField;
-
 
     private JButton okButton;
 
@@ -65,14 +63,7 @@ public class ProductFormPanel extends JPanel {
                 String rei = reiField.getText();
                 String phi = phiField.getText();
 
-
-                //TODO: implement data handling for farmid
                 int farmid = 0;
-
-
-                System.out.println(productName + rei);
-
-
 
                 ProductFormEvent ev = new ProductFormEvent(e, farmid, productName,
                         activeIngredient, epaNumber, rei, phi);
@@ -80,7 +71,6 @@ public class ProductFormPanel extends JPanel {
                 if (productFormListener != null) {
                     productFormListener.productFormEventOccurred(ev);
                 }
-
             }
         });
 
@@ -89,7 +79,6 @@ public class ProductFormPanel extends JPanel {
         setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 
         setComponents();
-
     }
 
     public void setComponents() {
@@ -218,8 +207,6 @@ public class ProductFormPanel extends JPanel {
         gc.insets = leftInsets;
 
         add(okButton, gc);
-
-
     }
 
     public void setProductFormListener(ProductFormListener productFormListener) {

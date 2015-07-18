@@ -36,9 +36,6 @@ public class ApplicatorTablePanel extends JPanel{
 
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     popupMenu.show(table, e.getX(), e.getY());
-
-                    System.out.println(row);
-
                 }
             }
         });
@@ -48,9 +45,6 @@ public class ApplicatorTablePanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 int id = (int) applicatorTableModel.getValueAt(row, 0);
-
-
-                System.out.println(row + id + "Removing item");
 
                 if (applicatorTableListener != null) {
                     applicatorTableListener.rowDeleted(id);
@@ -63,8 +57,6 @@ public class ApplicatorTablePanel extends JPanel{
         table.getColumnModel().getColumn(0).setPreferredWidth(10);
         setLayout(new BorderLayout());
         add(new JScrollPane(table), BorderLayout.CENTER);
-
-
     }
 
     public void setData(java.util.List<ApplicatorProfile> db){
