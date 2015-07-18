@@ -61,24 +61,34 @@ public class ApplProfileFormPanel extends JPanel {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String applName = applNameField.getText();
-                String licenseNumber = licenseNumberField.getText();
-                String streetAddress = streetAddressField.getText();
-                String stateCode = String.valueOf(stateCodeComboBox.getSelectedItem());
-                String city = cityField.getText();
-                String zipCode = zipcodeField.getText();
 
-                int farmid = 0;
-
-                ApplProfileFormEvent ev = new ApplProfileFormEvent(e, farmid, applName,
-                        licenseNumber,
-                        streetAddress,
-                        stateCode, city, zipCode);
-
-                if (applProfileFormListener != null) {
-                    applProfileFormListener.applProfileFormEventOccurred(ev);
+                if (stateCodeComboBox.getSelectedIndex() == -1 || applNameField.getText().isEmpty
+                        () || licenseNumberField.getText().isEmpty() || streetAddressField
+                        .getText().isEmpty() || cityField.getText().isEmpty() || zipcodeField
+                        .getText().isEmpty() ){
+                    JOptionPane.showMessageDialog(ApplProfileFormPanel.this, "Please enter " +
+                                    "information " + "for all fields", "Error", JOptionPane
+                            .ERROR_MESSAGE);
                 }
+                else {
+                    String applName = applNameField.getText();
+                    String licenseNumber = licenseNumberField.getText();
+                    String streetAddress = streetAddressField.getText();
+                    String stateCode = String.valueOf(stateCodeComboBox.getSelectedItem());
+                    String city = cityField.getText();
+                    String zipCode = zipcodeField.getText();
 
+                    int farmid = 0;
+
+                    ApplProfileFormEvent ev = new ApplProfileFormEvent(e, farmid, applName,
+                            licenseNumber,
+                            streetAddress,
+                            stateCode, city, zipCode);
+
+                    if (applProfileFormListener != null) {
+                        applProfileFormListener.applProfileFormEventOccurred(ev);
+                    }
+                }
             }
         });
 

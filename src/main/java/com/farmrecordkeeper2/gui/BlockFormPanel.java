@@ -1,5 +1,6 @@
 package main.java.com.farmrecordkeeper2.gui;
 
+import main.java.com.farmrecordkeeper2.model.Block;
 import main.java.com.farmrecordkeeper2.model.Farm;
 import main.java.com.farmrecordkeeper2.model.StateCodes;
 
@@ -114,22 +115,33 @@ public class BlockFormPanel extends JPanel {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String blockName = blockNameField.getText();
-                String streetAddress = streetAddressField.getText();
-                String stateCode = String.valueOf(stateCodeComboBox.getSelectedItem());
-                String city = cityField.getText();
-                String zipCode = zipcodeField.getText();
-                Number blockSizeNumber = ((Number) blocksizeField.getValue());
-                float blockSizeFloat = blockSizeNumber.floatValue();
-                String blockCrop = blockCropField.getText();
+                if (String.valueOf(stateCodeComboBox.getSelectedItem()).isEmpty() ||
+                        blockNameField
+                        .getText()
+                        .isEmpty() || streetAddressField.getText().isEmpty() || cityField.getText()
+                        .isEmpty() || zipcodeField.getText().isEmpty() || blockCropField.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(BlockFormPanel.this, "Please enter " +
+                            "information " + "for all fields", "Error", JOptionPane
+                            .ERROR_MESSAGE);
+                }
+                else {
+                    String blockName = blockNameField.getText();
+                    String streetAddress = streetAddressField.getText();
+                    String stateCode = String.valueOf(stateCodeComboBox.getSelectedItem());
+                    String city = cityField.getText();
+                    String zipCode = zipcodeField.getText();
+                    Number blockSizeNumber = ((Number) blocksizeField.getValue());
+                    float blockSizeFloat = blockSizeNumber.floatValue();
+                    String blockCrop = blockCropField.getText();
 
-                int farmid = 0;
+                    int farmid = 0;
 
-                BlockFormEvent ev = new BlockFormEvent(e, farmid, blockName, streetAddress,
-                        stateCode, city, zipCode, blockSizeFloat, blockCrop);
+                    BlockFormEvent ev = new BlockFormEvent(e, farmid, blockName, streetAddress,
+                            stateCode, city, zipCode, blockSizeFloat, blockCrop);
 
-                if (blockFormListener != null) {
-                    blockFormListener.blockFormEventOccurred(ev);
+                    if (blockFormListener != null) {
+                        blockFormListener.blockFormEventOccurred(ev);
+                    }
                 }
             }
         });

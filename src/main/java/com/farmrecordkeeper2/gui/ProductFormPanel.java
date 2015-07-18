@@ -57,19 +57,30 @@ public class ProductFormPanel extends JPanel {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String productName = productNameField.getText();
-                String activeIngredient = activeIngredientField.getText();
-                String epaNumber = epaNumberField.getText();
-                String rei = reiField.getText();
-                String phi = phiField.getText();
+                if (productNameField.getText().isEmpty() || activeIngredientField.getText()
+                        .isEmpty() || epaNumberField.getText().isEmpty() || reiField.getText().isEmpty()
+                        || phiField.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(ProductFormPanel.this, "Please enter " +
+                            "information " + "for all fields ('0' if REI/PHI is not applicable)",
+                            "Error",
+                            JOptionPane
+                            .ERROR_MESSAGE);
+                }
+                else {
+                    String productName = productNameField.getText();
+                    String activeIngredient = activeIngredientField.getText();
+                    String epaNumber = epaNumberField.getText();
+                    String rei = reiField.getText();
+                    String phi = phiField.getText();
 
-                int farmid = 0;
+                    int farmid = 0;
 
-                ProductFormEvent ev = new ProductFormEvent(e, farmid, productName,
-                        activeIngredient, epaNumber, rei, phi);
+                    ProductFormEvent ev = new ProductFormEvent(e, farmid, productName,
+                            activeIngredient, epaNumber, rei, phi);
 
-                if (productFormListener != null) {
-                    productFormListener.productFormEventOccurred(ev);
+                    if (productFormListener != null) {
+                        productFormListener.productFormEventOccurred(ev);
+                    }
                 }
             }
         });
