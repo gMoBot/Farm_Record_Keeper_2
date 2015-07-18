@@ -14,6 +14,7 @@ public class Utils {
         if(pointIndex == name.length() - 1){
             return null;
         }
+//        System.out.println(name.substring(pointIndex + 1, name.length()));
         return name.substring(pointIndex + 1, name.length());
     }
 }

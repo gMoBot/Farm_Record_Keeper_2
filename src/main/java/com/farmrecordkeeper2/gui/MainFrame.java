@@ -94,6 +94,7 @@ public class MainFrame extends JFrame{
 
         jFileChooser = new JFileChooser();
         jFileChooser.addChoosableFileFilter(new ApplicationFileFilter());
+        jFileChooser.addChoosableFileFilter(new CSVFIleFilter());
         setJMenuBar(createMenuBar());
 
 
@@ -557,10 +558,12 @@ public class MainFrame extends JFrame{
             }
         });
 
+        // Look and Feel component here is strange, but seems to be specific to mac... //
+        // could implement custom Look and Feel to try and improve //
         exportDataItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (jFileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION){
+                if (jFileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                     try {
                         controller.saveToFile(jFileChooser.getSelectedFile());
                     } catch (IOException e1) {
@@ -570,6 +573,7 @@ public class MainFrame extends JFrame{
                 }
             }
         });
+
 
         exitItem.addActionListener(new ActionListener() {
             @Override

@@ -54,7 +54,7 @@ public class AppTableModel extends AbstractTableModel {
             case 5:
                 return application.getTarget();
             case 6:
-                return application.getProduct();
+                return application.getProductName();
             case 7:
                 return application.getRate();
             case 8:

@@ -96,7 +96,7 @@ public class Controller {
     }
 
     public void saveToFile(File file) throws IOException{
-        db.saveToFile(file);
+        db.saveFedRecordsToFile(file);
     }
 
     public void removeApplication(int row){

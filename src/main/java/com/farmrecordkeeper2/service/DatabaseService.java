@@ -46,19 +46,101 @@ public class DatabaseService {
     public List<Application> getApplicationList(){
         return Collections.unmodifiableList(applicationList);
     }
-
-    public void saveToFile(File file) throws IOException{
+    public void saveAllRecordsToFile(File file) throws IOException{
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
         //TODO: Load app list, iterate through to add data to array of correct type //
 
-        Application[] applicationsArray = applicationList.toArray(new Application[applicationList
-                .size()]);
+        List<Application> allApps = databaseDAO.getApplications();
+//        String fedHeaders = ("Product Name, EPA Number, Amount/Acre, Date, Block, Crop, Block " +
+//                "Size, Applicator, Applicator Number, Active Ingredients, REI\n");
+
+
+        Application[] applicationsArray = allApps.toArray(new Application[allApps.size()]);
+
+//        oos.writeBytes(fedHeaders);
+
+//        for(Application application : applicationsArray){
+//            oos.writeBytes(application.getProductName());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getProduct().getEpaNumber());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getRate());
+//            oos.writeBytes(application.getRateUnit());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getDate());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getBlockName());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getBlock().getBlockCrop());
+//            oos.writeBytes(",");
+//            oos.writeBytes(String.valueOf(application.getBlock().getSize()));
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getApplicatorProfile().getApplName());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getApplicatorProfile().getLicenseNumber());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getProduct().getActiveIngredient());
+//            oos.writeBytes(",");
+//            oos.writeBytes(application.getProduct().getReiHrs());
+//            oos.writeBytes("\n");
+//        }
+
 
         oos.writeObject(applicationsArray);
 
         oos.close();
+    }
+
+    public void saveFedRecordsToFile(File file) throws IOException{
+//        FileOutputStream fos = new FileOutputStream(file);
+        FileWriter fw = new FileWriter(file);
+//        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        //TODO: Load app list, iterate through to add data to array of correct type //
+
+        List<Application> allApps = databaseDAO.getApplications();
+        String fedHeaders = ("Product Name, EPA Number, Amount/Acre, Date, Block, Crop, Block " +
+                "Size, Applicator, Applicator Number, Active Ingredients, REI\n");
+
+
+        Application[] applicationsArray = allApps.toArray(new Application[allApps.size()]);
+
+        fw.append(fedHeaders);
+
+
+        for(Application application : applicationsArray){
+            fw.append(application.getProductName());
+            fw.append(",");
+            fw.append(application.getProduct().getEpaNumber());
+            fw.append(",");
+            fw.append(application.getRate());
+            fw.append(application.getRateUnit());
+            fw.append(",");
+            fw.append(application.getDate());
+            fw.append(",");
+            fw.append(application.getBlockName());
+            fw.append(",");
+            fw.append(application.getBlock().getBlockCrop());
+            fw.append(",");
+            fw.append(String.valueOf(application.getBlock().getSize()));
+            fw.append(",");
+            fw.append(application.getApplicatorProfile().getApplName());
+            fw.append(",");
+            fw.append(application.getApplicatorProfile().getLicenseNumber());
+            fw.append(",");
+            fw.append(application.getProduct().getActiveIngredient());
+            fw.append(",");
+            fw.append(application.getProduct().getReiHrs());
+            fw.append("\n");
+        }
+
+
+//        oos.writeObject(applicationsArray);
+
+        fw.flush();
+        fw.close();
     }
 
     public void loadFromFile(File file) throws IOException{
