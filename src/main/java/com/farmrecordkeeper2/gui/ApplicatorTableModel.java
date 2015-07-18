@@ -12,7 +12,7 @@ import java.util.List;
 public class ApplicatorTableModel extends AbstractTableModel {
 
 private List<ApplicatorProfile> db;
-private String[] colNames = {"License Number", "Name", "Street Address", "State",
+private String[] colNames = {"Id", "License Number", "Name", "Street Address", "State",
         "City", "ZipCode"};
 
     public ApplicatorTableModel(){}
@@ -33,7 +33,7 @@ private String[] colNames = {"License Number", "Name", "Street Address", "State"
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 7;
     }
 
     @Override
@@ -42,16 +42,18 @@ private String[] colNames = {"License Number", "Name", "Street Address", "State"
 
         switch (columnIndex){
             case 0:
-                return applicatorProfile.getLicenseNumber();
+                return applicatorProfile.getApplId();
             case 1:
-                return applicatorProfile.getApplName();
+                return applicatorProfile.getLicenseNumber();
             case 2:
-                return applicatorProfile.getStreetAddress();
+                return applicatorProfile.getApplName();
             case 3:
-                return applicatorProfile.getStateCode();
+                return applicatorProfile.getStreetAddress();
             case 4:
-                return applicatorProfile.getCity();
+                return applicatorProfile.getStateCode();
             case 5:
+                return applicatorProfile.getCity();
+            case 6:
                 return applicatorProfile.getZipcode();
             default:
                 return null;

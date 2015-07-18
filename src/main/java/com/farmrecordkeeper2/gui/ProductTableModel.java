@@ -13,7 +13,7 @@ public class ProductTableModel extends AbstractTableModel {
 
 
     private List<Product> db;
-    private String[] colNames = {"Product Name", "Active Ingredient", "EPA Number", "REI hrs",
+    private String[] colNames = {"Id", "Product Name", "Active Ingredient", "EPA Number", "REI hrs",
             "PHI days"};
 
     public ProductTableModel(){}
@@ -34,7 +34,7 @@ public class ProductTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -43,14 +43,16 @@ public class ProductTableModel extends AbstractTableModel {
 
         switch (columnIndex){
             case 0:
-                return product.getProductName();
+                return product.getProdId();
             case 1:
-                return product.getActiveIngredient();
+                return product.getProductName();
             case 2:
-                return product.getEpaNumber();
+                return product.getActiveIngredient();
             case 3:
-                return product.getReiHrs();
+                return product.getEpaNumber();
             case 4:
+                return product.getReiHrs();
+            case 5:
                 return product.getPhiDays();
             default:
                 return null;

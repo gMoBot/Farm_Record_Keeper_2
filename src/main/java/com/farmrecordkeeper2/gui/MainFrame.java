@@ -262,16 +262,6 @@ public class MainFrame extends JFrame{
                 add(productTablePanel, BorderLayout.CENTER);
                 productTablePanel.setVisible(true);
                 productTablePanel.refresh();
-
-                //TODO:REMOVE THIS SECTION //
-                //TODO: SIMPLE TEST For DB retrieval.....MOVE FUNCTIONALITY////
-                List<Application> retApps = controller.getApplications();
-                for (Application application : retApps){
-                    System.out.println(application.getBlock().getBlockName() + application
-                            .getDate() + application.getApplicatorProfile().getLicenseNumber() +
-                            application.getProduct().getPhiDays());
-                }
-                //TODO: REMOVE //
             }
 
             @Override

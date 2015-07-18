@@ -214,7 +214,7 @@ public class ProductFormPanel extends JPanel {
         gc.weightx = 1;
         gc.weighty = 2;
         gc.fill = GridBagConstraints.NONE;
-        gc.anchor = GridBagConstraints.LINE_END;
+        gc.anchor = GridBagConstraints.FIRST_LINE_END;
         gc.insets = leftInsets;
 
         add(okButton, gc);
