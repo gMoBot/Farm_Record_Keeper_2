@@ -17,7 +17,6 @@ public class Block {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "block_id", unique = true, nullable = false)
     private int blockId;
-//    @ManyToOne
     @Column(name = "farm_id")
     private int farmId;
     @Column(name = "block_name")

@@ -13,17 +13,14 @@ public class ApplicatorProfile implements Serializable{
 
     public ApplicatorProfile(){}
 
-//    private static int count = 1;
-
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "appl_id", unique = true, nullable = false)
-//    private int applId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "appl_id", unique = true, nullable = false)
+    private int applId;
     @Column(name = "farm_id")
     private int farmId;
     @Column(name = "app_name")
     private String applName;
-    @Id
     @Column(name = "app_number")
     private String licenseNumber;
     @Column(name = "street_address")
@@ -43,16 +40,8 @@ public class ApplicatorProfile implements Serializable{
         this.stateCode = stateCode;
         this.city = city;
         this.zipcode = zipcode;
-
-//        this.applId = count;
-//        count++;
     }
 
-//    public ApplicatorProfile(int applId, int farmId, String applName, String licenseNumber, String streetAddress, String stateCode, String city, String zipcode) {
-//
-//        this(farmId, applName, licenseNumber, streetAddress, stateCode, city, zipcode);
-//        this.applId = applId;
-//    }
 
     public int getFarmId() {
         return farmId;
@@ -63,13 +52,13 @@ public class ApplicatorProfile implements Serializable{
     }
 
 
-//    public int getApplId() {
-//        return applId;
-//    }
-//
-//    public void setApplId(int applId) {
-//        this.applId = applId;
-//    }
+    public int getApplId() {
+        return applId;
+    }
+
+    public void setApplId(int applId) {
+        this.applId = applId;
+    }
 
     public String getApplName() {
         return applName;

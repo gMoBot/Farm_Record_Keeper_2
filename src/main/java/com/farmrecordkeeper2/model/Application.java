@@ -53,13 +53,10 @@ public class Application implements Serializable {
     @Column(name = "app_notes")
     private String notes;
 
-//    private Block block;
-
 
     public Application(String blockName, String date, String time, String appl, String
-            target,
-                       String product, String rate, String rateUnit, String
-                               carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
+            target, String product, String rate, String rateUnit, String
+            carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
         this.blockName = blockName;
 //        this.blockId = blockId;
         this.date = date;
@@ -93,7 +90,7 @@ public class Application implements Serializable {
     }
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "block_id")
     private Block block;
 
@@ -106,40 +103,17 @@ public class Application implements Serializable {
     }
 
 
-    //TODO: Change to single instances, combine
-//    @OneToMany(cascade = CascadeType.ALL)
-////    @JoinTable(name = "app_block_jtable",
-////            joinColumns = {@JoinColumn(name = "app_id"), @JoinColumn(name =
-////                    "appl_id")},
-////            inverseJoinColumns = @JoinColumn(name = "block_id"))
-//    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
-//            inverseJoinColumns = @JoinColumn(name = "block_id"))
-//    private Set<Block> blockSet;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "appl_id")
+    private ApplicatorProfile applicatorProfile;
 
-////    @JoinTable(name = "app_block_jtable", joinColumns = @JoinColumn(name = "app_id"),
-////            inverseJoinColumns = @JoinColumn(name = "appl_id"))
-////    @JoinColumn(name = "app_id")
-//    @OneToMany(mappedBy = "appl_id")
-//    private Set<ApplicatorProfile> appProfileSet;
+    public ApplicatorProfile getApplicatorProfile() {
+        return applicatorProfile;
+    }
 
-
-
-
-//
-//    public void setBlockProfile(Set<Block> block) {
-//        //    private Block block;
-//
-//        this.blockSet = block;
-//    }
-//    public Set<Block> getBlockProfile(){ return blockSet;}
-
-//    public Set<ApplicatorProfile> getAppProfileSet() {
-//        return appProfileSet;
-//    }
-//
-//    public void setAppProfileSet(Set<ApplicatorProfile> appProfileSet) {
-//        this.appProfileSet = appProfileSet;
-//    }
+    public void setApplicatorProfile(ApplicatorProfile applicatorProfile) {
+        this.applicatorProfile = applicatorProfile;
+    }
 
 
     public int getId() {

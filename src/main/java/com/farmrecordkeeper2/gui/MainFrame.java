@@ -266,8 +266,10 @@ public class MainFrame extends JFrame{
                 //TODO: SIMPLE TEST For DB retrieval.....MOVE FUNCTIONALITY////
                 List<Application> retApps = controller.getApplications();
                 for (Application application : retApps){
-                    System.out.println(application.getBlock().getBlockName() + application.getDate());
+                    System.out.println(application.getBlock().getBlockName() + application
+                            .getDate() + application.getApplicatorProfile().getLicenseNumber());
                 }
+                //TODO: REMOVE //
             }
 
             @Override

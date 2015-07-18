@@ -17,7 +17,8 @@ create table farm_profile (
 	);
 
 create table applicator_profile (
-	app_number char(20) PRIMARY KEY,
+	appl_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	app_number char(20),
 	farm_id char(20),
 	app_name char(60),
 	street_address char(60),
@@ -48,6 +49,7 @@ create table application_profile (
 	block_id INTEGER,
 	product_name char(60),
 	app_number char(20),
+	appl_id INTEGER,
 	app_date char(30),
     target_pest char(40),
     app_notes char(200),
@@ -62,9 +64,10 @@ create table application_profile (
 	wind_direction char (20),
 	FOREIGN KEY(farm_id) references farm_profile(farm_id),
 	FOREIGN KEY(block_id) references block_profile(block_id),
-	FOREIGN KEY(block_name) references block_profile(block_name),
+--remove fk desig from blockName
+--	FOREIGN KEY(block_name) references block_profile(block_name),
 	FOREIGN KEY(product_name) references product_profile(product_name),
-	FOREIGN KEY(app_number) references applicator_profile(app_number)
+	FOREIGN KEY(appl_id) references applicator_profile(appl_id)
 );
 
 create table product_profile (
@@ -78,19 +81,19 @@ create table product_profile (
 
 );
 
-create table app_block_jtable (
-		app_id INTEGER NOT NULL UNIQUE,
-		block_id INTEGER NOT NULL,
-		PRIMARY KEY (app_id, block_id),
---		UNIQUE KEY app_id_UNIQUE (app_id),
---		KEY fk_app (app_id),
---		KEY fk_block (block_id),
---		CONSTRAINT fk_app
-		FOREIGN KEY (app_id) REFERENCES application_profile (app_id),
---		CONSTRAINT fk_block
-		FOREIGN KEY (block_id) REFERENCES block_profile (block_id)
-
-);
+--create table app_block_jtable (
+--		app_id INTEGER NOT NULL UNIQUE,
+--		block_id INTEGER NOT NULL,
+--		PRIMARY KEY (app_id, block_id),
+----		UNIQUE KEY app_id_UNIQUE (app_id),
+----		KEY fk_app (app_id),
+----		KEY fk_block (block_id),
+----		CONSTRAINT fk_app
+--		FOREIGN KEY (app_id) REFERENCES application_profile (app_id),
+----		CONSTRAINT fk_block
+--		FOREIGN KEY (block_id) REFERENCES block_profile (block_id)
+--
+--);
 
 
 .separator ,

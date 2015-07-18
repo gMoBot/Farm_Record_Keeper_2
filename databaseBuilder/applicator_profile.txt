@@ -1,2 +1,2 @@
-129897,1,newApplicator,1234 Deere Lane, MI, Detroit, 49686
-123345,1,otherApplicator,1234 Deere Lane, MI, Detroit, 49686
+0,129897,1,newApplicator,1234 Deere Lane, MI, Detroit, 49686
+1,123345,1,otherApplicator,1234 Deere Lane, MI, Detroit, 49686
