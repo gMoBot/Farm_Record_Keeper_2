@@ -51,6 +51,8 @@ public class DatabaseService {
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
+        //TODO: Load app list, iterate through to add data to array of correct type //
+
         Application[] applicationsArray = applicationList.toArray(new Application[applicationList
                 .size()]);
 

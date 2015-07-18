@@ -56,6 +56,7 @@ public class AppFormPanel extends JPanel {
     private JTextArea notesField;
     private JButton okButton;
     private ApplFormListener applFormListener;
+    private int selectionCount;
 
     public AppFormPanel(List<Block> enteredBlocks, List<ApplicatorProfile> enteredApplicators,
                         List<Product>
@@ -79,6 +80,7 @@ public class AppFormPanel extends JPanel {
         windDirectionLabel = new JLabel("Wind Direction: ");
         notesLabel = new JLabel("Application Notes: ");
         okButton = new JButton("OK");
+        selectionCount = 0;
 
         // Set Radio Buttons //
         ozRadioButton = new JRadioButton("oz.");
@@ -166,11 +168,11 @@ public class AppFormPanel extends JPanel {
 
 //        productList = new JComboBox<String>(productVector);
         productList = new JComboBox(new DefaultComboBoxModel<>(productVector));
-        productList.setRenderer(new DefaultListCellRenderer(){
+        productList.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                if(value instanceof Product){
+                if (value instanceof Product) {
                     Product product = (Product) value;
                     setText(product.getProductName());
                 }
@@ -190,12 +192,59 @@ public class AppFormPanel extends JPanel {
         // Set Mnemonics
         okButton.setMnemonic(KeyEvent.VK_ENTER);
 
+//        okButton.setEnabled(false);
 
+//        blockList.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JComboBox cb = (JComboBox) e.getSource();
+//                int selectedValue = cb.getSelectedIndex();
+//                if (selectedValue != -1) {
+//                    selectionCount++;
+//                }
+//            }
+//        });
+//
+//        appList.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JComboBox cb = (JComboBox) e.getSource();
+//                int selectedValue = cb.getSelectedIndex();
+//                if (selectedValue != -1) {
+//                    selectionCount++;
+//                }
+//            }
+//        });
+//
+//        productList.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                JComboBox cb = (JComboBox) e.getSource();
+//                int selectedValue = cb.getSelectedIndex();
+//                if (selectedValue != -1) {
+//                    selectionCount++;
+//                }
+//            }
+//        });
+
+//        //TODO: this wont work in this spot-needs to persist
+//        while (selectionCount >= 3){
+//            okButton.setEnabled(true);
+//        }
 
         // Set OK Button
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (blockList.getSelectedIndex() == -1 || appList.getSelectedIndex() == -1 ||
+                        productList.getSelectedIndex() == -1){
+                    JOptionPane.showMessageDialog(AppFormPanel.this, "Please Select a Block, " +
+                            "Applicator & " +
+                            "Product", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                else {
 //                String block = blockField.getText();
                 Block selectedBlock = (Block) blockList.getModel().getSelectedItem();
                 String block = selectedBlock.getBlockName();
@@ -228,16 +277,18 @@ public class AppFormPanel extends JPanel {
 
                 //TODO: implement data handling
 
-                System.out.println(block + target + time + date);
 
-                AppFormEvent ev = new AppFormEvent(e, selectedBlock, blockId, block, date, time,
-                        appl, selectedAppProfile, target, product, selectedProduct,
-                        rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
-                        windDirection, notes);
+                    System.out.println(block + target + time + date);
+
+                    AppFormEvent ev = new AppFormEvent(e, selectedBlock, blockId, block, date, time,
+                            appl, selectedAppProfile, target, product, selectedProduct,
+                            rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
+                            windDirection, notes);
 
 
-                if(applFormListener != null){
-                    applFormListener.appFormEventOccurred(ev);
+                    if (applFormListener != null) {
+                        applFormListener.appFormEventOccurred(ev);
+                    }
                 }
             }
         });
