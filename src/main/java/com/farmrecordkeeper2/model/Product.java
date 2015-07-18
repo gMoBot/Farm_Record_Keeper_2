@@ -11,9 +11,12 @@ public class Product {
 
     public Product(){}
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prod_id", unique = true, nullable = false)
+    private int prodId;
     @Column(name = "farm_Id")
     private int farmId;
-    @Id
     @Column(name = "product_name")
     private String productName;
     @Column (name = "active_ingredient")
@@ -34,6 +37,15 @@ public class Product {
         this.epaNumber = epaNumber;
         this.reiHrs = reiHrs;
         this.phiDays = phiDays;
+    }
+
+
+    public int getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(int prodId) {
+        this.prodId = prodId;
     }
 
     public String getProductName() {

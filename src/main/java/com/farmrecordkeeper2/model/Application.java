@@ -33,7 +33,7 @@ public class Application implements Serializable {
     @Column(name = "target_pest")
     private String target;
     @Column(name = "product_name")
-    private String product;
+    private String productName;
     @Column(name = "app_rate")
     private String rate;
     @Column(name = "rate_unit")
@@ -55,7 +55,7 @@ public class Application implements Serializable {
 
 
     public Application(String blockName, String date, String time, String appl, String
-            target, String product, String rate, String rateUnit, String
+            target, String productName, String rate, String rateUnit, String
             carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
         this.blockName = blockName;
 //        this.blockId = blockId;
@@ -63,7 +63,7 @@ public class Application implements Serializable {
         this.time = time;
         this.appl = appl;
         this.target = target;
-        this.product = product;
+        this.productName = productName;
         this.rate = rate;
         this.rateUnit = rateUnit;
         this.carrierVol = carrierVol;
@@ -116,6 +116,16 @@ public class Application implements Serializable {
     }
 
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prod_id")
+    private Product product;
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Product getProduct(){return product;}
+
     public int getId() {
         return id;
     }
@@ -131,16 +141,6 @@ public class Application implements Serializable {
     public void setBlockName(String block) {
         this.blockName = blockName;
     }
-
-
-//    public int getBlockId() {
-//        return blockId;
-//    }
-//
-//    public void setBlockId(int blockId) {
-//        this.blockId = blockId;
-//    }
-
 
     public String getDate() {
         return date;
@@ -174,12 +174,12 @@ public class Application implements Serializable {
         this.target = target;
     }
 
-    public String getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getRate() {

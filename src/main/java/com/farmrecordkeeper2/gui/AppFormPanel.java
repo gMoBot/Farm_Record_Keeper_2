@@ -96,7 +96,8 @@ public class AppFormPanel extends JPanel {
 
         Vector productVector = new Vector();
         for(Product product : enteredProducts){
-            productVector.add(product.getProductName());
+//            productVector.add(product.getProductName());
+            productVector.add(product);
         }
 
         Vector blockVector = new Vector();
@@ -163,7 +164,19 @@ public class AppFormPanel extends JPanel {
         targetField = new JTextField(10);
 //        productField = new JTextField(10);
 
-        productList = new JComboBox<String>(productVector);
+//        productList = new JComboBox<String>(productVector);
+        productList = new JComboBox(new DefaultComboBoxModel<>(productVector));
+        productList.setRenderer(new DefaultListCellRenderer(){
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if(value instanceof Product){
+                    Product product = (Product) value;
+                    setText(product.getProductName());
+                }
+                return this;
+            }
+        });
         productList.setSelectedIndex(-1);
         rateField = new JTextField(10);
         carrierField = new JTextField(10);
@@ -200,7 +213,9 @@ public class AppFormPanel extends JPanel {
                 String appl = selectedAppProfile.getApplName();
                 String target = targetField.getText();
 //                String product = productField.getText();
-                String product = productList.getSelectedItem().toString();
+                Product selectedProduct = (Product) productList.getModel().getSelectedItem();
+//                String product = productList.getSelectedItem().toString();
+                String product = selectedProduct.getProductName();
                 String rate = rateField.getText();
                 String rateUnit = rateUnitGroup.getSelection().getActionCommand();
                 String carrierVol = carrierField.getText();
@@ -216,8 +231,7 @@ public class AppFormPanel extends JPanel {
                 System.out.println(block + target + time + date);
 
                 AppFormEvent ev = new AppFormEvent(e, selectedBlock, blockId, block, date, time,
-                        appl,
-                        selectedAppProfile, target, product,
+                        appl, selectedAppProfile, target, product, selectedProduct,
                         rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
                         windDirection, notes);
 

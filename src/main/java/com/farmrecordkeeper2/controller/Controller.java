@@ -37,7 +37,8 @@ public class Controller {
         String appl = e.getAppl();
         ApplicatorProfile selectedAppProfile = e.getApplProfile();
         String target = e.getTarget();
-        String product = e.getProduct();
+        String productName = e.getProductName();
+        Product selectedProduct = e.getSelectedProduct();
         String rate = e.getRate();
         String rateUnit = e.getRateUnit();
         String carrierVol = e.getCarrierVol();
@@ -48,11 +49,11 @@ public class Controller {
         String windDirection = e.getWindDirection();
         String notes = e.getNotes();
 
-        System.out.println("Controller : " + block + date + time + appl + target + product +
+        System.out.println("Controller : " + block + date + time + appl + target + productName +
                 rate + notes);
 
         Application application = new Application (block, date, time, appl, target,
-                product,
+                productName,
                 rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
                 windDirection, notes);
 
@@ -64,6 +65,7 @@ public class Controller {
 
         application.setBlock(selectedBlock);
         application.setApplicatorProfile(selectedAppProfile);
+        application.setProduct(selectedProduct);
 //        application.setBlockProfile(blockSet);
 //        application.setAppProfileSet(appProfileSet);
         save(application);

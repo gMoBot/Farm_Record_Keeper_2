@@ -2,6 +2,7 @@ package main.java.com.farmrecordkeeper2.gui;
 
 import main.java.com.farmrecordkeeper2.model.ApplicatorProfile;
 import main.java.com.farmrecordkeeper2.model.Block;
+import main.java.com.farmrecordkeeper2.model.Product;
 
 import java.util.EventObject;
 
@@ -18,7 +19,8 @@ public class AppFormEvent extends EventObject {
     private String appl;
     private ApplicatorProfile applProfile;
     private String target;
-    private String product;
+    private String productName;
+    private Product selectedProduct;
     private String rate;
     private String rateUnit;
     private String carrierVol;
@@ -30,10 +32,9 @@ public class AppFormEvent extends EventObject {
     private String notes;
 
     public AppFormEvent(Object source, Block selectedBlock, int blockId, String block, String date,
-                        String time,
-                        String
-            appl, ApplicatorProfile applProfile,
-                        String target, String product, String rate, String rateUnit, String carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes) {
+                        String time, String appl, ApplicatorProfile applProfile,
+                        String target, String productName, Product selectedProduct, String rate,
+                        String rateUnit, String carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes) {
         super(source);
         this.block = block;
         this.selectedBlock = selectedBlock;
@@ -43,7 +44,8 @@ public class AppFormEvent extends EventObject {
         this.appl = appl;
         this.applProfile = applProfile;
         this.target = target;
-        this.product = product;
+        this.productName = productName;
+        this.selectedProduct = selectedProduct;
         this.rate = rate;
         this.rateUnit = rateUnit;
         this.carrierVol = carrierVol;
@@ -61,6 +63,8 @@ public class AppFormEvent extends EventObject {
     public ApplicatorProfile getApplProfile() {
         return applProfile;
     }
+
+    public Product getSelectedProduct(){return selectedProduct;}
 
     public void setApplProfile(ApplicatorProfile applProfile) {
         this.applProfile = applProfile;
@@ -110,12 +114,12 @@ public class AppFormEvent extends EventObject {
         this.target = target;
     }
 
-    public String getProduct() {
-        return product;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getRate() {
@@ -189,4 +193,5 @@ public class AppFormEvent extends EventObject {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
 }

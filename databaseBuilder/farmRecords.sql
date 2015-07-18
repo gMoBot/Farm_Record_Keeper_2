@@ -48,6 +48,7 @@ create table application_profile (
 	block_name char(60),
 	block_id INTEGER,
 	product_name char(60),
+	prod_id INTEGER,
 	app_number char(20),
 	appl_id INTEGER,
 	app_date char(30),
@@ -66,14 +67,15 @@ create table application_profile (
 	FOREIGN KEY(block_id) references block_profile(block_id),
 --remove fk desig from blockName
 --	FOREIGN KEY(block_name) references block_profile(block_name),
-	FOREIGN KEY(product_name) references product_profile(product_name),
+	FOREIGN KEY(prod_id) references product_profile(prod_id),
 	FOREIGN KEY(appl_id) references applicator_profile(appl_id)
 );
 
 create table product_profile (
+	prod_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	product_name char(60),
 	farm_id char(20),
-	epa_number char(20) PRIMARY KEY,
+	epa_number char(20),
 	active_ingredient char(30),
 	rei_hrs char(10),
 	phi_days char(10),

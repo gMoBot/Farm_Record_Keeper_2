@@ -267,7 +267,8 @@ public class MainFrame extends JFrame{
                 List<Application> retApps = controller.getApplications();
                 for (Application application : retApps){
                     System.out.println(application.getBlock().getBlockName() + application
-                            .getDate() + application.getApplicatorProfile().getLicenseNumber());
+                            .getDate() + application.getApplicatorProfile().getLicenseNumber() +
+                            application.getProduct().getPhiDays());
                 }
                 //TODO: REMOVE //
             }
@@ -416,7 +417,7 @@ public class MainFrame extends JFrame{
                 String time = e.getTime();
                 String appl = e.getAppl();
                 String target = e.getTarget();
-                String product = e.getProduct();
+                String product = e.getProductName();
                 String rate = e.getRate();
                 String notes = e.getNotes();
 
