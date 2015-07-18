@@ -95,7 +95,13 @@ public class Controller {
         db.loadFromFile(file);
     }
 
-    public void saveToFile(File file) throws IOException{
+    public void saveAllDataToFile(File file) throws IOException{
+        db.saveAllRecordsToFile(file);
+    }
+    public void saveProcessorDataToFile(File file) throws IOException{
+        db.saveProcessorRecordsToFile(file);
+    }
+    public void saveFederalDataToFile(File file) throws IOException{
         db.saveFedRecordsToFile(file);
     }
 

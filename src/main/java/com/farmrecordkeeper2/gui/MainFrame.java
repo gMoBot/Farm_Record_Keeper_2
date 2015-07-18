@@ -481,7 +481,9 @@ public class MainFrame extends JFrame{
         JMenu fileMenu = new JMenu("File");
         JMenu windowMenu = new JMenu("Window");
 
-        JMenuItem exportDataItem = new JMenuItem("Export Data...");
+        JMenuItem exportAllDataItem = new JMenuItem("Export All Data...");
+        JMenuItem exportFederalDataItem = new JMenuItem("Export Federal Data...");
+        JMenuItem exportProcessorDataItem = new JMenuItem("Export Processor Data...");
         JMenuItem importDataItem = new JMenuItem("Import Data...");
         JMenuItem exitItem = new JMenuItem("Exit");
 
@@ -500,7 +502,9 @@ public class MainFrame extends JFrame{
         windowMenu.add(showMenu);
         windowMenu.add(prefsItem);
 
-        fileMenu.add(exportDataItem);
+        fileMenu.add(exportAllDataItem);
+        fileMenu.add(exportProcessorDataItem);
+        fileMenu.add(exportFederalDataItem);
         fileMenu.add(importDataItem);
         fileMenu.addSeparator();
         fileMenu.add(exitItem);
@@ -560,12 +564,40 @@ public class MainFrame extends JFrame{
 
         // Look and Feel component here is strange, but seems to be specific to mac... //
         // could implement custom Look and Feel to try and improve //
-        exportDataItem.addActionListener(new ActionListener() {
+        exportAllDataItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jFileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
                     try {
-                        controller.saveToFile(jFileChooser.getSelectedFile());
+                        controller.saveAllDataToFile(jFileChooser.getSelectedFile());
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(MainFrame.this, "Could not save data to " +
+                                "file", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        exportFederalDataItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jFileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        controller.saveFederalDataToFile(jFileChooser.getSelectedFile());
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(MainFrame.this, "Could not save data to " +
+                                "file", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+
+        exportProcessorDataItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (jFileChooser.showSaveDialog(MainFrame.this) == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        controller.saveProcessorDataToFile(jFileChooser.getSelectedFile());
                     } catch (IOException e1) {
                         JOptionPane.showMessageDialog(MainFrame.this, "Could not save data to " +
                                 "file", "Error", JOptionPane.ERROR_MESSAGE);

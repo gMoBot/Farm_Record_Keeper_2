@@ -214,16 +214,6 @@ public class Application implements Serializable {
         this.appMethod = appMethod;
     }
 
-
-//    public int getApplId() {
-//        return applId;
-//    }
-//
-//    public void setApplId(int applId) {
-//        this.applId = applId;
-//    }
-
-
     public String getWeatherCondition() {
         return weatherCondition;
     }
