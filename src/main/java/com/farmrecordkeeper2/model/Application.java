@@ -38,6 +38,8 @@ public class Application implements Serializable {
     private String carrierVol;
     @Column (name = "app_method")
     private String appMethod;
+    @Column(name = "rows_applied")
+    private String rowsApplied;
     @Column (name = "weather_condition")
     private String weatherCondition;
     @Column (name = "temp")
@@ -52,7 +54,9 @@ public class Application implements Serializable {
 
     public Application(String blockName, String date, String time, String appl, String
             target, String productName, String rate, String rateUnit, String
-            carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
+            carrierVol, String appMethod, String rowsApplied, String weatherCondition, String
+            temp, String
+            windSpeed, String windDirection, String notes){
         this.blockName = blockName;
 //        this.blockId = blockId;
         this.date = date;
@@ -64,6 +68,7 @@ public class Application implements Serializable {
         this.rateUnit = rateUnit;
         this.carrierVol = carrierVol;
         this.appMethod = appMethod;
+        this.rowsApplied = rowsApplied;
         this.weatherCondition = weatherCondition;
         this.temp = temp;
         this.windSpeed = windSpeed;
@@ -77,16 +82,17 @@ public class Application implements Serializable {
     public Application(int id, String block, String date, String time, String appl,
                        String target,
                        String product, String rate, String rateUnit, String
-                               carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes){
+                               carrierVol, String appMethod, String rowsApplied, String
+                               weatherCondition, String temp, String windSpeed, String windDirection, String notes){
         this(block, date, time, appl, target, product, rate, rateUnit, carrierVol,
-                appMethod,
+                appMethod, rowsApplied,
                 weatherCondition, temp, windSpeed,
                 windDirection, notes);
         this.id = id;
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "block_id")
     private Block block;
 
@@ -99,7 +105,7 @@ public class Application implements Serializable {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "appl_id")
     private ApplicatorProfile applicatorProfile;
 
@@ -112,7 +118,7 @@ public class Application implements Serializable {
     }
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "prod_id")
     private Product product;
 
@@ -208,6 +214,14 @@ public class Application implements Serializable {
 
     public void setAppMethod(String appMethod) {
         this.appMethod = appMethod;
+    }
+
+    public String getRowsApplied() {
+        return rowsApplied;
+    }
+
+    public void setRowsApplied(String rowsApplied) {
+        this.rowsApplied = rowsApplied;
     }
 
     public String getWeatherCondition() {

@@ -39,6 +39,9 @@ public class AppFormPanel extends JPanel {
     private JLabel carrierLabel;
     private JTextField carrierField;
     private JComboBox appMethodJComboBox;
+    private JRadioButton allRowsRadioButton;
+    private JRadioButton alternateRowsRadioButton;
+    private ButtonGroup rowSelectorButtonGroup;
     private JLabel weatherCondition;
     private JComboBox weatherCodesJComboBox;
     private JLabel tempLabel;
@@ -88,6 +91,17 @@ public class AppFormPanel extends JPanel {
         rateUnitGroup = new ButtonGroup();
         rateUnitGroup.add(ozRadioButton);
         rateUnitGroup.add(galRadioButton);
+
+        allRowsRadioButton = new JRadioButton("All Rows");
+        allRowsRadioButton.setSelected(true);
+        alternateRowsRadioButton = new JRadioButton("Alternate Rows");
+
+        allRowsRadioButton.setActionCommand("All");
+        alternateRowsRadioButton.setActionCommand("Alternate");
+
+        rowSelectorButtonGroup = new ButtonGroup();
+        rowSelectorButtonGroup.add(allRowsRadioButton);
+        rowSelectorButtonGroup.add(alternateRowsRadioButton);
 
         // Set ComboBox values //
         Vector productVector = new Vector();
@@ -189,36 +203,35 @@ public class AppFormPanel extends JPanel {
                     JOptionPane.showMessageDialog(AppFormPanel.this, "Please Select a Block, " +
                             "Applicator & " +
                             "Product", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-                else {
-                Block selectedBlock = (Block) blockList.getModel().getSelectedItem();
-                String block = selectedBlock.getBlockName();
-                int blockId = selectedBlock.getBlockId();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                String date = dateFormat.format(dateSpinner.getValue());
-                SimpleDateFormat formatTime = new SimpleDateFormat("h:mm a");
-                String time = formatTime.format(timeSpinner.getValue());
-                ApplicatorProfile selectedAppProfile = (ApplicatorProfile) appList.getModel()
-                        .getSelectedItem();
-                String appl = selectedAppProfile.getApplName();
-                String target = targetField.getText();
-                Product selectedProduct = (Product) productList.getModel().getSelectedItem();
-                String product = selectedProduct.getProductName();
-                String rate = rateField.getText();
-                String rateUnit = rateUnitGroup.getSelection().getActionCommand();
-                String carrierVol = carrierField.getText();
-                String appMethod = appMethodJComboBox.getSelectedItem().toString();
-                String weatherCondition = weatherCodesJComboBox.getSelectedItem().toString();
-                String temp = tempField.getText();
-                String windSpeed = windSpeedSpinner.getValue().toString();
-                String windDirection = windDirectionJComboBox.getSelectedItem().toString();
-                String notes = notesField.getText();
+                } else {
+                    Block selectedBlock = (Block) blockList.getModel().getSelectedItem();
+                    String block = selectedBlock.getBlockName();
+                    int blockId = selectedBlock.getBlockId();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                    String date = dateFormat.format(dateSpinner.getValue());
+                    SimpleDateFormat formatTime = new SimpleDateFormat("h:mm a");
+                    String time = formatTime.format(timeSpinner.getValue());
+                    ApplicatorProfile selectedAppProfile = (ApplicatorProfile) appList.getModel()
+                            .getSelectedItem();
+                    String appl = selectedAppProfile.getApplName();
+                    String target = targetField.getText();
+                    Product selectedProduct = (Product) productList.getModel().getSelectedItem();
+                    String product = selectedProduct.getProductName();
+                    String rate = rateField.getText();
+                    String rateUnit = rateUnitGroup.getSelection().getActionCommand();
+                    String carrierVol = carrierField.getText();
+                    String appMethod = appMethodJComboBox.getSelectedItem().toString();
+                    String rowsApplied = rowSelectorButtonGroup.getSelection().getActionCommand();
+                    String weatherCondition = weatherCodesJComboBox.getSelectedItem().toString();
+                    String temp = tempField.getText();
+                    String windSpeed = windSpeedSpinner.getValue().toString();
+                    String windDirection = windDirectionJComboBox.getSelectedItem().toString();
+                    String notes = notesField.getText();
 
                     AppFormEvent ev = new AppFormEvent(e, selectedBlock, blockId, block, date, time,
                             appl, selectedAppProfile, target, product, selectedProduct,
-                            rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
-                            windDirection, notes);
+                            rate, rateUnit, carrierVol, appMethod, rowsApplied, weatherCondition,
+                            temp, windSpeed, windDirection, notes);
 
 
                     if (applFormListener != null) {
@@ -462,6 +475,27 @@ public class AppFormPanel extends JPanel {
         gc.insets = rightInsets;
 
         add(appMethodJComboBox, gc);
+
+        // Next Row//
+        gc.gridy++;
+
+        gc.gridx = 0;
+
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.fill = GridBagConstraints.NONE;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = leftInsets;
+
+        add(allRowsRadioButton, gc);
+
+        gc.gridx = 1;
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+        gc.anchor = GridBagConstraints.LINE_START;
+        gc.insets = rightInsets;
+
+        add(alternateRowsRadioButton, gc);
 
         // Next Row//
         gc.gridy++;

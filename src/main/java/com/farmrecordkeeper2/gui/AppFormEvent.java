@@ -25,6 +25,7 @@ public class AppFormEvent extends EventObject {
     private String rateUnit;
     private String carrierVol;
     private String appMethod;
+    private String rowsApplied;
     private String weatherCondition;
     private String temp;
     private String windSpeed;
@@ -34,7 +35,8 @@ public class AppFormEvent extends EventObject {
     public AppFormEvent(Object source, Block selectedBlock, int blockId, String block, String date,
                         String time, String appl, ApplicatorProfile applProfile,
                         String target, String productName, Product selectedProduct, String rate,
-                        String rateUnit, String carrierVol, String appMethod, String weatherCondition, String temp, String windSpeed, String windDirection, String notes) {
+                        String rateUnit, String carrierVol, String appMethod, String rowsApplied,
+                        String weatherCondition, String temp, String windSpeed, String windDirection, String notes) {
         super(source);
         this.block = block;
         this.selectedBlock = selectedBlock;
@@ -50,6 +52,7 @@ public class AppFormEvent extends EventObject {
         this.rateUnit = rateUnit;
         this.carrierVol = carrierVol;
         this.appMethod = appMethod;
+        this.rowsApplied = rowsApplied;
         this.weatherCondition = weatherCondition;
         this.temp = temp;
         this.windSpeed = windSpeed;
@@ -152,6 +155,14 @@ public class AppFormEvent extends EventObject {
 
     public void setAppMethod(String appMethod) {
         this.appMethod = appMethod;
+    }
+
+    public String getRowsApplied() {
+        return rowsApplied;
+    }
+
+    public void setRowsApplied(String rowsApplied) {
+        this.rowsApplied = rowsApplied;
     }
 
     public String getWeatherCondition() {

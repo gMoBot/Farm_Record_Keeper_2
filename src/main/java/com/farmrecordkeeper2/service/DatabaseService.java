@@ -35,8 +35,8 @@ public class DatabaseService {
         List<Application> allApps = databaseDAO.getApplications();
         String allHeaders = ("App Id, Product Name, EPA Number, Amount/Acre, Date, Time, Block, " +
                 "Crop, " + "Block Size, Applicator, Applicator Number, Active Ingredients, REI, " +
-                "PHI, Target Pest, Carrier Vol, App Method, Weather Condition, Temp, Wind Speed, " +
-                "Wind Direction, App Notes\n");
+                "PHI, Target Pest, Carrier Vol, App Method, Rows Applied, Weather Condition, " +
+                "Temp, Wind Speed, Wind Direction, App Notes\n");
 
 
         Application[] applicationsArray = allApps.toArray(new Application[allApps.size()]);
@@ -80,6 +80,8 @@ public class DatabaseService {
             fw.append(",");
             fw.append(application.getAppMethod());
             fw.append(",");
+            fw.append(application.getRowsApplied());
+            fw.append(",");
             fw.append(application.getWeatherCondition());
             fw.append(",");
             fw.append(application.getTemp());
@@ -103,9 +105,8 @@ public class DatabaseService {
         List<Application> allApps = databaseDAO.getApplications();
 
         String processorHeaders = ("Product Name, EPA Number, Amount/Acre, Date, Time, Block, " +
-                "Crop, " +
-                "Block " +
-                "Size, Applicator, Applicator Number, Active Ingredients, REI, PHI\n");
+                "Crop, Block Size, Application Method, Rows Applied, Applicator, Applicator " +
+                "Number, Active Ingredients, REI, PHI\n");
 
 
         Application[] applicationsArray = allApps.toArray(new Application[allApps.size()]);
@@ -131,6 +132,10 @@ public class DatabaseService {
             fw.append(",");
             fw.append(String.valueOf(application.getBlock().getSize()));
             fw.append(",");
+            fw.append(application.getAppMethod());
+            fw.append(",");
+            fw.append(application.getRowsApplied());
+            fw.append(",");
             fw.append(application.getApplicatorProfile().getApplName());
             fw.append(",");
             fw.append(application.getApplicatorProfile().getLicenseNumber());
@@ -153,8 +158,8 @@ public class DatabaseService {
         List<Application> allApps = databaseDAO.getApplications();
 
         String fedHeaders = ("Product Name, EPA Number, Amount/Acre, Date, Time, Block, Crop, " +
-                "Block " +
-                "Size, Applicator, Applicator Number, Active Ingredients, REI\n");
+                "Block, Size, App Method, Rows Applied, Applicator, Applicator Number, Active " +
+                "Ingredients, REI\n");
 
 
         Application[] applicationsArray = allApps.toArray(new Application[allApps.size()]);
@@ -179,6 +184,10 @@ public class DatabaseService {
             fw.append(application.getBlock().getBlockCrop());
             fw.append(",");
             fw.append(String.valueOf(application.getBlock().getSize()));
+            fw.append(",");
+            fw.append(application.getAppMethod());
+            fw.append(",");
+            fw.append(application.getRowsApplied());
             fw.append(",");
             fw.append(application.getApplicatorProfile().getApplName());
             fw.append(",");
@@ -254,4 +263,9 @@ public class DatabaseService {
     }
 
     public void removeSelectedProduct(int row){databaseDAO.removeSelectedProduct(row); }
+
+    public List<Application> getBlockApplications(int row) {
+        List<Application> blockApplications = databaseDAO.getBlockApplications(row);
+        return blockApplications;
+    }
 }

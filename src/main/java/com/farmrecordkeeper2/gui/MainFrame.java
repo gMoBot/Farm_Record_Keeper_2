@@ -262,10 +262,23 @@ public class MainFrame extends JFrame{
     private void setBlockTableListener() {
         blockTablePanel.setBlockTableListener(new BlockTableListener() {
             @Override
-            public void rowDeleted(int row) {
-                controller.removeBlock(row);
-                blockTablePanel.setData(controller.getBlocks());
-                blockTablePanel.refresh();
+            public void rowDeleted(int row, int tableRow) {
+
+                List<Application> referencedApplications = controller.getBlockApplications(row);
+                if (referencedApplications.isEmpty()){
+                    System.out.println("No apps found");
+
+                    blockTablePanel.rowsDeleted(tableRow);
+
+                    controller.removeBlock(row);
+                    blockTablePanel.setData(controller.getBlocks());
+                    blockTablePanel.refresh();
+                }
+                else{
+                    System.out.println("Apps found");
+                }
+
+
             }
         });
     }

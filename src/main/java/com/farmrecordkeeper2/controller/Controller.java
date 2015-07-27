@@ -40,6 +40,7 @@ public class Controller {
         String rateUnit = e.getRateUnit();
         String carrierVol = e.getCarrierVol();
         String appMethod = e.getAppMethod();
+        String rowsApplied = e.getRowsApplied();
         String weatherCondition = e.getWeatherCondition();
         String temp = e.getTemp();
         String windSpeed = e.getWindSpeed();
@@ -48,7 +49,8 @@ public class Controller {
 
         Application application = new Application (block, date, time, appl, target,
                 productName,
-                rate, rateUnit, carrierVol, appMethod, weatherCondition, temp, windSpeed,
+                rate, rateUnit, carrierVol, appMethod, rowsApplied, weatherCondition, temp,
+                windSpeed,
                 windDirection, notes);
 
         application.setBlock(selectedBlock);
@@ -193,4 +195,8 @@ public class Controller {
         db.removeApplicatorAtIndex(row);
     }
 
+    public List<Application> getBlockApplications (int row) {
+        List<Application> blockApplications = db.getBlockApplications(row);
+        return blockApplications;
+    }
 }

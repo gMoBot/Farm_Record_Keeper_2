@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.List;
 
 /**
  * Created by garrettcoggon on 7/15/15.
@@ -48,8 +49,7 @@ public class BlockTablePanel extends JPanel{
                 int id = (int) blockTableModel.getValueAt(row, 0);
 
                 if (blockTableListener != null) {
-                    blockTableListener.rowDeleted(id);
-                    blockTableModel.fireTableRowsDeleted(row, row);
+                    blockTableListener.rowDeleted(id, row);
                 }
 
             }
@@ -69,5 +69,7 @@ public class BlockTablePanel extends JPanel{
     }
     public void setBlockTableListener(BlockTableListener blockTableListener){
         this.blockTableListener = blockTableListener;
+    }
+    public void rowsDeleted(int row){blockTableModel.fireTableRowsDeleted(row, row);
     }
 }

@@ -58,6 +58,7 @@ create table application_profile (
 	rate_unit char(20),
 	carrier_vol char(20),
 	app_method char(30),
+	rows_applied char(30),
 	weather_condition char(30),
 	temp char(20),
 	wind_speed char(20),

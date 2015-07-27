@@ -142,4 +142,16 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         }
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
     }
+
+    public List<Application> getBlockApplications(int row) {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Object selectedBlock = sessionFactoryBean.getCurrentSession().load(Block.class, row);
+        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
+                .class);
+        criteria.add(Restrictions.isNotNull("id"));
+        criteria.add(Restrictions.eq("block", selectedBlock));
+        List list = criteria.list();
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+        return list;
+    }
 }
