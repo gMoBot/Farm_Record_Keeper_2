@@ -47,8 +47,7 @@ public class ProductTablePanel extends JPanel {
                 int id = (int) productTableModel.getValueAt(row, 0);
 
                 if (productTableListener != null) {
-                    productTableListener.rowDeleted(id);
-                    productTableModel.fireTableRowsDeleted(row, row);
+                    productTableListener.rowDeleted(id, row);
                 }
             }
         });
@@ -66,5 +65,7 @@ public class ProductTablePanel extends JPanel {
     }
     public void setProductTableListener(ProductTableListener productTableListener){
         this.productTableListener = productTableListener;
+    }
+    public void rowsDeleted(int row){productTableModel.fireTableRowsDeleted(row, row);
     }
 }

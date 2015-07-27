@@ -268,4 +268,14 @@ public class DatabaseService {
         List<Application> blockApplications = databaseDAO.getBlockApplications(row);
         return blockApplications;
     }
+
+    public List<Application> getApplicatorApplications(int row) {
+        List<Application> applicatorApplications = databaseDAO.getApplicatorApplications(row);
+        return applicatorApplications;
+    }
+
+    public List<Application> getProductApplications(int row) {
+        List<Application> productApplications = databaseDAO.getProductApplications(row);
+        return productApplications;
+    }
 }

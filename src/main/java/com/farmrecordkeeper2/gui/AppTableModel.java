@@ -12,7 +12,7 @@ public class AppTableModel extends AbstractTableModel {
 
     private List<Application> db;
     private String[] colNames = {"Id", "Block Name", "Date", "Time",
-            "Applicator", "Target Pest", "Product Name", "Rate", "Units",
+            "Applicator", "Target Pest", "Product Name", "Rate", "Units", "Rows",
             "Notes"};
 
     public AppTableModel(){}
@@ -33,7 +33,7 @@ public class AppTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 10;
+        return 11;
     }
 
     @Override
@@ -60,6 +60,8 @@ public class AppTableModel extends AbstractTableModel {
             case 8:
                 return application.getRateUnit();
             case 9:
+                return application.getRowsApplied();
+            case 10:
                 return application.getNotes();
             default:
                 return null;

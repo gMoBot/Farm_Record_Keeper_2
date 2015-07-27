@@ -265,20 +265,20 @@ public class MainFrame extends JFrame{
             public void rowDeleted(int row, int tableRow) {
 
                 List<Application> referencedApplications = controller.getBlockApplications(row);
-                if (referencedApplications.isEmpty()){
-                    System.out.println("No apps found");
+                if (referencedApplications.isEmpty()) {
 
                     blockTablePanel.rowsDeleted(tableRow);
 
                     controller.removeBlock(row);
                     blockTablePanel.setData(controller.getBlocks());
                     blockTablePanel.refresh();
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.this, "Applications referencing this " +
+                                    "block found. This block cannot be deleted while applications still " +
+                                    "reference it.",
+                            "Warning",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
-                else{
-                    System.out.println("Apps found");
-                }
-
-
             }
         });
     }
@@ -297,10 +297,24 @@ public class MainFrame extends JFrame{
     private void setApplicatorTableListener(){
         applicatorTablePanel.setApplicatorTableListener(new ApplicatorTableListener() {
             @Override
-            public void rowDeleted(int row) {
-                controller.removeApplicator(row);
-                applicatorTablePanel.setData(controller.getApplicatorProfiles());
-                applicatorTablePanel.refresh();
+            public void rowDeleted(int row, int tableRow) {
+
+                List<Application> referencedApplications = controller.getApplicatorApplications
+                        (row);
+
+                if (referencedApplications.isEmpty()) {
+                    applicatorTablePanel.rowsDeleted(tableRow);
+
+                    controller.removeApplicator(row);
+                    applicatorTablePanel.setData(controller.getApplicatorProfiles());
+                    applicatorTablePanel.refresh();
+                } else {
+                    JOptionPane.showMessageDialog(MainFrame.this, "Applications referencing this " +
+                                    "applicator profile found. This profile cannot be deleted " +
+                                    "while applications still reference it.",
+                            "Warning",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }
@@ -308,10 +322,26 @@ public class MainFrame extends JFrame{
     private void setProductTableListener(){
         productTablePanel.setProductTableListener(new ProductTableListener() {
             @Override
-            public void rowDeleted(int row) {
-                controller.removeProduct(row);
-                productTablePanel.setData(controller.getProducts());
-                productTablePanel.refresh();
+            public void rowDeleted(int row, int tableRow) {
+                List<Application> referencedApplications = controller.getProductApplications
+                        (row);
+
+                if(referencedApplications.isEmpty()) {
+                    productTablePanel.rowsDeleted(tableRow);
+
+                    controller.removeProduct(row);
+                    productTablePanel.setData(controller.getProducts());
+                    productTablePanel.refresh();
+                }
+                else {
+                    JOptionPane.showMessageDialog(MainFrame.this, "Applications referencing this " +
+                                    "product profile found. This profile cannot be deleted " +
+                                    "while applications still reference it.",
+                            "Warning",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+
+
             }
         });
     }

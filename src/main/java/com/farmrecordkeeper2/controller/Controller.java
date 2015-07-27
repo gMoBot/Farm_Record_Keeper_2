@@ -199,4 +199,14 @@ public class Controller {
         List<Application> blockApplications = db.getBlockApplications(row);
         return blockApplications;
     }
+
+    public List<Application> getApplicatorApplications(int row) {
+        List<Application> applicatorApplications = db.getApplicatorApplications(row);
+        return applicatorApplications;
+    }
+
+    public List<Application> getProductApplications(int row) {
+        List<Application> productApplications = db.getProductApplications(row);
+        return productApplications;
+    }
 }

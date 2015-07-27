@@ -47,8 +47,7 @@ public class ApplicatorTablePanel extends JPanel{
                 int id = (int) applicatorTableModel.getValueAt(row, 0);
 
                 if (applicatorTableListener != null) {
-                    applicatorTableListener.rowDeleted(id);
-                    applicatorTableModel.fireTableRowsDeleted(row, row);
+                    applicatorTableListener.rowDeleted(id, row);
                 }
 
             }
@@ -67,6 +66,8 @@ public class ApplicatorTablePanel extends JPanel{
     }
     public void setApplicatorTableListener(ApplicatorTableListener applicatorTableListener){
         this.applicatorTableListener = applicatorTableListener;
+    }
+    public void rowsDeleted(int row){applicatorTableModel.fireTableRowsDeleted(row, row);
     }
 }
 

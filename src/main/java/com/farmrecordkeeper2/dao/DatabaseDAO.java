@@ -26,4 +26,6 @@ public interface DatabaseDAO {
     public void removeSelectedProduct(int row);
 
     public List<Application> getBlockApplications(int row);
+    public List<Application> getApplicatorApplications(int row);
+    public List<Application> getProductApplications(int row);
 }

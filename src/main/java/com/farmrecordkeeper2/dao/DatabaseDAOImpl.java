@@ -154,4 +154,29 @@ public class DatabaseDAOImpl implements DatabaseDAO {
         sessionFactoryBean.getCurrentSession().getTransaction().commit();
         return list;
     }
+
+    public List<Application> getApplicatorApplications(int row) {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Object selectedApplicator = sessionFactoryBean.getCurrentSession().load(ApplicatorProfile
+                .class, row);
+        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
+                .class);
+        criteria.add(Restrictions.isNotNull("id"));
+        criteria.add(Restrictions.eq("applicatorProfile", selectedApplicator));
+        List list = criteria.list();
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+        return list;
+    }
+
+    public List<Application> getProductApplications(int row) {
+        sessionFactoryBean.getCurrentSession().beginTransaction();
+        Object selectedProduct = sessionFactoryBean.getCurrentSession().load(Product.class, row);
+        Criteria criteria = sessionFactoryBean.getCurrentSession().createCriteria(Application
+                .class);
+        criteria.add(Restrictions.isNotNull("id"));
+        criteria.add(Restrictions.eq("product", selectedProduct));
+        List list = criteria.list();
+        sessionFactoryBean.getCurrentSession().getTransaction().commit();
+        return list;
+    }
 }
