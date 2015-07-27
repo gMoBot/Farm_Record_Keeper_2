@@ -45,7 +45,8 @@ public class DatabaseService {
 
 
         for(Application application : applicationsArray){
-            fw.append((char) application.getId());
+            fw.append(String.valueOf(application.getId()));
+            fw.append(",");
             fw.append(application.getProductName());
             fw.append(",");
             fw.append(application.getProduct().getEpaNumber());
