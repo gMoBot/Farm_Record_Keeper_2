@@ -158,7 +158,7 @@ public class DatabaseService {
         List<Application> allApps = databaseDAO.getApplications();
 
         String fedHeaders = ("Product Name, EPA Number, Amount/Acre, Date, Time, Block, Crop, " +
-                "Block, Size, App Method, Rows Applied, Applicator, Applicator Number, Active " +
+                "Block Size, App Method, Rows Applied, Applicator, Applicator Number, Active " +
                 "Ingredients, REI\n");
 
 
